@@ -493,7 +493,7 @@
 </head>
 
 <body>
- <a class="skip-link visually-hidden" href="#main" aria-label="Skip to main content">Skip to main content</a>
+  <a class="skip-link visually-hidden" href="#main" aria-label="Skip to main content">Skip to main content</a>
   <nav id="navbar" role="navigation" aria-label="Blog navigation">
     <div class="nav-container">
       <div class="logo">Muktha Purushotham</div>
@@ -502,12 +502,226 @@
         <li><a href="index.html#about-proven">About</a></li>
         <li><a href="index.html#portfolio">Skills</a></li>
         <li><a href="blog.html" aria-current="page">Blog</a></li>
-        <li><a href="https://mpurushotham.github.io/my-cybersecurity-journey/#/">My CyberSecurity Journey</a></li>
+        <!-- <li><a href="casestudies.html">Case Studies</a></li> -->
+         <li><a href="https://mpurushotham.github.io/my-cybersecurity-journey/#/">My CyberSecurity Journey</a></li>
         <li><a href="index.html#contact">Contact</a></li>
       </ul>
     </div>
   </nav>
+    <main id="main">
+    <script>
+        // Add interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const components = document.querySelectorAll('.component');
+            
+            components.forEach(component => {
+                component.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(8px)';
+                });
+                
+                component.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0)';
+                });
+            });
+        });
+    </script>
+    </main>
 
+    <div class="container">
+        <header>
+            <h1>Microsoft Security Ecosystem</h1>
+            <p class="subtitle">Defense-in-Depth Architecture Flowchart</p>
+            <p>A comprehensive visualization of Microsoft's integrated security layers and their interdependencies</p>
+        </header>
+
+        <section class="architecture-section">
+            <h2 class="section-title"><i class="fas fa-project-diagram"></i> Defense-in-Depth Architecture Flow</h2>
+            <div class="mermaid-container">
+                <div class="mermaid">
+flowchart TD
+    subgraph A [Identity & Access Governance]
+        A1[Microsoft Entra ID] --> A2[Conditional Access Policies]
+        A2 --> A3[Privileged Identity Management]
+        A3 --> A4[Identity Protection]
+        A4 --> A5[Zero Trust Enforcement]
+    end
+
+    subgraph B [Data Security & Compliance]
+        B1[Microsoft Purview] --> B2[Information Protection]
+        B2 --> B3[Data Loss Prevention]
+        B3 --> B4[Insider Risk Management]
+        B4 --> B5[Compliance Manager]
+    end
+
+    subgraph C [Core Security Operations]
+        C1[Microsoft Sentinel] --> C2[Defender XDR Suite]
+        C2 --> C3[Security Copilot]
+        C3 --> C4[KQL & Threat Hunting]
+        C4 --> C5[Automated Response]
+    end
+
+    subgraph D [Cloud Security & DevSecOps]
+        D1[Defender for Cloud] --> D2[Cloud Security Posture Mgmt]
+        D2 --> D3[Cloud Workload Protection]
+        D3 --> D4[Infrastructure as Code Security]
+        D4 --> D5[Container Security]
+    end
+
+    subgraph E [Endpoint & Network Security]
+        E1[Defender for Endpoint] --> E2[Attack Surface Reduction]
+        E2 --> E3[Network Security Groups]
+        E3 --> E4[Azure Firewall]
+        E4 --> E5[Web Application Firewall]
+    end
+
+    subgraph F [Automation & AI Integration]
+        F1[Logic Apps] --> F2[Automation Runbooks]
+        F2 --> F3[PowerShell/Python Scripting]
+        F3 --> F4[Security Orchestration]
+        F4 --> F5[AI-Powered Analytics]
+    end
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    
+    A1 -.-> C2
+    B2 -.-> C1
+    C5 -.-> F2
+    D5 -.-> E1
+    E5 -.-> C4
+
+    classDef identity fill:#8661c5,color:white,stroke:#6640a5
+    classDef data fill:#e81123,color:white,stroke:#c50f1f
+    classDef operations fill:#0078d4,color:white,stroke:#106ebe
+    classDef cloud fill:#0099bc,color:white,stroke:#00819d
+    classDef endpoint fill:#107c10,color:white,stroke:#0e6c0e
+    classDef automation fill:#ff8c00,color:white,stroke:#e67e00
+    
+    class A1,A2,A3,A4,A5 identity
+    class B1,B2,B3,B4,B5 data
+    class C1,C2,C3,C4,C5 operations
+    class D1,D2,D3,D4,D5 cloud
+    class E1,E2,E3,E4,E5 endpoint
+    class F1,F2,F3,F4,F5 automation
+                </div>
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #8661c5;"></div>
+                    <span>Identity & Access</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #e81123;"></div>
+                    <span>Data Security</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #0078d4;"></div>
+                    <span>Security Operations</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #0099bc;"></div>
+                    <span>Cloud Security</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #107c10;"></div>
+                    <span>Endpoint & Network</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #ff8c00;"></div>
+                    <span>Automation & AI</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="architecture-section">
+            <h2 class="section-title"><i class="fas fa-sitemap"></i> Security Information Flow</h2>
+            <div class="mermaid-container">
+                <div class="mermaid">
+flowchart LR
+    subgraph G [Threat Detection & Response Flow]
+        direction TB
+        G1[External Threats] --> G2[Identity Layer<br>Entra ID Protection]
+        G2 --> G3[Data Layer<br>Purview DLP]
+        G3 --> G4[Operations Layer<br>Sentinel SIEM/SOAR]
+        G4 --> G5[Cloud Layer<br>Defender for Cloud]
+        G5 --> G6[Endpoint Layer<br>Defender XDR]
+        G6 --> G7[Automation Layer<br>Auto-remediation]
+    end
+
+    H[Security Copilot<br>AI Analysis] -.-> G4
+    G4 -.-> I[Compliance Reporting<br>Compliance Manager]
+    G7 -.-> J[Continuous Improvement<br>Secure Score Optimization]
+    
+    classDef threat fill:#d83b01,color:white,stroke:#b83200
+    classDef ai fill:#9c27b0,color:white,stroke:#7b1fa2
+    classDef compliance fill:#ff9800,color:white,stroke:#e68900
+    classDef improvement fill:#4caf50,color:white,stroke:#3d8b40
+    
+    class G1 threat
+    class H ai
+    class I compliance
+    class J improvement
+    class G2 identity
+    class G3 data
+    class G4 operations
+    class G5 cloud
+    class G6 endpoint
+    class G7 automation
+                </div>
+            </div>
+        </section>
+
+        <section class="architecture-section">
+            <h2 class="section-title"><i class="fas fa-lightbulb"></i> Key Architecture Principles</h2>
+            <div class="key-points">
+                <div class="point-card">
+                    <h3>Zero Trust Foundation</h3>
+                    <p>Verify explicitly, use least privilege access, and assume breach across all security layers.</p>
+                </div>
+                <div class="point-card">
+                    <h3>Integrated Ecosystem</h3>
+                    <p>All components share signals and automate responses through native integrations.</p>
+                </div>
+                <div class="point-card">
+                    <h3>AI-Enhanced Operations</h3>
+                    <p>Security Copilot provides AI-assisted hunting, investigation, and response capabilities.</p>
+                </div>
+                <div class="point-card">
+                    <h3>Unified Compliance</h3>
+                    <p>Centralized compliance management with continuous monitoring and automated reporting.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>Microsoft Security Ecosystem: Defense-in-Depth Architecture | Enterprise-Grade Implementation</p>
+        </footer>
+    </div>
+
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            },
+            themeVariables: {
+                primaryColor: '#fff',
+                primaryBorderColor: '#0078d4',
+                primaryTextColor: '#323130',
+                lineColor: '#0078d4',
+                fontSize: '14px'
+            }
+        });
+    </script>
+    
     <main id="main">
     <div class="container">
         <header>
@@ -849,220 +1063,7 @@
             <p>Microsoft Defense-in-Depth Security Architecture | Enterprise-Grade Implementation</p>
         </footer>
     </div>
-
-    <script>
-        // Add interactive animations
-        document.addEventListener('DOMContentLoaded', function() {
-            const components = document.querySelectorAll('.component');
-            
-            components.forEach(component => {
-                component.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateX(8px)';
-                });
-                
-                component.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateX(0)';
-                });
-            });
-        });
-    </script>
-    </main>
-
-    <div class="container">
-        <header>
-            <h1>Microsoft Security Ecosystem</h1>
-            <p class="subtitle">Defense-in-Depth Architecture Flowchart</p>
-            <p>A comprehensive visualization of Microsoft's integrated security layers and their interdependencies</p>
-        </header>
-
-        <section class="architecture-section">
-            <h2 class="section-title"><i class="fas fa-project-diagram"></i> Defense-in-Depth Architecture Flow</h2>
-            <div class="mermaid-container">
-                <div class="mermaid">
-flowchart TD
-    subgraph A [Identity & Access Governance]
-        A1[Microsoft Entra ID] --> A2[Conditional Access Policies]
-        A2 --> A3[Privileged Identity Management]
-        A3 --> A4[Identity Protection]
-        A4 --> A5[Zero Trust Enforcement]
-    end
-
-    subgraph B [Data Security & Compliance]
-        B1[Microsoft Purview] --> B2[Information Protection]
-        B2 --> B3[Data Loss Prevention]
-        B3 --> B4[Insider Risk Management]
-        B4 --> B5[Compliance Manager]
-    end
-
-    subgraph C [Core Security Operations]
-        C1[Microsoft Sentinel] --> C2[Defender XDR Suite]
-        C2 --> C3[Security Copilot]
-        C3 --> C4[KQL & Threat Hunting]
-        C4 --> C5[Automated Response]
-    end
-
-    subgraph D [Cloud Security & DevSecOps]
-        D1[Defender for Cloud] --> D2[Cloud Security Posture Mgmt]
-        D2 --> D3[Cloud Workload Protection]
-        D3 --> D4[Infrastructure as Code Security]
-        D4 --> D5[Container Security]
-    end
-
-    subgraph E [Endpoint & Network Security]
-        E1[Defender for Endpoint] --> E2[Attack Surface Reduction]
-        E2 --> E3[Network Security Groups]
-        E3 --> E4[Azure Firewall]
-        E4 --> E5[Web Application Firewall]
-    end
-
-    subgraph F [Automation & AI Integration]
-        F1[Logic Apps] --> F2[Automation Runbooks]
-        F2 --> F3[PowerShell/Python Scripting]
-        F3 --> F4[Security Orchestration]
-        F4 --> F5[AI-Powered Analytics]
-    end
-
-    A --> B
-    B --> C
-    C --> D
-    D --> E
-    E --> F
-    
-    A1 -.-> C2
-    B2 -.-> C1
-    C5 -.-> F2
-    D5 -.-> E1
-    E5 -.-> C4
-
-    classDef identity fill:#8661c5,color:white,stroke:#6640a5
-    classDef data fill:#e81123,color:white,stroke:#c50f1f
-    classDef operations fill:#0078d4,color:white,stroke:#106ebe
-    classDef cloud fill:#0099bc,color:white,stroke:#00819d
-    classDef endpoint fill:#107c10,color:white,stroke:#0e6c0e
-    classDef automation fill:#ff8c00,color:white,stroke:#e67e00
-    
-    class A1,A2,A3,A4,A5 identity
-    class B1,B2,B3,B4,B5 data
-    class C1,C2,C3,C4,C5 operations
-    class D1,D2,D3,D4,D5 cloud
-    class E1,E2,E3,E4,E5 endpoint
-    class F1,F2,F3,F4,F5 automation
-                </div>
-            </div>
-
-            <div class="legend">
-                <div class="legend-item">
-                    <div class="legend-color" style="background-color: #8661c5;"></div>
-                    <span>Identity & Access</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background-color: #e81123;"></div>
-                    <span>Data Security</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background-color: #0078d4;"></div>
-                    <span>Security Operations</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background-color: #0099bc;"></div>
-                    <span>Cloud Security</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background-color: #107c10;"></div>
-                    <span>Endpoint & Network</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background-color: #ff8c00;"></div>
-                    <span>Automation & AI</span>
-                </div>
-            </div>
-        </section>
-
-        <section class="architecture-section">
-            <h2 class="section-title"><i class="fas fa-sitemap"></i> Security Information Flow</h2>
-            <div class="mermaid-container">
-                <div class="mermaid">
-flowchart LR
-    subgraph G [Threat Detection & Response Flow]
-        direction TB
-        G1[External Threats] --> G2[Identity Layer<br>Entra ID Protection]
-        G2 --> G3[Data Layer<br>Purview DLP]
-        G3 --> G4[Operations Layer<br>Sentinel SIEM/SOAR]
-        G4 --> G5[Cloud Layer<br>Defender for Cloud]
-        G5 --> G6[Endpoint Layer<br>Defender XDR]
-        G6 --> G7[Automation Layer<br>Auto-remediation]
-    end
-
-    H[Security Copilot<br>AI Analysis] -.-> G4
-    G4 -.-> I[Compliance Reporting<br>Compliance Manager]
-    G7 -.-> J[Continuous Improvement<br>Secure Score Optimization]
-    
-    classDef threat fill:#d83b01,color:white,stroke:#b83200
-    classDef ai fill:#9c27b0,color:white,stroke:#7b1fa2
-    classDef compliance fill:#ff9800,color:white,stroke:#e68900
-    classDef improvement fill:#4caf50,color:white,stroke:#3d8b40
-    
-    class G1 threat
-    class H ai
-    class I compliance
-    class J improvement
-    class G2 identity
-    class G3 data
-    class G4 operations
-    class G5 cloud
-    class G6 endpoint
-    class G7 automation
-                </div>
-            </div>
-        </section>
-
-        <section class="architecture-section">
-            <h2 class="section-title"><i class="fas fa-lightbulb"></i> Key Architecture Principles</h2>
-            <div class="key-points">
-                <div class="point-card">
-                    <h3>Zero Trust Foundation</h3>
-                    <p>Verify explicitly, use least privilege access, and assume breach across all security layers.</p>
-                </div>
-                <div class="point-card">
-                    <h3>Integrated Ecosystem</h3>
-                    <p>All components share signals and automate responses through native integrations.</p>
-                </div>
-                <div class="point-card">
-                    <h3>AI-Enhanced Operations</h3>
-                    <p>Security Copilot provides AI-assisted hunting, investigation, and response capabilities.</p>
-                </div>
-                <div class="point-card">
-                    <h3>Unified Compliance</h3>
-                    <p>Centralized compliance management with continuous monitoring and automated reporting.</p>
-                </div>
-            </div>
-        </section>
-
-        <footer>
-            <p>Microsoft Security Ecosystem: Defense-in-Depth Architecture | Enterprise-Grade Implementation</p>
-        </footer>
-    </div>
-
-    <script>
-        mermaid.initialize({
-            startOnLoad: true,
-            theme: 'default',
-            securityLevel: 'loose',
-            flowchart: {
-                useMaxWidth: true,
-                htmlLabels: true,
-                curve: 'basis'
-            },
-            themeVariables: {
-                primaryColor: '#fff',
-                primaryBorderColor: '#0078d4',
-                primaryTextColor: '#323130',
-                lineColor: '#0078d4',
-                fontSize: '14px'
-            }
-        });
-    </script>
-    
+</main>
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -1074,8 +1075,7 @@ flowchart LR
                     <nav aria-label="Footer quick links" class="footer-quicklinks">
                         <a href="blog.html">Blog</a>
                         <a href="#featured-work">Projects</a>
-                        <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
-                        <a href="#contact">Contact</a>
+                         <a href="#contact">Contact</a>
                         <a href="#privacy">Privacy Policy</a>
                         <a href="#terms">Terms of Use</a>
                         <a href="#sitemap">Sitemap</a>
@@ -1098,6 +1098,6 @@ flowchart LR
             </div>
         </div>
     </footer>
-
+    <script src="templatemo-personal-javascripts.js"></script>
 </body>
 </html>
