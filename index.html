@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muktha Purushotham-Cloud Cybersecurity Solution Architect</title>
+    <title>Muktha Purushotham-Cloud CyberSecurity Solution Architect</title>
     <link href="templatemo-personal-style.css" rel="stylesheet">
     <link rel="icon" href="images/about-me-photo.jpeg" type="image/jpeg">
     <!--
@@ -21,6 +21,304 @@ https://templatemo.com/tm-593-personal-shape
     <meta name="keywords"
         content="Muktha Purushotham, Cloud Architect, DevSecOps Engineer, Cybersecurity Specialist, Cloud Infrastructure, DevOps Automation, Cloud Security, Multi-Cloud Solutions, Kubernetes, CI/CD Pipelines, Infrastructure as Code, SRE, LLM Infrastructure">
     <meta name="author" content="Muktha Purushotham">
+<!---START--Microsoft section style design-->
+    <style>
+        :root {
+            --primary: #0078d4;
+            --primary-dark: #106ebe;
+            --secondary: #2b88d8;
+            --accent: #107c10;
+            --light: #f3f2f1;
+            --dark: #323130;
+            --gray: #8a8886;
+            --card-bg: #ffffff;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #faf9f8;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Section Styling */
+        .microsoft-security {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .microsoft-security::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .lead {
+            font-size: 1.2rem;
+            color: var(--gray);
+            text-align: center;
+            max-width: 800px;
+            margin: 2rem auto 3rem;
+            line-height: 1.7;
+        }
+
+        /* Grid Layout */
+        .ms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 2rem;
+        }
+
+        /* Card Styling */
+        .ms-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 28px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 4px solid var(--primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ms-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .ms-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .ms-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .ms-card:nth-child(2) {
+            border-top-color: var(--accent);
+        }
+
+        .ms-card:nth-child(3) {
+            border-top-color: #e81123;
+        }
+
+        .ms-card:nth-child(4) {
+            border-top-color: #107c10;
+        }
+
+        .ms-card:nth-child(5) {
+            border-top-color: #8661c5;
+        }
+
+        .ms-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1.2rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .ms-card h3::before {
+            content: '';
+            display: block;
+            width: 6px;
+            height: 24px;
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .ms-card:nth-child(2) h3::before {
+            background: var(--accent);
+        }
+
+        .ms-card:nth-child(3) h3::before {
+            background: #e81123;
+        }
+
+        .ms-card:nth-child(4) h3::before {
+            background: #107c10;
+        }
+
+        .ms-card:nth-child(5) h3::before {
+            background: #8661c5;
+        }
+
+        .ms-card ul {
+            list-style: none;
+        }
+
+        .ms-card li {
+            margin-bottom: 12px;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .ms-card li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .ms-card:nth-child(2) li::before {
+            color: var(--accent);
+        }
+
+        .ms-card:nth-child(3) li::before {
+            color: #e81123;
+        }
+
+        .ms-card:nth-child(4) li::before {
+            color: #107c10;
+        }
+
+        .ms-card:nth-child(5) li::before {
+            color: #8661c5;
+        }
+
+        .ms-card strong {
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        /* Engagement Examples */
+        .engagement-examples {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            margin-top: 2rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--accent);
+        }
+
+        .engagement-examples h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .engagement-examples h4::before {
+            content: '💼';
+            font-size: 1.2rem;
+        }
+
+        .example-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .example-tag {
+            background: var(--light);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--dark);
+            transition: var(--transition);
+            border: 1px solid #e1dfdd;
+        }
+
+        .example-tag:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .ms-card {
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .ms-card:nth-child(1) { animation-delay: 0.1s; }
+        .ms-card:nth-child(2) { animation-delay: 0.2s; }
+        .ms-card:nth-child(3) { animation-delay: 0.3s; }
+        .ms-card:nth-child(4) { animation-delay: 0.4s; }
+        .ms-card:nth-child(5) { animation-delay: 0.5s; }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .ms-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .example-tags {
+                justify-content: center;
+            }
+        }
+    </style>
+<!---END--Microsoft section style design-->
+
 </head>
 
 <body>
@@ -107,9 +405,77 @@ https://templatemo.com/tm-593-personal-shape
     <div class="scroll-indicator" role="button" tabindex="0" aria-label="Scroll to about section" onclick="document.getElementById('about-proven').scrollIntoView()"></div>
     </section>
     <!-- (About section removed; replaced by About Proven section above) -->
-    
+
+    <!-- Microsoft Security Ecosystem Section -->
+    <section id="microsoft-security" class="microsoft-security" role="region" aria-labelledby="mssec-heading">
+        <div class="container">
+            <h2 id="mssec-heading" class="section-title fade-in">Microsoft Security Ecosystem</h2>
+            <p class="lead muted">
+                Modern, integrated Microsoft security architecture aligned to operations, identity, data, cloud and automation.
+            </p>
+
+            <div class="ms-grid">
+                <div class="ms-card">
+                    <h3>Core Security Operations</h3>
+                    <ul>
+                        <li><strong>SIEM / SOAR:</strong> Microsoft Sentinel — Analytics, Workbooks, Automation Rules, Playbooks</li>
+                        <li><strong>XDR:</strong> Defender XDR — Endpoint, Identity, Office 365, Cloud Apps, Vulnerability Management</li>
+                        <li><strong>AI Co-pilot:</strong> Microsoft Security Copilot integration for assisted hunting & response</li>
+                        <li><strong>Query & Hunting:</strong> Kusto Query Language (KQL), Log Analytics, Custom Detection Engineering</li>
+                    </ul>
+                </div>
+
+                <div class="ms-card">
+                    <h3>Identity & Access Governance</h3>
+                    <ul>
+                        <li><strong>Identity Platform:</strong> Microsoft Entra ID — Conditional Access, PIM, lifecycle workflows</li>
+                        <li><strong>Zero Trust Enforcement:</strong> MFA, RBAC, ZTNA and SASE/SSE patterns</li>
+                        <li><strong>Privileged Access:</strong> Just-In-Time, entitlement management and governance workflows</li>
+                    </ul>
+                </div>
+
+                <div class="ms-card">
+                    <h3>Data Security & Compliance</h3>
+                    <ul>
+                        <li><strong>Information Protection:</strong> Microsoft Purview — DLP, Information Protection, Insider Risk</li>
+                        <li><strong>Compliance:</strong> Compliance Manager, Secure Score optimization, framework mapping (NIST / ISO / CIS / EU GDPR/ NIS2 / DORA)</li>
+                        <li><strong>Controls:</strong> Policy-as-code, continuous evidence and audit-ready reporting</li>
+                    </ul>
+                </div>
+
+                <div class="ms-card">
+                    <h3>Cloud Security & DevSecOps</h3>
+                    <ul>
+                        <li><strong>CSPM / CNAPP:</strong> Defender for Cloud — posture management, workload / container protection</li>
+                        <li><strong>IaC Security:</strong> Terraform & Bicep scanning, secure pipelines (Azure DevOps / GitHub Actions)</li>
+                        <li><strong>Platform Controls:</strong> Azure Policy, Key Vault, NSG, Azure Firewall, AKS hardening</li>
+                    </ul>
+                </div>
+
+                <div class="ms-card">
+                    <h3>Automation & Cross-Platform Extensions</h3>
+                    <ul>
+                        <li><strong>Orchestration:</strong> Logic Apps, Automation Runbooks, PowerShell & Python scripting</li>
+                        <li><strong>Extended Architecture:</strong> AWS security integrations, API protection, ML-based anomaly detection</li>
+                        <li><strong>Integration:</strong> Sentinel connectors, Defender integrations, automated playbooks and response</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="engagement-examples fade-in">
+                <h4>Example Engagements</h4>
+                <div class="example-tags">
+                    <span class="example-tag">Sentinel SIEM deployment & use-case engineering</span>
+                    <span class="example-tag">Entra ID zero-trust rollouts</span>
+                    <span class="example-tag">IaC security automation</span>
+                    <span class="example-tag">Defender XDR tuning</span>
+                    <span class="example-tag">Purview data governance implementation</span>
+                </div>
+            </div>
+        </div>
     </section>
-   
+    <!-- end Microsoft Security Ecosystem -->
+
     <!-- Microsoft Security Ecosystem Section (added) -->
     <section id="microsoft-security" class="microsoft-security" role="region" aria-labelledby="mssec-heading">
       <div class="container">
