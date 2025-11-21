@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OSI Layer Cybersecurity Architecture</title>
+
+  <!-- Tailwind (Play CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide icons (browser) -->
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.259.0/dist/lucide.min.js"></script>
+
+  <style>
+    /* minor tweaks to better mimic original TSX interactions */
+    .layer-card { transition: transform .22s, box-shadow .22s; }
+    .layer-card:hover { transform: translateY(-2px) scale(1.01); }
+    .selected { box-shadow: 0 10px 30px rgba(255,255,255,0.06); transform: scale(1.03); }
+  </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 p-8 font-sans">
+
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-12">
+      <h1 class="text-5xl font-bold text-white mb-4 flex items-center justify-center gap-3">
+        <i data-lucide="shield" class="w-12 h-12 text-cyan-400"></i>
+        OSI Layer Cybersecurity Architecture
+      </h1>
+      <p class="text-gray-300 text-lg">Comprehensive security controls mapped to the 7-layer OSI model</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+      <!-- Left: Layers list -->
+      <div id="layersList" class="bg-gray-800 rounded-xl p-6 shadow-2xl space-y-2"></div>
+
+      <!-- Right: Detail panel -->
+      <div id="detailPanel" class="bg-gray-800 rounded-xl p-6 shadow-2xl min-h-[360px] flex items-center justify-center">
+        <div class="text-center">
+          <i data-lucide="shield" class="w-24 h-24 text-gray-600 mx-auto mb-4"></i>
+          <p class="text-gray-400 text-xl">Select a layer to view detailed security information</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Defense in Depth -->
+    <div class="bg-gradient-to-r from-cyan-900 to-blue-900 rounded-xl p-8 shadow-2xl mb-8">
+      <h2 class="text-3xl font-bold text-white mb-4 flex items-center gap-3">
+        <i data-lucide="shield" class="w-8 h-8 text-cyan-300"></i>
+        Defense in Depth Strategy
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-white">
+        <div class="bg-white bg-opacity-10 rounded-lg p-6">
+          <h3 class="text-xl font-bold mb-3 text-cyan-300">Layered Security</h3>
+          <p class="text-gray-200">Multiple security controls at each layer ensure that if one control fails, others provide protection.</p>
+        </div>
+        <div class="bg-white bg-opacity-10 rounded-lg p-6">
+          <h3 class="text-xl font-bold mb-3 text-green-300">Holistic Approach</h3>
+          <p class="text-gray-200">Security spans from physical infrastructure to application code, covering all attack vectors across the OSI model.</p>
+        </div>
+        <div class="bg-white bg-opacity-10 rounded-lg p-6">
+          <h3 class="text-xl font-bold mb-3 text-purple-300">Continuous Monitoring</h3>
+          <p class="text-gray-200">SIEM, IDS/IPS, and logging provide visibility and threat detection across all layers.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Concepts -->
+    <div class="mt-8 bg-gray-800 rounded-xl p-6 shadow-2xl">
+      <h2 class="text-2xl font-bold text-white mb-4">Key Security Principles</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-gray-700 p-4 rounded-lg">
+          <h3 class="font-bold text-cyan-400 mb-2">Zero Trust Architecture</h3>
+          <p class="text-gray-300 text-sm">Never trust, always verify. Authenticate, authorize, and encrypt every request.</p>
+        </div>
+        <div class="bg-gray-700 p-4 rounded-lg">
+          <h3 class="font-bold text-green-400 mb-2">Least Privilege</h3>
+          <p class="text-gray-300 text-sm">Grant only the minimal access required to reduce attack surface.</p>
+        </div>
+        <div class="bg-gray-700 p-4 rounded-lg">
+          <h3 class="font-bold text-purple-400 mb-2">Security by Design</h3>
+          <p class="text-gray-300 text-sm">Integrate security into design and development pipelines, not as an afterthought.</p>
+        </div>
+        <div class="bg-gray-700 p-4 rounded-lg">
+          <h3 class="font-bold text-orange-400 mb-2">Incident Response</h3>
+          <p class="text-gray-300 text-sm">Prepare detection, response, and recovery playbooks for every layer.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // layers data (mirrors TSX)
+    const layers = [
+      { number:7, name:"Application Layer", color:"bg-red-500", threats:["SQL Injection","XSS","CSRF","API Attacks"], tools:["WAF (Web Application Firewall)","RASP","API Gateway","Input Validation"], prevention:["Secure coding practices","Regular security testing (SAST/DAST)","Authentication & authorization controls","Data encryption at rest"] },
+      { number:6, name:"Presentation Layer", color:"bg-orange-500", threats:["Data Format Exploits","Encryption Attacks","SSL/TLS Vulnerabilities"], tools:["SSL/TLS Inspection","Data Loss Prevention (DLP)","Encryption Tools"], prevention:["Strong encryption protocols (TLS 1.3)","Certificate management","Data encoding validation","Secure compression algorithms"] },
+      { number:5, name:"Session Layer", color:"bg-amber-500", threats:["Session Hijacking","Man-in-the-Middle","Session Fixation"], tools:["Session Management Tools","Token-based Authentication","SSO Solutions"], prevention:["Secure session tokens","Session timeout mechanisms","Multi-factor authentication","Session binding to IP/device"] },
+      { number:4, name:"Transport Layer", color:"bg-yellow-500", threats:["Port Scanning","DDoS","TCP SYN Floods","UDP Floods"], tools:["IDS/IPS","Load Balancers","Rate Limiting","TLS/SSL"], prevention:["Port filtering","Traffic rate limiting","SYN cookies implementation","Encrypted communications"] },
+      { number:3, name:"Network Layer", color:"bg-green-500", threats:["IP Spoofing","Routing Attacks","ICMP Attacks","Packet Sniffing"], tools:["Firewalls","VPN","IPSec","Network Segmentation","SIEM"], prevention:["IP filtering & ACLs","Network segmentation (VLANs)","VPN tunneling","Anti-spoofing filters"] },
+      { number:2, name:"Data Link Layer", color:"bg-blue-500", threats:["MAC Spoofing","ARP Poisoning","VLAN Hopping","Switch Attacks"], tools:["802.1X Authentication","Port Security","MAC Filtering","NAC"], prevention:["Dynamic ARP inspection","DHCP snooping","Port security on switches","Private VLANs"] },
+      { number:1, name:"Physical Layer", color:"bg-purple-500", threats:["Physical Tampering","Cable Tapping","Hardware Theft","Environmental"], tools:["Physical Access Controls","CCTV","Biometric Systems","Cable Locks"], prevention:["Secure data centers","Environmental monitoring","Hardware encryption","Physical security policies"] }
+    ];
+
+    const layersList = document.getElementById('layersList');
+    const detailPanel = document.getElementById('detailPanel');
+    let selected = null;
+
+    function renderLayers() {
+      layersList.innerHTML = '';
+      layers.forEach(layer => {
+        const el = document.createElement('div');
+        el.className = `${layer.color} p-4 rounded-lg cursor-pointer layer-card`;
+        if (selected === layer.number) el.classList.add('selected', 'ring-4', 'ring-white', 'scale-105');
+        el.innerHTML = `
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="text-3xl font-bold text-white opacity-80">${layer.number}</span>
+              <div>
+                <h3 class="text-xl font-bold text-white">${layer.name}</h3>
+                <p class="text-sm text-white opacity-80">${layer.threats.length} threats identified</p>
+              </div>
+            </div>
+            <i data-lucide="shield" class="w-8 h-8 text-white opacity-60"></i>
+          </div>
+        `;
+        el.addEventListener('click', () => {
+          selected = layer.number;
+          renderLayers();
+          renderDetail(layer);
+        });
+        layersList.appendChild(el);
+      });
+      // ensure icons update
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function renderDetail(layer) {
+      detailPanel.innerHTML = `
+        <div class="space-y-6 w-full">
+          <div>
+            <h2 class="text-3xl font-bold text-white mb-2">Layer ${layer.number}: ${layer.name}</h2>
+            <div class="h-2 ${layer.color} rounded-full mb-4"></div>
+          </div>
+
+          <div class="bg-gray-700 rounded-lg p-4">
+            <h3 class="text-xl font-bold text-red-400 mb-3 flex items-center gap-2"><i data-lucide="alert-triangle" class="w-5 h-5"></i> Common Threats</h3>
+            <div class="grid grid-cols-2 gap-2">
+              ${layer.threats.map(t => `<div class="bg-gray-800 p-2 rounded text-sm text-gray-300">• ${t}</div>`).join('')}
+            </div>
+          </div>
+
+          <div class="bg-gray-700 rounded-lg p-4">
+            <h3 class="text-xl font-bold text-cyan-400 mb-3 flex items-center gap-2"><i data-lucide="lock" class="w-5 h-5"></i> Security Tools</h3>
+            <div class="space-y-2">
+              ${layer.tools.map(tool => `<div class="bg-gray-800 p-3 rounded text-gray-300 flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4 text-green-400 flex-shrink-0"></i>${tool}</div>`).join('')}
+            </div>
+          </div>
+
+          <div class="bg-gray-700 rounded-lg p-4">
+            <h3 class="text-xl font-bold text-green-400 mb-3 flex items-center gap-2"><i data-lucide="eye" class="w-5 h-5"></i> Prevention Methods</h3>
+            <div class="space-y-2">
+              ${layer.prevention.map(m => `<div class="bg-gray-800 p-3 rounded text-gray-300 flex items-start gap-2"><span class="text-green-400 font-bold">→</span>${m}</div>`).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+      if (window.lucide) lucide.createIcons();
+      detailPanel.classList.remove('flex','items-center','justify-center');
+    }
+
+    // initial render
+    renderLayers();
+
+    // ensure lucide icons render
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
