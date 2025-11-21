@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Threat Modeling Framework: STRIDE · PASTA · DREAD — Interactive Guide</title>
+
+  <!-- Tailwind (Play CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide icons -->
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.259.0/dist/lucide.min.js"></script>
+
+  <style>
+    .node { transition: transform .18s, box-shadow .18s; cursor: pointer; }
+    .node:hover { transform: translateY(-6px); }
+    .active-node { box-shadow: 0 12px 30px rgba(2,6,23,0.5); transform: translateY(-8px) scale(1.02); }
+    .diagram { min-height: 240px; }
+    .chip { display:inline-flex; gap:.5rem; align-items:center; padding:.35rem .6rem; border-radius:999px; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.04); }
+    .kbd { background:#111827; color:#e6eef8; padding:.1rem .45rem; border-radius:6px; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.9rem; }
+    .fade { transition: opacity .22s ease, transform .22s ease; transform-origin: top left; }
+  </style>
+</head>
+<body class="bg-gray-900 text-gray-100 p-6 font-sans">
+
+  <div class="max-w-6xl mx-auto space-y-8">
+
+    <header class="flex items-center justify-between">
+      <div>
+        <h1 class="text-2xl font-semibold">Threat Modeling Framework: STRIDE · PASTA · DREAD</h1>
+        <p class="text-sm text-gray-400 mt-1">Interactive reference + concise real-world use cases for automotive and e‑commerce systems.</p>
+      </div>
+      <div class="text-sm text-gray-400">
+        Tip: click diagram nodes or example cards to reveal concise analysis.
+      </div>
+    </header>
+
+    <!-- Overview -->
+    <section class="bg-gray-800 rounded-xl p-6 shadow">
+      <h2 class="text-lg font-bold">Models at a glance</h2>
+      <p class="text-gray-300 mt-2">Three complementary approaches: STRIDE (threat categories), PASTA (process-driven & business risk), and DREAD (risk scoring). Use STRIDE for quick mapping, PASTA for process-driven adversary scenarios, and DREAD to prioritize mitigations.</p>
+      <div class="mt-4 flex gap-3 flex-wrap">
+        <span class="chip"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-cyan-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 11c0 2-2 4-4 4s-4-2-4-4 2-4 4-4 4 2 4 4z"/></svg> STRIDE — categories</span>
+        <span class="chip"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-green-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 8v4l3 3"/></svg> PASTA — 7‑stage process</span>
+        <span class="chip"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-yellow-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 8v4l3 3"/></svg> DREAD — risk scoring</span>
+      </div>
+    </section>
+
+    <!-- STRIDE -->
+    <section id="stride" class="bg-gray-800 rounded-xl p-6 shadow">
+      <div class="flex items-start justify-between gap-6">
+        <div class="w-2/5">
+          <h3 class="text-xl font-semibold">STRIDE — Threat Categories</h3>
+          <p class="text-gray-300 mt-2">STRIDE maps threats to system elements: Spoofing, Tampering, Repudiation, Information disclosure, Denial of service, Elevation of privilege. Quick to apply against data flows, components and privileges.</p>
+
+          <div class="mt-4 grid grid-cols-2 gap-2">
+            <button data-node="Spoofing" class="node stride-btn bg-rose-600 p-3 rounded text-sm">Spoofing</button>
+            <button data-node="Tampering" class="node stride-btn bg-orange-500 p-3 rounded text-sm">Tampering</button>
+            <button data-node="Repudiation" class="node stride-btn bg-amber-500 p-3 rounded text-sm">Repudiation</button>
+            <button data-node="Info" class="node stride-btn bg-sky-600 p-3 rounded text-sm">Info disclosure</button>
+            <button data-node="DoS" class="node stride-btn bg-violet-600 p-3 rounded text-sm">Denial of Service</button>
+            <button data-node="EoP" class="node stride-btn bg-emerald-600 p-3 rounded text-sm">Elevation of Privilege</button>
+          </div>
+
+          <div id="stride-detail" class="mt-4 bg-gray-900 p-3 rounded fade">
+            <h4 id="stride-title" class="font-semibold">Select a category</h4>
+            <p id="stride-desc" class="text-gray-300 mt-2">Click a node to reveal definition and a short automotive & e-commerce example.</p>
+          </div>
+        </div>
+
+        <div class="w-3/5">
+          <div class="diagram rounded-lg bg-gradient-to-br from-gray-700 to-gray-800 p-4">
+            <!-- simple SVG mapping for visual emphasis -->
+            <svg viewBox="0 0 600 220" class="w-full" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+              <defs>
+                <filter id="blur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="0.6" /></filter>
+              </defs>
+              <g transform="translate(30,20)" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1">
+                <rect x="0" y="0" width="540" height="180" rx="12" fill="transparent" />
+              </g>
+
+              <!-- nodes -->
+              <g transform="translate(60,36)" font-family="system-ui">
+                <g class="svg-node" id="svg-Spoofing" data-key="Spoofing" transform="translate(0,0)">
+                  <rect x="0" y="0" width="120" height="44" rx="8" fill="#ff7b7b" class="svg-rect"/>
+                  <text x="60" y="28" text-anchor="middle" fill="#111827" font-weight="600">Spoofing</text>
+                </g>
+                <g class="svg-node" id="svg-Tampering" transform="translate(150,0)">
+                  <rect x="0" y="0" width="120" height="44" rx="8" fill="#ffa86b"/>
+                  <text x="60" y="28" text-anchor="middle" fill="#111827" font-weight="600">Tampering</text>
+                </g>
+                <g class="svg-node" id="svg-Repudiation" transform="translate(300,0)">
+                  <rect x="0" y="0" width="120" height="44" rx="8" fill="#ffd66b"/>
+                  <text x="60" y="28" text-anchor="middle" fill="#111827" font-weight="600">Repudiation</text>
+                </g>
+
+                <g class="svg-node" id="svg-Info" transform="translate(0,80)">
+                  <rect x="0" y="0" width="120" height="44" rx="8" fill="#6fc5ff"/>
+                  <text x="60" y="28" text-anchor="middle" fill="#031124" font-weight="600">Info disclosure</text>
+                </g>
+                <g class="svg-node" id="svg-DoS" transform="translate(150,80)">
+                  <rect x="0" y="0" width="120" height="44" rx="8" fill="#a78bfa"/>
+                  <text x="60" y="28" text-anchor="middle" fill="#031124" font-weight="600">DoS</text>
+                </g>
+                <g class="svg-node" id="svg-EoP" transform="translate(300,80)">
+                  <rect x="0" y="0" width="120" height="44" rx="8" fill="#86efac"/>
+                  <text x="60" y="28" text-anchor="middle" fill="#031124" font-weight="600">Elevation of Privilege</text>
+                </g>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PASTA -->
+    <section id="pasta" class="bg-gray-800 rounded-xl p-6 shadow">
+      <div class="grid lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2">
+          <h3 class="text-xl font-semibold">PASTA — Process for Attack Simulation & Threat Analysis</h3>
+          <p class="text-gray-300 mt-2">Seven-stage, risk-centric methodology that drives from business objectives to attack simulation and mitigations. Useful for aligning security with business risk and compliance.</p>
+
+          <ol class="mt-4 list-decimal list-inside space-y-2 text-gray-200">
+            <li><strong>Stage 1 — Definition:</strong> Business objectives, assets and security goals.</li>
+            <li><strong>Stage 2 — Technical Scope:</strong> Application & infrastructure mapping.</li>
+            <li><strong>Stage 3 — Decomposition:</strong> Data flow diagrams, trust boundaries, components.</li>
+            <li><strong>Stage 4 — Threat Analysis:</strong> Identify threats & attack vectors.</li>
+            <li><strong>Stage 5 — Vulnerability & Weakness Analysis:</strong> Map to vulnerabilities and exploitability.</li>
+            <li><strong>Stage 6 — Attack Modeling & Simulation:</strong> Simulate adversary actions (TTPs).</li>
+            <li><strong>Stage 7 — Risk & Remediation:</strong> Prioritize, fix, and re-test.</li>
+          </ol>
+
+          <div class="mt-4">
+            <button id="pasta-sim" class="bg-cyan-600 px-4 py-2 rounded hover:bg-cyan-500">Run example: E‑commerce checkout attack path</button>
+          </div>
+        </div>
+
+        <div class="bg-gray-900 p-4 rounded">
+          <h4 class="font-semibold">PASTA quick-use</h4>
+          <p class="text-gray-300 mt-2">PASTA is ideal when you need process-aligned threat modeling that maps to business impact — e.g., order fraud in e-commerce, OTA update attack paths in automotive.</p>
+          <div id="pasta-output" class="mt-3 text-sm text-gray-200"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DREAD -->
+    <section id="dread" class="bg-gray-800 rounded-xl p-6 shadow">
+      <div class="flex items-start gap-6">
+        <div class="w-2/5">
+          <h3 class="text-xl font-semibold">DREAD — Risk Scoring</h3>
+          <p class="text-gray-300 mt-2">A quick scoring model (Damage, Reproducibility, Exploitability, Affected users, Discoverability) to prioritize threats. Use with STRIDE or PASTA outputs.</p>
+
+          <div class="mt-4 grid grid-cols-1 gap-2">
+            <div class="p-3 bg-gray-900 rounded">
+              <div class="flex justify-between text-sm text-gray-300">
+                <span>Damage</span><strong id="dmg" class="text-white">—</strong>
+              </div>
+              <div class="mt-2 text-xs text-gray-400">How severe is the impact?</div>
+            </div>
+            <div class="p-3 bg-gray-900 rounded">
+              <div class="flex justify-between text-sm text-gray-300">
+                <span>Reproducibility</span><strong id="rep" class="text-white">—</strong>
+              </div>
+              <div class="mt-2 text-xs text-gray-400">How easy to reproduce?</div>
+            </div>
+            <div class="p-3 bg-gray-900 rounded">
+              <div class="flex justify-between text-sm text-gray-300">
+                <span>Exploitability</span><strong id="exp" class="text-white">—</strong>
+              </div>
+              <div class="mt-2 text-xs text-gray-400">Required skill or tooling?</div>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <button id="dread-ecommerce" class="bg-yellow-500 px-3 py-2 rounded mr-2">Score: E‑commerce checkout fraud</button>
+            <button id="dread-car" class="bg-yellow-500 px-3 py-2 rounded">Score: Connected car OTA tamper</button>
+          </div>
+        </div>
+
+        <div class="w-3/5 bg-gray-900 p-4 rounded">
+          <h4 class="font-semibold">DREAD Result</h4>
+          <div id="dread-result" class="mt-3 text-gray-200">Run a sample score to see how DREAD prioritizes mitigation.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Use case gallery -->
+    <section class="bg-gray-800 rounded-xl p-6 shadow">
+      <h3 class="text-xl font-semibold">Real-world use cases — concise</h3>
+      <div class="grid md:grid-cols-2 gap-6 mt-4">
+        <div class="bg-gray-900 p-4 rounded">
+          <h4 class="font-semibold">Connected Car — Threat model snapshot</h4>
+          <ul class="mt-2 text-gray-300 list-disc pl-5 space-y-1">
+            <li>PASTA: identify OTA update path, ECU trust boundaries, and supply chain inputs.</li>
+            <li>STRIDE: Spoofing (malicious ECU), Tampering (firmware tamper), Info disclosure (telemetry leak).</li>
+            <li>DREAD example: firmware tamper → High Damage, Medium Reproducibility, Medium Exploitability → prioritize signed firmware & runtime verification.</li>
+            <li>Mitigations: code signing, secure boot, hardware root-of-trust, anomaly detection in telemetry, segmentation of CAN/Ethernet domains.</li>
+          </ul>
+        </div>
+
+        <div class="bg-gray-900 p-4 rounded">
+          <h4 class="font-semibold">E‑commerce Platform — Threat model snapshot</h4>
+          <ul class="mt-2 text-gray-300 list-disc pl-5 space-y-1">
+            <li>PASTA: map checkout flow, third-party integrations (payments, analytics), and trust boundaries.</li>
+            <li>STRIDE: Repudiation (disputed orders), Info disclosure (customer data leak), Tampering (cart manipulation).</li>
+            <li>DREAD example: order fraud via checkout manipulation → Medium Damage, High Reproducibility, Low Discoverability → prioritize input validation, server-side checks, and monitoring.</li>
+            <li>Mitigations: server-side validation, nonce-based anti-replay, payment provider integration best-practices, Sentinel-style SIEM use-cases for fraud detection.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <footer class="text-sm text-gray-400 py-4">
+      <div class="flex justify-between items-center">
+        <div>Use these models together: STRIDE to identify, PASTA to simulate, DREAD to prioritize. Integrate outputs into backlog and automation (SAST/DAST, IaC scans, SIEM detections).</div>
+        <div class="text-xs">Interactive demo · concise reference</div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // minimal interactivity
+    const strideButtons = document.querySelectorAll('.stride-btn');
+    const strideTitle = document.getElementById('stride-title');
+    const strideDesc = document.getElementById('stride-desc');
+
+    const strideExamples = {
+      'Spoofing': {
+        desc: 'Attacker impersonates identity (users, devices, ECUs).',
+        car: 'Spoofed ECU sending false telemetry — mitigation: mutual TLS, certificate pinning, hardware identity.',
+        ecommerce: 'Fake login / session impersonation — mitigation: MFA, device fingerprinting, robust session management.'
+      },
+      'Tampering': {
+        desc: 'Unauthorized modification of data, code or configuration.',
+        car: 'Firmware tampering via OTA — mitigation: signed updates, secure boot.',
+        ecommerce: 'Client-side tampering of order total — mitigation: server-side validation and cryptographic integrity checks.'
+      },
+      'Repudiation': {
+        desc: 'Actions are denied by an actor; lack of non-repudiation.',
+        car: 'OTA provider denies update provenance — mitigation: audit logging, signed manifests.',
+        ecommerce: 'Customer disputes a transaction without evidence — mitigation: tamper-evident logs and non-repudiation records.'
+      },
+      'Info': {
+        desc: 'Unauthorised disclosure of sensitive information.',
+        car: 'Telemetry exposes driver location — mitigation: data minimization, encryption at rest/in transit.',
+        ecommerce: 'Leak of PII or payment data — mitigation: tokenization, DLP, Purview controls.'
+      },
+      'DoS': {
+        desc: 'Service interruption degrading availability.',
+        car: 'DoS on telematics backend causing lost service — mitigation: rate limits, resilient architectures, edge throttling.',
+        ecommerce: 'Traffic spikes or DDoS on checkout — mitigation: WAF, autoscaling, CDN and rate-limiting.'
+      },
+      'EoP': {
+        desc: 'Privilege escalation allowing greater system control.',
+        car: 'Compromised infotainment process affecting CAN bus — mitigation: process isolation, RBAC, least privilege.',
+        ecommerce: 'Admin account takeover — mitigation: PIM, RBAC, MFA, session hardening.'
+      }
+    };
+
+    function setStride(nodeKey) {
+      const ex = strideExamples[nodeKey];
+      strideTitle.textContent = nodeKey;
+      strideDesc.innerHTML = `<strong>${ex.desc}</strong><br><br><em>Automotive:</em> ${ex.car}<br><em>E‑commerce:</em> ${ex.ecommerce}`;
+      // highlight svg node
+      document.querySelectorAll('.svg-node').forEach(n => n.classList.remove('active-node'));
+      const svg = document.getElementById('svg-' + nodeKey);
+      if (svg) svg.classList.add('active-node');
+    }
+
+    strideButtons.forEach(b => {
+      b.addEventListener('click', () => setStride(b.dataset.node));
+    });
+
+    // PASTA example
+    document.getElementById('pasta-sim').addEventListener('click', () => {
+      const out = document.getElementById('pasta-output');
+      out.innerHTML = `<div><strong>Attack path (checkout fraud):</strong> attacker bypasses client-side validation → manipulates cart → uses stolen card → completes order.<br><br>
+      PASTA quick stages applied: Stage 2 map payment flow; Stage 3 identify trust boundaries (client/server/payment gateway); Stage 6 simulate attack (man-in-the-browser + stolen card); Stage 7 recommend mitigations (server-side validation, tokenization, monitoring).</div>`;
+    });
+
+    // DREAD scoring examples
+    function setDreadScores(scores, explanation) {
+      document.getElementById('dmg').textContent = scores.Damage;
+      document.getElementById('rep').textContent = scores.Reproducibility;
+      document.getElementById('exp').textContent = scores.Exploitability;
+      document.getElementById('dread-result').innerHTML = `<div><strong>Score:</strong> ${scores.total} / 25 — ${explanation}</div>`;
+    }
+
+    document.getElementById('dread-ecommerce').addEventListener('click', () => {
+      // example: checkout tamper
+      const scores = { Damage:4, Reproducibility:5, Exploitability:3, Affected:4, Discoverability:3 };
+      scores.total = Object.values(scores).slice(0,5).reduce((a,b)=>a+b,0);
+      setDreadScores(scores, 'Order fraud ranks high; prioritize server-side validation and monitoring.');
+    });
+
+    document.getElementById('dread-car').addEventListener('click', () => {
+      // example: OTA tamper
+      const scores = { Damage:5, Reproducibility:3, Exploitability:3, Affected:5, Discoverability:2 };
+      scores.total = Object.values(scores).slice(0,5).reduce((a,b)=>a+b,0);
+      setDreadScores(scores, 'Firmware tamper has severe impact; require strong signing and runtime attestation.');
+    });
+
+    // make lucide icons render
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) lucide.createIcons();
+    });
+  </script>
+</body>
+</html>
