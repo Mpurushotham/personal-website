@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GRC Documentation Portal</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        background: #f4f6f9;
+        transition: background 0.3s, color 0.3s;
+    }
+
+    /* Sidebar */
+    .sidebar {
+        width: 260px;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        background: #0b3d91;
+        color: #fff;
+        padding-top: 20px;
+        overflow-y: auto;
+    }
+
+    .sidebar h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        font-size: 1.4rem;
+    }
+
+    .sidebar a {
+        display: block;
+        padding: 15px 25px;
+        text-decoration: none;
+        color: #fff;
+        font-size: 1rem;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        transition: background 0.2s;
+    }
+
+    .sidebar a:hover {
+        background: rgba(255,255,255,0.15);
+    }
+
+    /* Main content */
+    .main {
+        margin-left: 260px;
+        padding: 30px;
+        transition: 0.3s;
+    }
+
+    h1 {
+        font-size: 2rem;
+        color: #0b3d91;
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        color: #0b3d91;
+        border-left: 5px solid #0b3d91;
+        padding-left: 12px;
+        margin-top: 40px;
+    }
+
+    .card {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        margin: 20px 0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    /* Accordion */
+    .accordion {
+        background: #eef3fc;
+        border-left: 5px solid #0b3d91;
+        padding: 15px;
+        cursor: pointer;
+        margin-top: 15px;
+        border-radius: 6px;
+        font-weight: bold;
+        color: #0b3d91;
+    }
+
+    .panel {
+        display: none;
+        padding: 20px;
+        background: #fafcff;
+        border-left: 5px solid #c8d7f6;
+        border-radius: 0 0 6px 6px;
+    }
+
+    /* Search Bar */
+    .search-container {
+        margin: 15px 0;
+        display: flex;
+        justify-content: right;
+    }
+
+    #searchInput {
+        padding: 10px;
+        width: 300px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+    }
+
+    /* Dark Mode */
+    .dark-mode {
+        background: #1e1e1e;
+        color: #eaeaea;
+    }
+
+    .dark-mode .card {
+        background: #2c2c2c;
+        color: white;
+    }
+
+    .dark-mode .accordion {
+        background: #333;
+        color: white;
+        border-color: #555;
+    }
+
+    .dark-mode .panel {
+        background: #2b2b2b;
+    }
+
+    .dark-toggle {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #0b3d91;
+        color: white;
+        padding: 12px 15px;
+        border-radius: 50px;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    // Accordion functionality
+    var acc = document.getElementsByClassName("accordion");
+    for (var i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+            }
+        });
+    }
+
+    // Search functionality
+    document.getElementById("searchInput").addEventListener("keyup", function () {
+        var filter = this.value.toLowerCase();
+        var cards = document.querySelectorAll(".card");
+
+        cards.forEach(card => {
+            card.style.display = card.innerText.toLowerCase().includes(filter) ? "block" : "none";
+        });
+    });
+
+    // Dark mode toggle
+    document.querySelector(".dark-toggle").addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+    });
+});
+</script>
+</head>
+
+<body>
+
+<!-- Sidebar -->
+<div class="sidebar">
+    <h2>GRC Portal</h2>
+
+    <a href="#dashboard">Dashboard</a>
+    <a href="#nist">NIST CSF 2.0</a>
+    <a href="#soc2">SOC 2</a>
+    <a href="#iso27001">ISO 27001</a>
+    <a href="#pci">PCI DSS</a>
+    <a href="#hipaa">HIPAA</a>
+    <a href="#gdpr">GDPR</a>
+    <a href="#risk">Risk Management</a>
+    <a href="#policies">Policies & Procedures</a>
+</div>
+
+<!-- Main Content -->
+<div class="main">
+
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search the portal...">
+    </div>
+
+    <section id="dashboard">
+        <h1>GRC Documentation Portal</h1>
+        <p>Welcome to the central Governance, Risk, and Compliance hub. Use the sidebar to navigate frameworks, standards, and policies.</p>
+    </section>
+
+    <!-- NIST CSF 2.0 -->
+    <section id="nist">
+        <h2>NIST CSF 2.0</h2>
+        <div class="card">
+            <p>NIST CSF 2.0 is a cybersecurity risk management framework consisting of 6 core functions.</p>
+
+            <div class="accordion">Govern</div>
+            <div class="panel">
+                <p>Defines strategy, roles, and governance structure.</p>
+            </div>
+
+            <div class="accordion">Identify</div>
+            <div class="panel">
+                <p>Asset inventory, supply chain risks, threat modeling.</p>
+            </div>
+
+            <div class="accordion">Protect</div>
+            <div class="panel">
+                <p>Identity management, access control, encryption.</p>
+            </div>
+
+            <div class="accordion">Detect</div>
+            <div class="panel">
+                <p>Monitoring anomalies, SIEM, threat hunting.</p>
+            </div>
+
+            <div class="accordion">Respond</div>
+            <div class="panel">
+                <p>Incident response, containment, forensic analysis.</p>
+            </div>
+
+            <div class="accordion">Recover</div>
+            <div class="panel">
+                <p>Business continuity, disaster recovery, improvements.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOC 2 -->
+    <section id="soc2">
+        <h2>SOC 2</h2>
+        <div class="card">
+            <p>SOC 2 evaluates controls across 5 Trust Services Criteria (TSC).</p>
+
+            <div class="accordion">Security (Required)</div>
+            <div class="panel">
+                <p>Access controls, firewalls, monitoring.</p>
+            </div>
+
+            <div class="accordion">Availability</div>
+            <div class="panel">
+                <p>Redundancy, uptime, continuity.</p>
+            </div>
+
+            <div class="accordion">Confidentiality</div>
+            <div class="panel">
+                <p>Encryption, restricted access.</p>
+            </div>
+
+            <div class="accordion">Privacy</div>
+            <div class="panel">
+                <p>Personal data handling and retention.</p>
+            </div>
+
+            <div class="accordion">Processing Integrity</div>
+            <div class="panel">
+                <p>Accurate, complete, authorized processing.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional frameworks -->
+    <section id="iso27001">
+        <h2>ISO 27001</h2>
+        <div class="card">
+            <p>Information Security Management System (ISMS) standard with 93 Annex A controls.</p>
+        </div>
+    </section>
+
+    <section id="pci">
+        <h2>PCI DSS</h2>
+        <div class="card">
+            <p>Security standard for protecting cardholder data, includes 12 high-level requirements.</p>
+        </div>
+    </section>
+
+    <section id="hipaa">
+        <h2>HIPAA</h2>
+        <div class="card">
+            <p>Healthcare data privacy and security requirements including the Privacy, Security, and Breach Notification Rules.</p>
+        </div>
+    </section>
+
+    <section id="gdpr">
+        <h2>GDPR</h2>
+        <div class="card">
+            <p>EU data protection law with rights for individuals and obligations for organizations.</p>
+        </div>
+    </section>
+
+    <section id="risk">
+        <h2>Risk Management</h2>
+        <div class="card">
+            <p>Includes risk identification, assessment, scoring, treatment planning, and continuous monitoring.</p>
+        </div>
+    </section>
+
+    <section id="policies">
+        <h2>Policies & Procedures</h2>
+        <div class="card">
+            <p>Includes Security Policies, Access Control Policy, Incident Response Plan, Business Continuity Plan, and more.</p>
+        </div>
+    </section>
+
+</div>
+
+<div class="dark-toggle">🌙 Dark Mode</div>
+
+<footer>
+    GRC Documentation Portal • Generated by AI Assistant
+</footer>
+
+</body>
+</html>
