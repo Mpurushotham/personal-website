@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NIST CSF 2.0 & SOC 2 – Detailed Cybersecurity Guide</title>
+
+<style>
+    body {
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        margin: 0;
+        background: #f4f6f9;
+        color: #333;
+    }
+
+    header {
+        background: linear-gradient(135deg, #0b3d91, #1456c0);
+        color: white;
+        text-align: center;
+        padding: 40px 20px;
+        box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 2.6rem;
+        font-weight: 700;
+    }
+
+    .container {
+        max-width: 1150px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 30px 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+        font-size: 1.8rem;
+        color: #0b3d91;
+        border-left: 5px solid #0b3d91;
+        padding-left: 12px;
+        margin-top: 40px;
+    }
+
+    .accordion {
+        background: #eef3fc;
+        border-left: 5px solid #0b3d91;
+        cursor: pointer;
+        padding: 18px;
+        margin: 20px 0;
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: #0b3d91;
+        border-radius: 6px;
+        transition: 0.3s;
+    }
+
+    .accordion:hover {
+        background: #dfe8fb;
+    }
+
+    .panel {
+        display: none;
+        background: #fdfdff;
+        padding: 20px;
+        border-left: 5px solid #c7d7f7;
+        border-radius: 0 0 6px 6px;
+    }
+
+    ul {
+        margin-top: 10px;
+        padding-left: 25px;
+    }
+
+    #diagram {
+        text-align: center;
+        margin: 40px 0 20px 0;
+    }
+
+    footer {
+        margin-top: 40px;
+        background: #0b3d91;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        font-size: 0.9rem;
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var acc = document.getElementsByClassName("accordion");
+        for (var i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                panel.style.display = (panel.style.display === "block") ? "none" : "block";
+            });
+        }
+    });
+</script>
+</head>
+
+<body>
+
+<header>
+    <h1>NIST CSF 2.0 & SOC 2 – Detailed Cybersecurity Guide</h1>
+</header>
+
+<div class="container">
+
+    <h2>Visual Overview Diagram</h2>
+
+    <div id="diagram">
+        <svg width="900" height="420">
+
+            <!-- Center title -->
+            <text x="330" y="40" font-size="22" fill="#0b3d91" font-weight="bold">
+                Cybersecurity & Assurance Frameworks
+            </text>
+
+            <!-- Core -->
+            <rect x="390" y="70" width="220" height="65" fill="#0b3d91" rx="12"></rect>
+            <text x="420" y="110" font-size="18" fill="white" font-weight="bold">
+                Risk & Trust Assurance
+            </text>
+
+            <!-- NIST arrow -->
+            <line x1="500" y1="135" x2="260" y2="200" stroke="#0b3d91" stroke-width="3"/>
+            <polygon points="260,200 270,190 250,190" fill="#0b3d91"/>
+
+            <!-- SOC 2 arrow -->
+            <line x1="500" y1="135" x2="740" y2="200" stroke="#0b3d91" stroke-width="3"/>
+            <polygon points="740,200 750,190 730,190" fill="#0b3d91"/>
+
+            <!-- NIST box -->
+            <rect x="150" y="200" width="260" height="200" fill="#eef3fc" stroke="#0b3d91" rx="12"></rect>
+            <text x="185" y="230" font-size="18" fill="#0b3d91" font-weight="bold">NIST CSF 2.0</text>
+            <text x="170" y="260" font-size="15">• Governance</text>
+            <text x="170" y="285" font-size="15">• Identify</text>
+            <text x="170" y="310" font-size="15">• Protect</text>
+            <text x="170" y="335" font-size="15">• Detect</text>
+            <text x="170" y="360" font-size="15">• Respond</text>
+            <text x="170" y="385" font-size="15">• Recover</text>
+
+            <!-- SOC 2 box -->
+            <rect x="510" y="200" width="260" height="200" fill="#eef3fc" stroke="#0b3d91" rx="12"></rect>
+            <text x="585" y="230" font-size="18" fill="#0b3d91" font-weight="bold">SOC 2</text>
+            <text x="530" y="260" font-size="15">• Security (Mandatory)</text>
+            <text x="530" y="285" font-size="15">• Availability</text>
+            <text x="530" y="310" font-size="15">• Confidentiality</text>
+            <text x="530" y="335" font-size="15">• Processing Integrity</text>
+            <text x="530" y="360" font-size="15">• Privacy</text>
+
+        </svg>
+    </div>
+
+    <!-- SECTION: NIST CSF 2.0 -->
+    <h2>NIST Cybersecurity Framework (CSF) 2.0 — Full Detailed Breakdown</h2>
+
+    <div class="accordion">Overview of NIST CSF 2.0</div>
+    <div class="panel">
+        <p>NIST CSF 2.0 (released 2024) updates the original CSF 1.1 and provides a more modern, flexible, and enterprise-friendly cybersecurity risk management framework. It is designed for organizations of any size.</p>
+
+        <p>Major updates include:</p>
+        <ul>
+            <li>New <b>Govern</b> Function</li>
+            <li>Greater emphasis on <b>supply chain</b> cybersecurity</li>
+            <li>Profiles, tiers, and outcomes refined</li>
+            <li>Better alignment with privacy, AI, and resilience needs</li>
+        </ul>
+    </div>
+
+    <div class="accordion">The 6 Core Functions of NIST CSF 2.0</div>
+    <div class="panel">
+        <p>NIST CSF 2.0 organizes cybersecurity into 6 major functions:</p>
+
+        <h3>1. GOVERN</h3>
+        <ul>
+            <li>Establish organizational risk management strategy</li>
+            <li>Define cybersecurity supply chain risk requirements</li>
+            <li>Set roles, responsibilities, and oversight models</li>
+            <li>Develop policies and enterprise governance structures</li>
+        </ul>
+
+        <h3>2. IDENTIFY</h3>
+        <ul>
+            <li>Asset inventory (IT, OT, cloud)</li>
+            <li>Risk assessment & business environment analysis</li>
+            <li>Understanding threats, vulnerabilities, and impact</li>
+        </ul>
+
+        <h3>3. PROTECT</h3>
+        <ul>
+            <li>Identity & access management</li>
+            <li>Data security and encryption</li>
+            <li>Awareness training</li>
+            <li>Endpoint & network protections</li>
+        </ul>
+
+        <h3>4. DETECT</h3>
+        <ul>
+            <li>Threat monitoring & anomaly detection</li>
+            <li>Security event logging & SIEM integrations</li>
+            <li>Continuous monitoring programs</li>
+        </ul>
+
+        <h3>5. RESPOND</h3>
+        <ul>
+            <li>Incident response plans</li>
+            <li>Threat containment</li>
+            <li>Stakeholder communication</li>
+            <li>Forensic analysis</li>
+        </ul>
+
+        <h3>6. RECOVER</h3>
+        <ul>
+            <li>System restoration after incidents</li>
+            <li>Resilience improvements</li>
+            <li>Business continuity processes</li>
+        </ul>
+
+        <p>These functions define a complete life cycle of cybersecurity readiness.</p>
+    </div>
+
+    <div class="accordion">NIST CSF 2.0 Profiles & Tiers</div>
+    <div class="panel">
+        <h3>CSF Profiles</h3>
+        <p>A Profile describes the current and target cybersecurity posture. Organizations use Profiles to conduct gap analysis and roadmap improvements.</p>
+
+        <h3>Maturity Tiers</h3>
+        <p>Tiers describe risk awareness and integration:</p>
+        <ul>
+            <li><b>Tier 1:</b> Partial</li>
+            <li><b>Tier 2:</b> Risk Informed</li>
+            <li><b>Tier 3:</b> Repeatable</li>
+            <li><b>Tier 4:</b> Adaptive</li>
+        </ul>
+    </div>
+
+    <!-- SECTION: SOC 2 -->
+    <h2>SOC 2 (System and Organization Controls) — Full Detailed Breakdown</h2>
+
+    <div class="accordion">Overview of SOC 2</div>
+    <div class="panel">
+        <p>SOC 2 is an auditing framework created by AICPA to evaluate the controls of service providers that store or process customer data.</p>
+        <p>It applies heavily to SaaS, cloud providers, MSPs, financial services, and technology companies.</p>
+    </div>
+
+    <div class="accordion">Trust Services Criteria (TSC)</div>
+    <div class="panel">
+        <p>SOC 2 evaluates controls across 5 Trust Services Criteria (TSC):</p>
+
+        <ul>
+            <li><b>Security (Required):</b> Firewalls, access controls, intrusion detection.</li>
+            <li><b>Availability:</b> Uptime, redundancy, DDoS protection.</li>
+            <li><b>Confidentiality:</b> Encryption, data access restrictions.</li>
+            <li><b>Processing Integrity:</b> Accurate and authorized data processing.</li>
+            <li><b>Privacy:</b> Handling of personal information according to policies.</li>
+        </ul>
+    </div>
+
+    <div class="accordion">SOC 2 Type I vs Type II</div>
+    <div class="panel">
+        <h3>Type I</h3>
+        <p>Evaluates whether controls are properly designed at a specific point in time.</p>
+
+        <h3>Type II</h3>
+        <p>Evaluates design AND operating effectiveness over 3–12 months.</p>
+
+        <p>Type II is the gold standard for customer assurance.</p>
+    </div>
+
+    <div class="accordion">SOC 2 Report Components</div>
+    <div class="panel">
+        <ul>
+            <li>Management assertion</li>
+            <li>Independent auditor’s opinion</li>
+            <li>System description</li>
+            <li>Controls tested and results</li>
+            <li>Optional security metrics and risk analyses</li>
+        </ul>
+    </div>
+
+    <div class="accordion">Comparing NIST CSF 2.0 vs SOC 2</div>
+    <div class="panel">
+        <table border="1" cellspacing="0" cellpadding="10" style="width:100%; border-collapse:collapse;">
+            <tr style="background:#0b3d91; color:white;">
+                <th>NIST CSF 2.0</th>
+                <th>SOC 2</th>
+            </tr>
+            <tr>
+                <td>Cybersecurity risk management framework</td>
+                <td>Audit standard for trust and security controls</td>
+            </tr>
+            <tr>
+                <td>Voluntary guidance</td>
+                <td>Formal attestation required</td>
+            </tr>
+            <tr>
+                <td>Covers governance + technical safeguards</td>
+                <td>Focuses on operational and security maturity</td>
+            </tr>
+            <tr>
+                <td>No certification—only alignment</td>
+                <td>Provides official Type I / II report</td>
+            </tr>
+            <tr>
+                <td>Used for internal security programs</td>
+                <td>Used to prove trust to customers</td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+<footer>
+    NIST CSF 2.0 & SOC 2 Detailed Guide • Generated by AI Assistant
+</footer>
+
+</body>
+</html>
