@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comprehensive Cybersecurity Frameworks & Regulatory Compliance Guide</title>
+
+<style>
+    body {
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f4f6f9;
+        color: #333;
+        line-height: 1.6;
+    }
+    header {
+        background: linear-gradient(135deg, #0b3d91, #1456c0);
+        color: #fff;
+        padding: 35px 20px;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    header h1 {
+        margin: 0;
+        font-size: 2.4rem;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 30px auto;
+        background: #fff;
+        padding: 30px 35px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    }
+    h2 {
+        color: #0b3d91;
+        border-left: 5px solid #0b3d91;
+        padding-left: 12px;
+        margin-top: 50px;
+    }
+    .accordion {
+        background: #eef3fc;
+        border-left: 4px solid #0b3d91;
+        border-radius: 5px;
+        margin: 20px 0;
+        cursor: pointer;
+        padding: 18px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #0b3d91;
+        transition: 0.3s;
+    }
+    .accordion:hover {
+        background: #e1e9fb;
+    }
+    .panel {
+        padding: 0 18px 20px 18px;
+        background: #fafcff;
+        display: none;
+        border-left: 4px solid #cbd7f4;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+        margin-top: -2px;
+    }
+    ul {
+        margin-top: 10px;
+        padding-left: 20px;
+    }
+    li {
+        margin-bottom: 5px;
+    }
+    #diagram-container {
+        text-align: center;
+        margin: 40px 0;
+    }
+    footer {
+        text-align: center;
+        padding: 25px;
+        margin-top: 40px;
+        background: #0b3d91;
+        color: #fff;
+        font-size: 0.95rem;
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var acc = document.getElementsByClassName("accordion");
+        for (var i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                panel.style.display = (panel.style.display === "block") ? "none" : "block";
+            });
+        }
+    });
+</script>
+</head>
+
+<body>
+
+<header>
+    <h1>Comprehensive Cybersecurity Frameworks & Regulatory Compliance Guide</h1>
+</header>
+
+<div class="container">
+
+    <h2>Visual Flow Diagram: Cybersecurity Governance Ecosystem</h2>
+
+    <div id="diagram-container">
+        <!-- Enhanced SVG Visual Flow Diagram -->
+        <svg width="1000" height="550">
+
+            <text x="310" y="40" font-size="24" fill="#0b3d91" font-weight="bold">
+                Cybersecurity Governance & Compliance Ecosystem
+            </text>
+
+            <!-- Core box -->
+            <rect x="400" y="80" width="200" height="70" fill="#0b3d91" rx="12"></rect>
+            <text x="420" y="122" font-size="20" fill="white" font-weight="bold">Risk Management Core</text>
+
+            <!-- Arrows -->
+            <line x1="500" y1="150" x2="300" y2="210" stroke="#0b3d91" stroke-width="3" />
+            <polygon points="300,210 310,200 290,200" fill="#0b3d91"/>
+
+            <line x1="500" y1="150" x2="700" y2="210" stroke="#0b3d91" stroke-width="3" />
+            <polygon points="700,210 710,200 690,200" fill="#0b3d91"/>
+
+            <!-- Frameworks box -->
+            <rect x="150" y="210" width="300" height="300" fill="#eef3fc" stroke="#0b3d91" rx="12"></rect>
+            <text x="200" y="240" font-size="19" fill="#0b3d91" font-weight="bold">
+                Cybersecurity Frameworks
+            </text>
+
+            <text x="170" y="270" font-size="15">• NIST CSF</text>
+            <text x="170" y="295" font-size="15">• ISO 27001</text>
+            <text x="170" y="320" font-size="15">• CIS Controls</text>
+            <text x="170" y="345" font-size="15">• MITRE ATT&CK</text>
+            <text x="170" y="370" font-size="15">• COBIT</text>
+            <text x="170" y="395" font-size="15">• Zero Trust</text>
+
+            <!-- Compliance box -->
+            <rect x="550" y="210" width="300" height="300" fill="#eef3fc" stroke="#0b3d91" rx="12"></rect>
+            <text x="610" y="240" font-size="19" fill="#0b3d91" font-weight="bold">
+                Regulatory Compliance
+            </text>
+
+            <text x="580" y="270" font-size="15">• GDPR</text>
+            <text x="580" y="295" font-size="15">• HIPAA</text>
+            <text x="580" y="320" font-size="15">• PCI DSS</text>
+            <text x="580" y="345" font-size="15">• SOX</text>
+            <text x="580" y="370" font-size="15">• FedRAMP</text>
+            <text x="580" y="395" font-size="15">• CCPA / CPRA</text>
+
+        </svg>
+    </div>
+
+    <h2>Cybersecurity Frameworks (Detailed)</h2>
+
+    <!-- NIST CSF -->
+    <div class="accordion">NIST Cybersecurity Framework (NIST CSF)</div>
+    <div class="panel">
+        <p>The NIST CSF provides a **risk-based**, flexible, and scalable approach to managing cybersecurity threats. It is structured around five high-level functions:</p>
+        <ul>
+            <li><b>Identify:</b> Asset inventory, risk assessment, business environment.</li>
+            <li><b>Protect:</b> Access control, encryption, awareness training, data security.</li>
+            <li><b>Detect:</b> Continuous monitoring, anomaly detection, event analysis.</li>
+            <li><b>Respond:</b> Incident management, mitigation, communication protocols.</li>
+            <li><b>Recover:</b> Recovery planning, system restoration, resilience strengthening.</li>
+        </ul>
+        <p>Widely used by government, critical infrastructure, and enterprises.</p>
+    </div>
+
+    <!-- ISO 27001 -->
+    <div class="accordion">ISO/IEC 27001 (ISMS - International Standard)</div>
+    <div class="panel">
+        <p>ISO 27001 defines requirements for establishing an Information Security Management System (ISMS). It includes:</p>
+        <ul>
+            <li>114 controls across 14 domains (Annex A)</li>
+            <li>Mandatory risk assessment and treatment plan</li>
+            <li>Continuous improvement through PDCA (Plan-Do-Check-Act)</li>
+            <li>Certification recognized globally</li>
+        </ul>
+        <p>It ensures confidentiality, integrity, and availability (CIA) of information.</p>
+    </div>
+
+    <!-- CIS Controls -->
+    <div class="accordion">CIS Critical Security Controls (v8)</div>
+    <div class="panel">
+        <p>The CIS Controls provide **18 prioritized safeguards** to defend against the most common cyber threats.</p>
+        <ul>
+            <li>Asset Management</li>
+            <li>Secure Configuration</li>
+            <li>Vulnerability Management</li>
+            <li>Access Control</li>
+            <li>Incident Response</li>
+        </ul>
+        <p>Designed for technical implementation and SOC teams.</p>
+    </div>
+
+    <!-- MITRE ATT&CK -->
+    <div class="accordion">MITRE ATT&CK Framework</div>
+    <div class="panel">
+        <p>MITRE ATT&CK is a detailed catalog of adversarial behaviors arranged into:</p>
+        <ul>
+            <li><b>Tactics:</b> High-level attacker goals (Privilege Escalation, Lateral Movement, etc.)</li>
+            <li><b>Techniques:</b> Methods attackers use</li>
+            <li><b>Sub-Techniques:</b> Step-by-step operations</li>
+        </ul>
+        <p>Used for threat hunting, SOC operations, and red team exercises.</p>
+    </div>
+
+    <!-- COBIT -->
+    <div class="accordion">COBIT (Control Objectives for Information and Related Technologies)</div>
+    <div class="panel">
+        <p>COBIT focuses on **IT governance**, aligning cybersecurity and business objectives. It provides:</p>
+        <ul>
+            <li>40 governance and management objectives</li>
+            <li>Performance metrics and maturity models</li>
+            <li>Enterprise-wide risk and compliance management</li>
+        </ul>
+    </div>
+
+    <!-- Zero Trust -->
+    <div class="accordion">Zero Trust Architecture (ZTA)</div>
+    <div class="panel">
+        <p>Zero Trust is based on “Never trust, always verify.” Key principles:</p>
+        <ul>
+            <li>Continuous authentication & authorization</li>
+            <li>Device health verification</li>
+            <li>Least privilege access</li>
+            <li>Micro-segmentation</li>
+        </ul>
+    </div>
+
+    <h2>Regulatory Compliance Standards (Detailed)</h2>
+
+    <!-- GDPR -->
+    <div class="accordion">GDPR (General Data Protection Regulation)</div>
+    <div class="panel">
+        <p>GDPR is the EU’s strongest privacy regulation. Key elements include:</p>
+        <ul>
+            <li>Lawful basis for data processing</li>
+            <li>Rights to access, delete, and correct data</li>
+            <li>Data minimization & storage limitation</li>
+            <li>DPIAs (Data Protection Impact Assessments)</li>
+            <li>Strict fines for violations (up to 4% global revenue)</li>
+        </ul>
+    </div>
+
+    <!-- HIPAA -->
+    <div class="accordion">HIPAA (Health Insurance Portability and Accountability Act)</div>
+    <div class="panel">
+        <p>HIPAA protects health information in the U.S. through:</p>
+        <ul>
+            <li><b>Privacy Rule:</b> Limits access to PHI</li>
+            <li><b>Security Rule:</b> Safeguards for electronic PHI (ePHI)</li>
+            <li><b>Breach Notification Rule</b></li>
+            <li>Administrative, physical, technical safeguards</li>
+        </ul>
+    </div>
+
+    <!-- PCI DSS -->
+    <div class="accordion">PCI DSS (Payment Card Industry Data Security Standard)</div>
+    <div class="panel">
+        <p>PCI DSS secures cardholder data through 12 major requirements, including:</p>
+        <ul>
+            <li>Firewall configuration</li>
+            <li>Strong access control</li>
+            <li>Encryption of cardholder data</li>
+            <li>Anti-malware controls</li>
+            <li>Logging and monitoring</li>
+        </ul>
+    </div>
+
+    <!-- SOX -->
+    <div class="accordion">SOX (Sarbanes-Oxley Act)</div>
+    <div class="panel">
+        <p>SOX ensures financial transparency and protects investors from fraud. Cybersecurity is required to safeguard:</p>
+        <ul>
+            <li>Financial reporting systems</li>
+            <li>Internal controls (Section 404)</li>
+            <li>Data integrity and audit trails</li>
+        </ul>
+    </div>
+
+    <!-- FedRAMP -->
+    <div class="accordion">FedRAMP</div>
+    <div class="panel">
+        <p>A U.S. government standard for secure cloud services.</p>
+        <ul>
+            <li>Baseline levels (Low, Moderate, High)</li>
+            <li>Continuous monitoring</li>
+            <li>Security Assessment Framework (SAF)</li>
+            <li>Authorization to Operate (ATO)</li>
+        </ul>
+    </div>
+
+    <!-- CCPA/CPRA -->
+    <div class="accordion">CCPA / CPRA (California Privacy Laws)</div>
+    <div class="panel">
+        <p>These laws give consumers strong rights over their personal data.</p>
+        <ul>
+            <li>Right to opt-out of data selling</li>
+            <li>Right to access and delete information</li>
+            <li>Expanded sensitive data protections</li>
+            <li>Mandatory consumer disclosures</li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    Cybersecurity Framework & Compliance Guide • Automatically Generated by AI Assistant
+</footer>
+
+</body>
+</html>
