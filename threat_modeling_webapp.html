@@ -1,0 +1,1564 @@
+                        <input type="range" id="discoverability" min="0" max="10" value="5" oninput="calculateDREAD()">
+                        <span id="discoverability-val">5</span>
+                    </div>
+                </div>
+                <div id="dread-output" class="demo-output" style="font-size: 1.2em; text-align: center;">
+                    <strong>Risk Score: 5.0</strong> - Medium Risk (P2)
+                </div>
+            </div>
+        </div>
+
+        <!-- Other Frameworks Section -->
+        <div id="others" class="content-section">
+            <h2>🔧 Other Frameworks</h2>
+
+            <h3>🔐 LINDDUN (Privacy-Focused)</h3>
+            <div class="quick-ref">
+                <div class="quick-ref-card">
+                    <div class="acronym">L</div>
+                    <div class="meaning">Linkability</div>
+                </div>
+                <div class="quick-ref-card">
+                    <div class="acronym">I</div>
+                    <div class="meaning">Identifiability</div>
+                </div>
+                <div class="quick-ref-card">
+                    <div class="acronym">N</div>
+                    <div class="meaning">Non-repudiation</div>
+                </div>
+                <div class="quick-ref-card">
+                    <div class="acronym">D</div>
+                    <div class="meaning">Detectability</div>
+                </div>
+                <div class="quick-ref-card">
+                    <div class="acronym">D</div>
+                    <div class="meaning">Disclosure</div>
+                </div>
+                <div class="quick-ref-card">
+                    <div class="acronym">U</div>
+                    <div class="meaning">Unawareness</div>
+                </div>
+                <div class="quick-ref-card">
+                    <div class="acronym">N</div>
+                    <div class="meaning">Non-compliance</div>
+                </div>
+            </div>
+            <p style="margin-top: 15px;"><strong>Best for:</strong> GDPR, CCPA, privacy regulations, healthcare, financial services</p>
+
+            <h3>🌳 Attack Trees</h3>
+            <div class="diagram">
+                <pre>
+                  Goal: Steal Customer Database
+                            |
+        ┌───────────────────┼───────────────────┐
+        │                   │                   │
+    Network             Application         Social
+    Attack              Exploit            Engineering
+        │                   │                   │
+    ┌───┴───┐          ┌────┴────┐         ┌───┴───┐
+    │       │          │         │         │       │
+  WiFi    VPN      SQL Inj   File        Phish  Bribe
+  Crack   Exploit            Upload      Admin  Employee
+
+Cost: $ = Low, $ = Medium, $$ = High, $$ = Critical
+Skill: Basic → Intermediate → Advanced → Expert
+                </pre>
+            </div>
+            <p><strong>Best for:</strong> Visual communication, executive presentations, specific asset protection</p>
+
+            <h3>🌐 OWASP Top 10</h3>
+            <div class="framework-grid">
+                <div class="framework-card">
+                    <h4>A01: Broken Access Control</h4>
+                    <p>Restrictions not properly enforced</p>
+                </div>
+                <div class="framework-card">
+                    <h4>A02: Cryptographic Failures</h4>
+                    <p>Weak or missing encryption</p>
+                </div>
+                <div class="framework-card">
+                    <h4>A03: Injection</h4>
+                    <p>SQL, NoSQL, OS command injection</p>
+                </div>
+                <div class="framework-card">
+                    <h4>A04: Insecure Design</h4>
+                    <p>Missing security controls</p>
+                </div>
+                <div class="framework-card">
+                    <h4>A05: Security Misconfiguration</h4>
+                    <p>Default configs, verbose errors</p>
+                </div>
+                <div class="framework-card">
+                    <h4>A06: Vulnerable Components</h4>
+                    <p>Outdated libraries, dependencies</p>
+                </div>
+            </div>
+            <p><strong>Best for:</strong> Web applications, developer training, security checklists</p>
+
+            <h3>⚔️ MITRE ATT&CK</h3>
+            <div class="diagram">
+                <pre>
+    Initial Access → Execution → Persistence → Privilege Escalation
+         ↓              ↓            ↓                  ↓
+    Phishing      PowerShell    Registry         Process Injection
+    Exploit       Command       Scheduled Task    Valid Accounts
+         ↓              ↓            ↓                  ↓
+    Defense Evasion → Credential Access → Discovery → Lateral Movement
+         ↓                   ↓               ↓              ↓
+    Obfuscation      Credential Dump   Network Scan   Remote Services
+         ↓                   ↓               ↓              ↓
+              Collection → Exfiltration → Impact
+                   ↓             ↓            ↓
+              Data Staged   Over C2      Ransomware
+                </pre>
+            </div>
+            <p><strong>Best for:</strong> Threat intelligence, detection engineering, red teaming</p>
+        </div>
+
+        <!-- Comparison Section -->
+        <div id="comparison" class="content-section">
+            <h2>📊 Framework Comparison</h2>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Framework</th>
+                        <th>Complexity</th>
+                        <th>Time</th>
+                        <th>Team Size</th>
+                        <th>Best For</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>STRIDE</strong></td>
+                        <td><span class="tag medium">Medium</span></td>
+                        <td>2-4 weeks</td>
+                        <td>3-5</td>
+                        <td>General purpose, design phase</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PASTA</strong></td>
+                        <td><span class="tag high">High</span></td>
+                        <td>4-8 weeks</td>
+                        <td>5-10</td>
+                        <td>Business alignment, ROI</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DREAD</strong></td>
+                        <td><span class="tag low">Low</span></td>
+                        <td>1-2 weeks</td>
+                        <td>2-3</td>
+                        <td>Risk scoring, prioritization</td>
+                    </tr>
+                    <tr>
+                        <td><strong>LINDDUN</strong></td>
+                        <td><span class="tag medium">Medium</span></td>
+                        <td>2-4 weeks</td>
+                        <td>3-5</td>
+                        <td>Privacy compliance, GDPR</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Attack Trees</strong></td>
+                        <td><span class="tag low">Low-Med</span></td>
+                        <td>1-3 weeks</td>
+                        <td>2-4</td>
+                        <td>Visual communication</td>
+                    </tr>
+                    <tr>
+                        <td><strong>OWASP Top 10</strong></td>
+                        <td><span class="tag low">Low</span></td>
+                        <td>1 week</td>
+                        <td>2-3</td>
+                        <td>Web apps, dev training</td>
+                    </tr>
+                    <tr>
+                        <td><strong>MITRE ATT&CK</strong></td>
+                        <td><span class="tag high">High</span></td>
+                        <td>Ongoing</td>
+                        <td>4-8</td>
+                        <td>Threat intel, detection</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>🎯 When to Use Which Framework</h3>
+            <div class="framework-grid">
+                <div class="framework-card" style="border-left-color: #3498db;">
+                    <h4>Choose STRIDE when:</h4>
+                    <ul>
+                        <li>Starting threat modeling</li>
+                        <li>Need comprehensive coverage</li>
+                        <li>In design/architecture phase</li>
+                        <li>Mixed security expertise team</li>
+                    </ul>
+                </div>
+
+                <div class="framework-card" style="border-left-color: #e74c3c;">
+                    <h4>Choose PASTA when:</h4>
+                    <ul>
+                        <li>Need business justification</li>
+                        <li>Want attacker perspective</li>
+                        <li>Mature security program</li>
+                        <li>Risk quantification needed</li>
+                    </ul>
+                </div>
+
+                <div class="framework-card" style="border-left-color: #f39c12;">
+                    <h4>Choose DREAD when:</h4>
+                    <ul>
+                        <li>Quick prioritization needed</li>
+                        <li>Limited resources</li>
+                        <li>Want quantitative scores</li>
+                        <li>Already identified threats</li>
+                    </ul>
+                </div>
+
+                <div class="framework-card" style="border-left-color: #9b59b6;">
+                    <h4>Choose LINDDUN when:</h4>
+                    <ul>
+                        <li>Privacy-sensitive systems</li>
+                        <li>GDPR/CCPA compliance</li>
+                        <li>Handling personal data</li>
+                        <li>Healthcare/finance apps</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>🔗 Hybrid Approaches</h3>
+            <div class="use-case">
+                <h4>Popular Combinations:</h4>
+                <p><strong>STRIDE + DREAD:</strong> Identify with STRIDE, prioritize with DREAD</p>
+                <p><strong>PASTA + ATT&CK:</strong> Business analysis + real adversary tactics</p>
+                <p><strong>STRIDE + LINDDUN:</strong> Security + privacy comprehensive coverage</p>
+                <p><strong>OWASP + Attack Trees:</strong> Web app checklist + specific scenarios</p>
+            </div>
+        </div>
+
+        <!-- Use Cases Section -->
+        <div id="usecases" class="content-section">
+            <h2>💼 Real-World Use Cases</h2>
+
+            <div class="use-case" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+                <h4>🛒 E-Commerce Platform (STRIDE + DREAD)</h4>
+                <p><strong>Challenge:</strong> Credential stuffing, payment fraud, DDoS attacks</p>
+                <p><strong>Solution:</strong> MFA, rate limiting, CDN protection, fraud detection</p>
+                <div style="margin-top: 10px;">
+                    <span class="metric good">94% ↓ account takeovers</span>
+                    <span class="metric good">$2M → $200K fraud losses</span>
+                    <span class="metric good">99.98% uptime</span>
+                    <span class="metric good">1,200% ROI</span>
+                </div>
+            </div>
+
+            <div class="use-case" style="background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
+                <h4>🏥 Healthcare Portal (PASTA + LINDDUN)</h4>
+                <p><strong>Challenge:</strong> HIPAA compliance, insider threats, privacy violations</p>
+                <p><strong>Solution:</strong> Zero trust, UEBA, access notifications, encryption</p>
+                <div style="margin-top: 10px;">
+                    <span class="metric good">Zero breaches in 2 years</span>
+                    <span class="metric good">HIPAA audit passed</span>
+                    <span class="metric good">92% privacy satisfaction</span>
+                    <span class="metric good">$4-7M saved</span>
+                </div>
+            </div>
+
+            <div class="use-case" style="background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);">
+                <h4>💳 Mobile Banking (STRIDE + OWASP + ATT&CK)</h4>
+                <p><strong>Challenge:</strong> Mobile security, SIM swap, payment fraud</p>
+                <p><strong>Solution:</strong> Certificate pinning, RASP, biometrics, risk scoring</p>
+                <div style="margin-top: 10px;">
+                    <span class="metric good">93% ↓ fraud ($2.5M → $180K)</span>
+                    <span class="metric good">95% ↓ account takeovers</span>
+                    <span class="metric good">4.7★ app rating</span>
+                    <span class="metric good">92% ROI</span>
+                </div>
+            </div>
+
+            <div class="use-case" style="background: linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%);">
+                <h4>🏠 IoT Smart Home (Attack Trees + STRIDE)</h4>
+                <p><strong>Challenge:</strong> Physical security, Z-Wave attacks, camera privacy</p>
+                <p><strong>Solution:</strong> Rolling codes, E2E encryption, tamper detection</p>
+                <div style="margin-top: 10px;">
+                    <span class="metric good">1,247 attacks blocked</span>
+                    <span class="metric good">0 breaches</span>
+                    <span class="metric good">99.8% detection rate</span>
+                    <span class="metric good">89% trust score</span>
+                </div>
+            </div>
+
+            <div class="use-case" style="background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);">
+                <h4>☁️ SaaS Platform (PASTA + ATT&CK)</h4>
+                <p><strong>Challenge:</strong> Supply chain, APT threats, insider risks</p>
+                <p><strong>Solution:</strong> Zero trust, SBOM, SIEM, privileged access mgmt</p>
+                <div style="margin-top: 10px;">
+                    <span class="metric good">47,892 incidents detected</span>
+                    <span class="metric good">MTTD: 3.2 minutes</span>
+                    <span class="metric good">0 successful breaches</span>
+                    <span class="metric good">893% ROI</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Implementation Section -->
+        <div id="implementation" class="content-section">
+            <h2>🚀 Implementation Guide</h2>
+
+            <h3>📅 Implementation Timeline</h3>
+            <div class="diagram">
+                <pre>
+    Month 1: FOUNDATION
+    ├─ Form threat modeling team
+    ├─ Select framework(s)
+    ├─ Gather documentation
+    ├─ Create architecture diagrams
+    └─ Define process
+
+    Month 2-3: ANALYSIS
+    ├─ Identify threats systematically
+    ├─ Assess risks
+    ├─ Prioritize by business impact
+    ├─ Document findings
+    └─ Present to stakeholders
+
+    Month 4-6: MITIGATION
+    ├─ Develop mitigation strategies
+    ├─ Create implementation roadmap
+    ├─ Allocate resources
+    ├─ Begin implementation
+    └─ Track progress
+
+    Month 7-12: OPERATIONALIZE
+    ├─ Complete high-priority mitigations
+    ├─ Integrate into SDLC
+    ├─ Establish review cadence
+    ├─ Measure effectiveness
+    └─ Continuous improvement
+                </pre>
+            </div>
+
+            <h3>✅ Implementation Checklist</h3>
+            <ul class="checklist">
+                <li onclick="toggleCheck(this)">Form cross-functional team (security, dev, product)</li>
+                <li onclick="toggleCheck(this)">Select appropriate framework(s) for your needs</li>
+                <li onclick="toggleCheck(this)">Gather system documentation and diagrams</li>
+                <li onclick="toggleCheck(this)">Create data flow diagrams (DFDs)</li>
+                <li onclick="toggleCheck(this)">Identify trust boundaries and entry points</li>
+                <li onclick="toggleCheck(this)">Apply threat framework systematically</li>
+                <li onclick="toggleCheck(this)">Document all identified threats</li>
+                <li onclick="toggleCheck(this)">Score and prioritize threats (DREAD)</li>
+                <li onclick="toggleCheck(this)">Create mitigation roadmap</li>
+                <li onclick="toggleCheck(this)">Implement quick wins first</li>
+                <li onclick="toggleCheck(this)">Track mitigation progress</li>
+                <li onclick="toggleCheck(this)">Integrate into CI/CD pipeline</li>
+                <li onclick="toggleCheck(this)">Schedule quarterly reviews</li>
+                <li onclick="toggleCheck(this)">Train team on secure development</li>
+                <li onclick="toggleCheck(this)">Measure and report on KPIs</li>
+            </ul>
+
+            <h3>👥 Team Roles</h3>
+            <div class="framework-grid">
+                <div class="framework-card">
+                    <h4>Security Architect</h4>
+                    <p>Leads sessions, ensures methodology</p>
+                </div>
+                <div class="framework-card">
+                    <h4>Software Architect</h4>
+                    <p>System design expertise</p>
+                </div>
+                <div class="framework-card">
+                    <h4>Developers</h4>
+                    <p>Implementation details, feasibility</p>
+                </div>
+                <div class="framework-card">
+                    <h4>Product Owner</h4>
+                    <p>Business requirements, priorities</p>
+                </div>
+                <div class="framework-card">
+                    <h4>QA/Security Testing</h4>
+                    <p>Validation, verification</p>
+                </div>
+                <div class="framework-card">
+                    <h4>Compliance Officer</h4>
+                    <p>Regulatory requirements</p>
+                </div>
+            </div>
+
+            <h3>🎯 Success Metrics</h3>
+            <div class="use-case" style="background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);">
+                <h4>Track These KPIs:</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-top: 15px;">
+                    <div class="metric good">Threats Identified</div>
+                    <div class="metric good">Risks Mitigated</div>
+                    <div class="metric good">Mean Time to Detect</div>
+                    <div class="metric good">Mean Time to Respond</div>
+                    <div class="metric good">Security Incidents</div>
+                    <div class="metric good">Vulnerability Backlog</div>
+                    <div class="metric good">Coverage %</div>
+                    <div class="metric good">ROI Calculation</div>
+                </div>
+            </div>
+
+            <h3>🔄 Continuous Threat Modeling</h3>
+            <div class="diagram">
+                <pre>
+         Monitor → Detect → Assess → Update → Implement
+            ↑                                      ↓
+            └──────────────────────────────────────┘
+
+    TRIGGERS FOR RE-ASSESSMENT:
+    ✓ Major feature releases
+    ✓ Architecture changes
+    ✓ New third-party integrations
+    ✓ Security incidents
+    ✓ New threat intelligence
+    ✓ Regulatory changes
+    ✓ Quarterly review (minimum)
+                </pre>
+            </div>
+
+            <h3>🛠️ Recommended Tools</h3>
+            <div class="framework-grid">
+                <div class="framework-card">
+                    <h4>Free Tools</h4>
+                    <ul>
+                        <li>Microsoft Threat Modeling Tool</li>
+                        <li>OWASP Threat Dragon</li>
+                        <li>Threagile</li>
+                    </ul>
+                </div>
+                <div class="framework-card">
+                    <h4>Commercial Tools</h4>
+                    <ul>
+                        <li>ThreatModeler</li>
+                        <li>IriusRisk</li>
+                        <li>SD Elements</li>
+                    </ul>
+                </div>
+                <div class="framework-card">
+                    <h4>Learning Resources</h4>
+                    <ul>
+                        <li>OWASP Training</li>
+                        <li>Threat Modeling Manifesto</li>
+                        <li>Adam Shostack's Book</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>💡 Quick Tips for Success</h3>
+            <div class="use-case">
+                <h4>Best Practices:</h4>
+                <p>✓ <strong>Start small:</strong> Pick one system, prove value, expand</p>
+                <p>✓ <strong>Document everything:</strong> Future you will thank present you</p>
+                <p>✓ <strong>Automate what you can:</strong> Integrate into CI/CD</p>
+                <p>✓ <strong>Make it collaborative:</strong> Security is everyone's responsibility</p>
+                <p>✓ <strong>Measure and improve:</strong> Track metrics, show value</p>
+                <p>✓ <strong>Keep it simple:</strong> Perfect is the enemy of good</p>
+                <p>✓ <strong>Think like an attacker:</strong> "How would I break this?"</p>
+            </div>
+
+            <h3>🎓 Key Takeaways</h3>
+            <div class="framework-grid">
+                <div class="framework-card" style="border-left-color: #00b894;">
+                    <h4>Prevention > Detection</h4>
+                    <p>Finding threats early is 60-100x cheaper than fixing post-production</p>
+                </div>
+                <div class="framework-card" style="border-left-color: #00b894;">
+                    <h4>No Perfect Framework</h4>
+                    <p>Combine frameworks based on your specific needs and context</p>
+                </div>
+                <div class="framework-card" style="border-left-color: #00b894;">
+                    <h4>Continuous Process</h4>
+                    <p>Not one-time exercise - threat landscape evolves constantly</p>
+                </div>
+                <div class="framework-card" style="border-left-color: #00b894;">
+                    <h4>Business Enabler</h4>
+                    <p>Security is competitive advantage, not just cost center</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab Navigation
+        function showTab(tabId) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // STRIDE Interactive Demo
+        function analyzeSTRIDE(component) {
+            const analyses = {
+                login: `
+<strong>STRIDE Analysis: Login Page</strong>
+
+<span style="color: #e74c3c;">S - Spoofing:</span> ⚠️ HIGH
+   → Stolen credentials, session hijacking
+   → FIX: MFA, secure session tokens
+
+<span style="color: #e74c3c;">T - Tampering:</span> ⚠️ MEDIUM
+   → Form data manipulation
+   → FIX: Server-side validation, CSRF tokens
+
+<span style="color: #f39c12;">R - Repudiation:</span> ⚠️ MEDIUM
+   → Deny login attempts
+   → FIX: Comprehensive audit logs
+
+<span style="color: #e74c3c;">I - Information Disclosure:</span> ⚠️ HIGH
+   → Verbose error messages
+   → FIX: Generic errors, rate limiting
+
+<span style="color: #e74c3c;">D - Denial of Service:</span> ⚠️ HIGH
+   → Brute force attacks
+   → FIX: Rate limiting, CAPTCHA
+
+<span style="color: #e74c3c;">E - Elevation of Privilege:</span> ⚠️ CRITICAL
+   → Bypass authentication
+   → FIX: Secure coding, penetration testing`,
+                
+                api: `
+<strong>STRIDE Analysis: API Endpoint</strong>
+
+<span style="color: #e74c3c;">S - Spoofing:</span> ⚠️ HIGH
+   → Fake API requests
+   → FIX: API keys, OAuth, JWT tokens
+
+<span style="color: #e74c3c;">T - Tampering:</span> ⚠️ CRITICAL
+   → Modify request/response data
+   → FIX: HTTPS, request signing, integrity checks
+
+<span style="color: #f39c12;">R - Repudiation:</span> ⚠️ LOW
+   → Deny API calls
+   → FIX: Detailed logging, transaction IDs
+
+<span style="color: #e74c3c;">I - Information Disclosure:</span> ⚠️ CRITICAL
+   → Exposed sensitive data
+   → FIX: Encryption, least privilege, data masking
+
+<span style="color: #e74c3c;">D - Denial of Service:</span> ⚠️ HIGH
+   → API flooding
+   → FIX: Rate limiting, throttling, quotas
+
+<span style="color: #e74c3c;">E - Elevation of Privilege:</span> ⚠️ HIGH
+   → Access unauthorized resources
+   → FIX: RBAC, parameter validation`,
+
+                database: `
+<strong>STRIDE Analysis: Database</strong>
+
+<span style="color: #f39c12;">S - Spoofing:</span> ⚠️ MEDIUM
+   → Fake database connections
+   → FIX: Connection string encryption, certificates
+
+<span style="color: #e74c3c;">T - Tampering:</span> ⚠️ CRITICAL
+   → SQL injection, data modification
+   → FIX: Parameterized queries, stored procedures
+
+<span style="color: #f39c12;">R - Repudiation:</span> ⚠️ MEDIUM
+   → Deny data changes
+   → FIX: Database audit logs, triggers
+
+<span style="color: #e74c3c;">I - Information Disclosure:</span> ⚠️ CRITICAL
+   → Database dumps, unauthorized access
+   → FIX: Encryption at rest, access controls, TDE
+
+<span style="color: #e74c3c;">D - Denial of Service:</span> ⚠️ HIGH
+   → Query overload, resource exhaustion
+   → FIX: Query optimization, connection pooling
+
+<span style="color: #f39c12;">E - Elevation of Privilege:</span> ⚠️ MEDIUM
+   → Gain DBA access
+   → FIX: Principle of least privilege, separate accounts`,
+
+                payment: `
+<strong>STRIDE Analysis: Payment System</strong>
+
+<span style="color: #e74c3c;">S - Spoofing:</span> ⚠️ CRITICAL
+   → Fake payment gateway
+   → FIX: Certificate pinning, domain validation
+
+<span style="color: #e74c3c;">T - Tampering:</span> ⚠️ CRITICAL
+   → Modify payment amounts
+   → FIX: Server-side validation, signed tokens
+
+<span style="color: #e74c3c;">R - Repudiation:</span> ⚠️ HIGH
+   → Deny transactions
+   → FIX: Digital receipts, blockchain, audit trail
+
+<span style="color: #e74c3c;">I - Information Disclosure:</span> ⚠️ CRITICAL
+   → Credit card data exposure
+   → FIX: PCI-DSS, tokenization, no card data storage
+
+<span style="color: #f39c12;">D - Denial of Service:</span> ⚠️ MEDIUM
+   → Payment system unavailable
+   → FIX: Redundancy, failover, queue system
+
+<span style="color: #e74c3c;">E - Elevation of Privilege:</span> ⚠️ CRITICAL
+   → Access admin payment functions
+   → FIX: Strong authentication, separation of duties`
+            };
+
+            document.getElementById('stride-output').innerHTML = analyses[component];
+        }
+
+        // DREAD Calculator
+        function calculateDREAD() {
+            const d = parseInt(document.getElementById('damage').value);
+            const r = parseInt(document.getElementById('reproducibility').value);
+            const e = parseInt(document.getElementById('exploitability').value);
+            const a = parseInt(document.getElementById('affected').value);
+            const disc = parseInt(document.getElementById('discoverability').value);
+
+            document.getElementById('damage-val').textContent = d;
+            document.getElementById('reproducibility-val').textContent = r;
+            document.getElementById('exploitability-val').textContent = e;
+            document.getElementById('affected-val').textContent = a;
+            document.getElementById('discoverability-val').textContent = disc;
+
+            const risk = ((d + r + e + a + disc) / 5).toFixed(1);
+            let level, priority, color;
+
+            if (risk >= 9) {
+                level = 'Critical';
+                priority = 'P0 - Immediate Action';
+                color = '#d63031';
+            } else if (risk >= 7) {
+                level = 'High';
+                priority = 'P1 - 1-3 months';
+                color = '#e17055';
+            } else if (risk >= 4) {
+                level = 'Medium';
+                priority = 'P2 - 3-6 months';
+                color = '#fdcb6e';
+            } else {
+                level = 'Low';
+                priority = 'P3 - 6-12 months';
+                color = '#00b894';
+            }
+
+            document.getElementById('dread-output').innerHTML = `
+                <strong style="font-size: 1.5em; color: ${color}">Risk Score: ${risk}</strong><br>
+                <span style="color: ${color}; font-weight: bold;">${level} Risk</span> - ${priority}
+            `;
+        }
+
+        // Checklist Toggle
+        function toggleCheck(element) {
+            element.classList.toggle('checked');
+        }
+
+        // Initialize DREAD calculator
+        calculateDREAD();
+
+        // Add smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add animation on scroll for framework cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '0';
+                    entry.target.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        entry.target.style.transition = 'all 0.5s ease';
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, 100);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.framework-card, .use-case').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case '1':
+                        e.preventDefault();
+                        showTabById('overview');
+                        break;
+                    case '2':
+                        e.preventDefault();
+                        showTabById('stride');
+                        break;
+                    case '3':
+                        e.preventDefault();
+                        showTabById('pasta');
+                        break;
+                    case '4':
+                        e.preventDefault();
+                        showTabById('dread');
+                        break;
+                }
+            }
+        });
+
+        function showTabById(tabId) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+            const buttons = document.querySelectorAll('.tab-btn');
+            const tabOrder = ['overview', 'stride', 'pasta', 'dread', 'others', 'comparison', 'usecases', 'implementation'];
+            const index = tabOrder.indexOf(tabId);
+            if (index >= 0 && buttons[index]) {
+                buttons[index].classList.add('active');
+            }
+        }
+
+        // Print current date for reference
+        console.log('Threat Modeling Guide loaded:', new Date().toLocaleDateString());
+        console.log('Keyboard shortcuts: Ctrl+1 (Overview), Ctrl+2 (STRIDE), Ctrl+3 (PASTA), Ctrl+4 (DREAD)');
+    </script>
+
+    <footer style="text-align: center; padding: 40px 20px; color: white; margin-top: 50px;">
+        <p style="font-size: 1.1em; margin-bottom: 10px;">
+            <strong>🛡️ Remember: "The best time to start threat modeling was yesterday. The second-best time is today."</strong>
+        </p>
+        <p style="opacity: 0.8;">
+            Proactive security saves 60-100x the cost of reactive fixes
+        </p>
+        <p style="opacity: 0.6; margin-top: 20px; font-size: 0.9em;">
+            Interactive Threat Modeling Guide | Use arrow keys or tabs to navigate
+        </p>
+    </footer>
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Threat Modeling Frameworks - Interactive Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tab-btn {
+            background: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+
+        .content-section {
+            display: none;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin: 25px 0 15px;
+            font-size: 1.5em;
+        }
+
+        .framework-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .framework-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .framework-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .framework-card h4 {
+            color: #667eea;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+
+        .framework-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .framework-card li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .framework-card li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .diagram {
+            background: #f8f9fa;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .diagram pre {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #333;
+            white-space: pre;
+        }
+
+        .use-case {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 5px solid #f5576c;
+        }
+
+        .use-case h4 {
+            color: #d63031;
+            margin-bottom: 15px;
+        }
+
+        .metric {
+            display: inline-block;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            margin: 5px;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .metric.good {
+            border-left: 4px solid #00b894;
+        }
+
+        .metric.critical {
+            border-left: 4px solid #d63031;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .comparison-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .comparison-table tr:hover {
+            background: #f5f7fa;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 2px;
+        }
+
+        .tag.high {
+            background: #ff7675;
+            color: white;
+        }
+
+        .tag.medium {
+            background: #fdcb6e;
+            color: #333;
+        }
+
+        .tag.low {
+            background: #55efc4;
+            color: #333;
+        }
+
+        .interactive-demo {
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+
+        .demo-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .demo-btn {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .demo-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .demo-output {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            min-height: 100px;
+            font-family: monospace;
+        }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checklist li {
+            padding: 12px;
+            margin: 8px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .checklist li:before {
+            content: "☐";
+            position: absolute;
+            left: 12px;
+            font-size: 1.5em;
+            color: #667eea;
+        }
+
+        .checklist li.checked {
+            background: #d5f4e6;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .checklist li.checked:before {
+            content: "☑";
+            color: #00b894;
+        }
+
+        .quick-ref {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .quick-ref-card {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .quick-ref-card .acronym {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .quick-ref-card .meaning {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .framework-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+            .tab-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛡️ Threat Modeling Frameworks</h1>
+            <p>Proactive Security Through Structured Analysis</p>
+        </header>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
+            <button class="tab-btn" onclick="showTab('stride')">STRIDE</button>
+            <button class="tab-btn" onclick="showTab('pasta')">PASTA</button>
+            <button class="tab-btn" onclick="showTab('dread')">DREAD</button>
+            <button class="tab-btn" onclick="showTab('others')">Other Frameworks</button>
+            <button class="tab-btn" onclick="showTab('comparison')">Comparison</button>
+            <button class="tab-btn" onclick="showTab('usecases')">Use Cases</button>
+            <button class="tab-btn" onclick="showTab('implementation')">Implementation</button>
+        </div>
+
+        <!-- Overview Section -->
+        <div id="overview" class="content-section active">
+            <h2>🎯 What is Threat Modeling?</h2>
+            <p style="font-size: 1.1em; margin-bottom: 20px;">
+                <strong>Threat modeling</strong> is a structured approach to identify, assess, and mitigate security threats before they become real problems. Think like an attacker to build better defenses.
+            </p>
+
+            <div class="framework-grid">
+                <div class="framework-card">
+                    <h4>Why Threat Model?</h4>
+                    <ul>
+                        <li>Find vulnerabilities early</li>
+                        <li>60-100x cheaper than fixing post-production</li>
+                        <li>Prioritize security efforts</li>
+                        <li>Meet compliance requirements</li>
+                        <li>Build stakeholder trust</li>
+                    </ul>
+                </div>
+
+                <div class="framework-card">
+                    <h4>When to Model?</h4>
+                    <ul>
+                        <li>During system design</li>
+                        <li>Before major releases</li>
+                        <li>After infrastructure changes</li>
+                        <li>During security audits</li>
+                        <li>Annual reviews minimum</li>
+                    </ul>
+                </div>
+
+                <div class="framework-card">
+                    <h4>Key Benefits</h4>
+                    <ul>
+                        <li>60-90% fewer incidents</li>
+                        <li>Faster time to market</li>
+                        <li>Lower remediation costs</li>
+                        <li>Competitive advantage</li>
+                        <li>Customer confidence</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>📊 Threat Modeling Process</h3>
+            <div class="diagram">
+                <pre>
+    1. IDENTIFY ASSETS          2. ARCHITECTURE        3. IDENTIFY THREATS
+       What to protect?            Map the system          Find vulnerabilities
+           │                            │                         │
+           └────────────────────────────┼─────────────────────────┘
+                                        │
+                                        ↓
+    4. ASSESS RISKS             5. MITIGATE            6. VALIDATE
+       Prioritize threats          Implement fixes         Test & review
+                </pre>
+            </div>
+
+            <h3>🎓 Popular Frameworks Quick Reference</h3>
+            <div class="quick-ref">
+                <div class="quick-ref-card">
+                    <div class="acronym">STRIDE</div>
+                    <div class="meaning">Microsoft's 6-category model</div>
+                </div>
+                <div class="quick-ref-card">
+                    <div class="acronym">PASTA</div>
+                    <div class="meaning">7-stage risk-centric</div>
+                </div>
+                <div class="quick-ref-card">
+                    <div class="acronym">DREAD</div>
+                    <div class="meaning">Risk scoring system</div>
+                </div>
+                <div class="quick-ref-card">
+                    <div class="acronym">LINDDUN</div>
+                    <div class="meaning">Privacy-focused threats</div>
+                </div>
+                <div class="quick-ref-card">
+                    <div class="acronym">ATT&CK</div>
+                    <div class="meaning">Real attacker tactics</div>
+                </div>
+                <div class="quick-ref-card">
+                    <div class="acronym">OWASP</div>
+                    <div class="meaning">Top web vulnerabilities</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- STRIDE Section -->
+        <div id="stride" class="content-section">
+            <h2>🔐 STRIDE Framework (Microsoft)</h2>
+            <p style="font-size: 1.1em; margin-bottom: 20px;">
+                <strong>Most widely used framework.</strong> Categorizes threats into 6 types for comprehensive coverage.
+            </p>
+
+            <div class="quick-ref">
+                <div class="quick-ref-card">
+                    <div class="acronym">S</div>
+                    <div class="meaning">Spoofing Identity</div>
+                </div>
+                <div class="quick-ref-card">
+                    <div class="acronym">T</div>
+                    <div class="meaning">Tampering Data</div>
+                </div>
+                <div class="quick-ref-card">
+                    <div class="acronym">R</div>
+                    <div class="meaning">Repudiation</div>
+                </div>
+                <div class="quick-ref-card">
+                    <div class="acronym">I</div>
+                    <div class="meaning">Information Disclosure</div>
+                </div>
+                <div class="quick-ref-card">
+                    <div class="acronym">D</div>
+                    <div class="meaning">Denial of Service</div>
+                </div>
+                <div class="quick-ref-card">
+                    <div class="acronym">E</div>
+                    <div class="meaning">Elevation of Privilege</div>
+                </div>
+            </div>
+
+            <h3>💡 STRIDE Categories Explained</h3>
+            <div class="framework-grid">
+                <div class="framework-card">
+                    <h4>S - Spoofing</h4>
+                    <p><strong>Threat:</strong> Fake identity</p>
+                    <p><strong>Example:</strong> Stolen credentials, session hijacking</p>
+                    <p><strong>Fix:</strong> MFA, certificates, tokens</p>
+                </div>
+
+                <div class="framework-card">
+                    <h4>T - Tampering</h4>
+                    <p><strong>Threat:</strong> Data modification</p>
+                    <p><strong>Example:</strong> SQL injection, price manipulation</p>
+                    <p><strong>Fix:</strong> Input validation, encryption, checksums</p>
+                </div>
+
+                <div class="framework-card">
+                    <h4>R - Repudiation</h4>
+                    <p><strong>Threat:</strong> Deny actions</p>
+                    <p><strong>Example:</strong> No audit trail, missing logs</p>
+                    <p><strong>Fix:</strong> Logging, digital signatures, blockchain</p>
+                </div>
+
+                <div class="framework-card">
+                    <h4>I - Information Disclosure</h4>
+                    <p><strong>Threat:</strong> Data exposure</p>
+                    <p><strong>Example:</strong> Database leaks, exposed APIs</p>
+                    <p><strong>Fix:</strong> Encryption, least privilege, DLP</p>
+                </div>
+
+                <div class="framework-card">
+                    <h4>D - Denial of Service</h4>
+                    <p><strong>Threat:</strong> System unavailable</p>
+                    <p><strong>Example:</strong> DDoS, resource exhaustion</p>
+                    <p><strong>Fix:</strong> Rate limiting, CDN, auto-scaling</p>
+                </div>
+
+                <div class="framework-card">
+                    <h4>E - Elevation of Privilege</h4>
+                    <p><strong>Threat:</strong> Unauthorized access</p>
+                    <p><strong>Example:</strong> Buffer overflow, admin bypass</p>
+                    <p><strong>Fix:</strong> RBAC, least privilege, patching</p>
+                </div>
+            </div>
+
+            <h3>🔄 STRIDE Process Flow</h3>
+            <div class="diagram">
+                <pre>
+    Step 1: Create Architecture Diagram
+            ↓
+    Step 2: Identify Components & Data Flows
+            ↓
+    Step 3: Apply STRIDE to Each Element
+            │
+            ├─→ Is identity spoofable? (S)
+            ├─→ Can data be tampered? (T)
+            ├─→ Can actions be denied? (R)
+            ├─→ Can info be disclosed? (I)
+            ├─→ Can service be denied? (D)
+            └─→ Can privilege escalate? (E)
+            ↓
+    Step 4: Document Threats
+            ↓
+    Step 5: Prioritize & Mitigate
+                </pre>
+            </div>
+
+            <h3>🎮 Interactive STRIDE Demo</h3>
+            <div class="interactive-demo">
+                <h4>Click a component to analyze threats:</h4>
+                <div class="demo-controls">
+                    <button class="demo-btn" onclick="analyzeSTRIDE('login')">Login Page</button>
+                    <button class="demo-btn" onclick="analyzeSTRIDE('api')">API Endpoint</button>
+                    <button class="demo-btn" onclick="analyzeSTRIDE('database')">Database</button>
+                    <button class="demo-btn" onclick="analyzeSTRIDE('payment')">Payment System</button>
+                </div>
+                <div id="stride-output" class="demo-output">
+                    Click a component to see STRIDE analysis...
+                </div>
+            </div>
+        </div>
+
+        <!-- PASTA Section -->
+        <div id="pasta" class="content-section">
+            <h2>🍝 PASTA Framework</h2>
+            <p style="font-size: 1.1em; margin-bottom: 20px;">
+                <strong>Process for Attack Simulation and Threat Analysis.</strong> Risk-centric, 7-stage methodology linking security to business impact.
+            </p>
+
+            <h3>📋 The 7 Stages</h3>
+            <div class="framework-grid">
+                <div class="framework-card" style="border-left-color: #e74c3c;">
+                    <h4>1. Define Objectives (DO)</h4>
+                    <ul>
+                        <li>Business goals</li>
+                        <li>Compliance needs</li>
+                        <li>Risk tolerance</li>
+                    </ul>
+                </div>
+
+                <div class="framework-card" style="border-left-color: #e67e22;">
+                    <h4>2. Define Technical Scope (DTS)</h4>
+                    <ul>
+                        <li>Architecture</li>
+                        <li>Technology stack</li>
+                        <li>Asset inventory</li>
+                    </ul>
+                </div>
+
+                <div class="framework-card" style="border-left-color: #f39c12;">
+                    <h4>3. Application Decomposition (AD)</h4>
+                    <ul>
+                        <li>Data flows</li>
+                        <li>Trust boundaries</li>
+                        <li>Entry/exit points</li>
+                    </ul>
+                </div>
+
+                <div class="framework-card" style="border-left-color: #27ae60;">
+                    <h4>4. Threat Analysis (TA)</h4>
+                    <ul>
+                        <li>Threat intelligence</li>
+                        <li>Attacker profiles</li>
+                        <li>Attack patterns</li>
+                    </ul>
+                </div>
+
+                <div class="framework-card" style="border-left-color: #3498db;">
+                    <h4>5. Vulnerability Analysis (VA)</h4>
+                    <ul>
+                        <li>Vulnerability scanning</li>
+                        <li>Code review</li>
+                        <li>Config analysis</li>
+                    </ul>
+                </div>
+
+                <div class="framework-card" style="border-left-color: #9b59b6;">
+                    <h4>6. Attack Modeling (AM)</h4>
+                    <ul>
+                        <li>Attack trees</li>
+                        <li>Simulation</li>
+                        <li>Exploitation paths</li>
+                    </ul>
+                </div>
+
+                <div class="framework-card" style="border-left-color: #34495e;">
+                    <h4>7. Risk & Impact Analysis (RIA)</h4>
+                    <ul>
+                        <li>Risk scoring</li>
+                        <li>Prioritization</li>
+                        <li>Remediation plan</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>🎯 PASTA Process Flow</h3>
+            <div class="diagram">
+                <pre>
+    Business Layer          Technical Layer         Operational Layer
+         │                       │                        │
+    ┌────▼────┐            ┌─────▼─────┐           ┌─────▼─────┐
+    │ Stage 1 │            │ Stage 2   │           │ Stage 4   │
+    │Objectives│           │Tech Scope │           │  Threats  │
+    └─────────┘            └───────────┘           └───────────┘
+         │                       │                        │
+    ┌────▼────┐            ┌─────▼─────┐           ┌─────▼─────┐
+    │ Stage 3 │            │ Stage 5   │           │ Stage 6   │
+    │Decompose│            │Vulnerabil.│           │Attack Sim │
+    └─────────┘            └───────────┘           └───────────┘
+         │                       │                        │
+         └───────────────────────┴────────────────────────┘
+                                 │
+                            ┌────▼────┐
+                            │ Stage 7 │
+                            │Risk Mgmt│
+                            └─────────┘
+                </pre>
+            </div>
+
+            <h3>💼 Best For</h3>
+            <div class="use-case">
+                <h4>PASTA Excels At:</h4>
+                <span class="metric good">Business-driven security</span>
+                <span class="metric good">ROI justification</span>
+                <span class="metric good">Attack simulation</span>
+                <span class="metric good">Executive reporting</span>
+                <p style="margin-top: 15px;">
+                    <strong>Time Investment:</strong> 4-8 weeks | <strong>Team Size:</strong> 5-10 people
+                </p>
+            </div>
+        </div>
+
+        <!-- DREAD Section -->
+        <div id="dread" class="content-section">
+            <h2>⚠️ DREAD Framework</h2>
+            <p style="font-size: 1.1em; margin-bottom: 20px;">
+                <strong>Quantitative risk scoring model.</strong> Scores threats 0-10 across 5 criteria for prioritization.
+            </p>
+
+            <div class="quick-ref">
+                <div class="quick-ref-card">
+                    <div class="acronym">D</div>
+                    <div class="meaning">Damage Potential</div>
+                </div>
+                <div class="quick-ref-card">
+                    <div class="acronym">R</div>
+                    <div class="meaning">Reproducibility</div>
+                </div>
+                <div class="quick-ref-card">
+                    <div class="acronym">E</div>
+                    <div class="meaning">Exploitability</div>
+                </div>
+                <div class="quick-ref-card">
+                    <div class="acronym">A</div>
+                    <div class="meaning">Affected Users</div>
+                </div>
+                <div class="quick-ref-card">
+                    <div class="acronym">D</div>
+                    <div class="meaning">Discoverability</div>
+                </div>
+            </div>
+
+            <h3>📊 Scoring Guide</h3>
+            <div class="framework-grid">
+                <div class="framework-card">
+                    <h4>Damage (0-10)</h4>
+                    <p><strong>0-2:</strong> Minor inconvenience</p>
+                    <p><strong>3-5:</strong> Limited damage</p>
+                    <p><strong>6-8:</strong> Significant loss</p>
+                    <p><strong>9-10:</strong> Complete compromise</p>
+                </div>
+
+                <div class="framework-card">
+                    <h4>Reproducibility (0-10)</h4>
+                    <p><strong>0-2:</strong> Very difficult</p>
+                    <p><strong>3-5:</strong> Requires expertise</p>
+                    <p><strong>6-8:</strong> Easy with docs</p>
+                    <p><strong>9-10:</strong> Works every time</p>
+                </div>
+
+                <div class="framework-card">
+                    <h4>Exploitability (0-10)</h4>
+                    <p><strong>0-2:</strong> Advanced skills needed</p>
+                    <p><strong>3-5:</strong> Moderate skill</p>
+                    <p><strong>6-8:</strong> Basic skills</p>
+                    <p><strong>9-10:</strong> No skill required</p>
+                </div>
+
+                <div class="framework-card">
+                    <h4>Affected Users (0-10)</h4>
+                    <p><strong>0-2:</strong> Single user</p>
+                    <p><strong>3-5:</strong> Small group</p>
+                    <p><strong>6-8:</strong> Significant portion</p>
+                    <p><strong>9-10:</strong> All users</p>
+                </div>
+
+                <div class="framework-card">
+                    <h4>Discoverability (0-10)</h4>
+                    <p><strong>0-2:</strong> Extremely difficult</p>
+                    <p><strong>3-5:</strong> Requires analysis</p>
+                    <p><strong>6-8:</strong> Easy with tools</p>
+                    <p><strong>9-10:</strong> Publicly known</p>
+                </div>
+            </div>
+
+            <h3>🧮 Risk Calculation</h3>
+            <div class="diagram">
+                <pre>
+    Risk Score = (D + R + E + A + D) ÷ 5
+
+    Risk Levels:
+    ├─ 0-3:   Low       → P3 (6-12 months)
+    ├─ 4-6:   Medium    → P2 (3-6 months)
+    ├─ 7-8:   High      → P1 (1-3 months)
+    └─ 9-10:  Critical  → P0 (immediate)
+                </pre>
+            </div>
+
+            <h3>🎮 Interactive DREAD Calculator</h3>
+            <div class="interactive-demo">
+                <h4>Calculate Threat Risk Score:</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 15px;">
+                    <div>
+                        <label><strong>Damage:</strong></label>
+                        <input type="range" id="damage" min="0" max="10" value="5" oninput="calculateDREAD()">
+                        <span id="damage-val">5</span>
+                    </div>
+                    <div>
+                        <label><strong>Reproducibility:</strong></label>
+                        <input type="range" id="reproducibility" min="0" max="10" value="5" oninput="calculateDREAD()">
+                        <span id="reproducibility-val">5</span>
+                    </div>
+                    <div>
+                        <label><strong>Exploitability:</strong></label>
+                        <input type="range" id="exploitability" min="0" max="10" value="5" oninput="calculateDREAD()">
+                        <span id="exploitability-val">5</span>
+                    </div>
+                    <div>
+                        <label><strong>Affected Users:</strong></label>
+                        <input type="range" id="affected" min="0" max="10" value="5" oninput="calculateDREAD()">
+                        <span id="affected-val">5</span>
+                    </div>
+                    <div>
+                        <label><strong>Discoverability:</strong></label>
+                        <input type="range" id="discoverability" min="0" max="10" value="5" oninput="
