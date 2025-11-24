@@ -3,14 +3,383 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Blog — Muktha Purushotham</title>
+  <title>Tech Blog — Muktha Purushotham | Cloud & Security Insights</title>
   <link href="templatemo-personal-style.css" rel="stylesheet">
   <link rel="icon" href="images/about-me-photo.jpeg" type="image/jpeg">
-  <style>.blog-listing { max-width: 900px; margin: 0 auto; } .blog-card { background: #fff; border: 1px solid #e6e9ee; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; box-shadow: var(--shadow-md); transition: transform 0.3s ease, box-shadow 0.3s ease; } .blog-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); } .blog-card h3 { margin-top: 0; font-size: 1.75rem; } .blog-card a { text-decoration: none; color: inherit; } .blog-card-meta { font-size: 0.9rem; color: #64748b; margin-bottom: 1rem; } .blog-card-excerpt { margin-bottom: 1.5rem; } .read-more-btn { display: inline-block; font-weight: 600; color: var(--primary-color); text-decoration: none; } .read-more-btn:hover { text-decoration: underline; }</style>
+  <style>
+    :root {
+      --primary-color: #3a86ff;
+      --secondary-color: #8338ec;
+      --accent-color: #ff006e;
+      --dark-color: #1a1a2e;
+      --light-color: #f8f9fa;
+      --gray-color: #64748b;
+      --border-radius: 12px;
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+      --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f8fafc;
+      margin: 0;
+      padding: 0;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* Navigation */
+    #navbar {
+      background-color: white;
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: var(--dark-color);
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark-color);
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-color);
+    }
+
+    .nav-links a[aria-current="page"] {
+      color: var(--primary-color);
+    }
+
+    .nav-links a[aria-current="page"]::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--primary-color);
+    }
+
+    /* Hero Section */
+    .blog-hero {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 4rem 1.5rem;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .blog-hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .blog-hero h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      font-weight: 800;
+    }
+
+    .blog-hero p {
+      font-size: 1.25rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Blog Listing */
+    .blog-listing {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    .blog-filters {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 50px;
+      padding: 0.5rem 1.25rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .blog-card {
+      background: white;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .blog-card-image {
+      height: 180px;
+      background-color: #e2e8f0;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .blog-card-category {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: var(--primary-color);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .blog-card-content {
+      padding: 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .blog-card h3 {
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+      font-size: 1.25rem;
+      line-height: 1.4;
+    }
+
+    .blog-card a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .blog-card-meta {
+      font-size: 0.85rem;
+      color: var(--gray-color);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .blog-card-excerpt {
+      margin-bottom: 1.5rem;
+      color: #4a5568;
+      flex-grow: 1;
+    }
+
+    .read-more-btn {
+      display: inline-flex;
+      align-items: center;
+      font-weight: 600;
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: var(--transition);
+      margin-top: auto;
+    }
+
+    .read-more-btn:hover {
+      color: var(--secondary-color);
+      transform: translateX(3px);
+    }
+
+    /* Footer */
+    .footer {
+      background-color: var(--dark-color);
+      color: white;
+      padding: 3rem 0 2rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .footer-left p {
+      margin: 0;
+      color: #cbd5e0;
+    }
+
+    .footer-left a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .footer-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .footer-quicklinks {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .footer-quicklinks a {
+      color: #cbd5e0;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+
+    .footer-quicklinks a:hover {
+      color: white;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-container {
+        flex-direction: column;
+        height: auto;
+        padding: 1rem 1.5rem;
+      }
+
+      .nav-links {
+        margin-top: 1rem;
+        gap: 1rem;
+      }
+
+      .blog-hero h1 {
+        font-size: 2.25rem;
+      }
+
+      .blog-hero p {
+        font-size: 1.1rem;
+      }
+
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .footer-right {
+        align-items: center;
+      }
+
+      .footer-quicklinks {
+        justify-content: center;
+      }
+
+      .footer-social {
+        justify-content: center;
+      }
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    .blog-card {
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    /* Category colors */
+    .category-security { background-color: #ff006e; }
+    .category-devsecops { background-color: #3a86ff; }
+    .category-azure { background-color: #8338ec; }
+    .category-osi { background-color: #fb5607; }
+    .category-threat { background-color: #06d6a0; }
+  </style>
 </head>
 
 <body>
   <a class="skip-link visually-hidden" href="#main" aria-label="Skip to main content">Skip to main content</a>
+  
   <nav id="navbar" role="navigation" aria-label="Blog navigation">
     <div class="nav-container">
       <div class="logo">Muktha Purushotham</div>
@@ -20,133 +389,235 @@
         <li><a href="index.html#portfolio">Skills</a></li>
         <li><a href="blog.html" aria-current="page">Blog</a></li>
         <!-- <li><a href="casestudies.html">Case Studies</a></li> -->
-         <li><a href="https://mpurushotham.github.io/my-cybersecurity-journey/#/">My CyberSecurity Journey</a></li>
+        <li><a href="https://mpurushotham.github.io/my-cybersecurity-journey/#/">My CyberSecurity Journey</a></li>
         <li><a href="index.html#contact">Contact</a></li>
       </ul>
     </div>
   </nav>
 
-<section class="container blog-listing">
-  <main id="main">
-    <header class="container">
-      <h2 class="section-title fade-in">Tech Blog Insights</h2>
-      <p class="lead muted" style="text-align: center;">Insights on cloud architecture, DevSecOps, and modern security practices.</p>
-    </header>
-  
-       
-      <!-- Blog Post 1 -->
-      <article class="blog-card">
-        <a href="blog-post-OSI.html">
-          <h3>OSI Layers -Cybersecurity Attacks</h3>
-        </a>
-        <p class="blog-card-meta">Published on August 15, 2024 • 4 min read</p>
-        <p class="blog-card-excerpt">
-          Notes and insights on various OSI layers and related cybersecurity attacks, including best protocols and common challenges.
-        </p>
-        <a href="blog-post-OSI.html" class="read-more-btn">Read More &rarr;</a>
-      </article>
-         
-      <!-- Blog Post 2 -->
-      <article class="blog-card">
-        <a href="blog-post-microsoft-security-defense-in-depth-architecture.html">
-          <h3>Microsoft Security Ecosystem: Defense-in-Depth Architecture-reference draft</h3>
-        </a>
-        <p class="blog-card-meta">Published on Nov 15, 2025 • 5 min read</p>
-        <p class="blog-card-excerpt">
-           defense-in-depth diagram that shows how all Microsoft security components work together in an enterprise environment.
-        </p>
-        <a href="blog-post-microsoft-security-defense-in-depth-architecture.html" class="read-more-btn">Read More &rarr;</a>
-      </article>
+  <!-- Blog Hero Section -->
+  <section class="blog-hero">
+    <div class="blog-hero-content">
+      <h1 class="fade-in">Tech Blog Insights</h1>
+      <p class="fade-in">Expert insights on cloud architecture, DevSecOps, and modern security practices from a cybersecurity professional.</p>
+    </div>
+  </section>
 
-<!-- Blog Post 6 -->
-      <article class="blog-card">
-        <a href="blog-post-threat-modeling.html">
-          <h3>Threat Modeling Framework: STRIDE · PASTA · DREAD</h3>
-        </a>
-        <p class="blog-card-meta">Published on January 15, 2025 • 5 min read</p>
-        <p class="blog-card-excerpt">
-          An interactive reference guide to popular threat modeling frameworks like STRIDE, PASTA, and DREAD, with concise real-world use cases for automotive and e‑commerce systems.
-        </p>
-        <a href="blog-post-threat-modeling.html" class="read-more-btn">Read More &rarr;</a>
-      </article>
+  <section class="blog-listing">
+    <main id="main">
+      <!-- Blog Filters -->
+      <div class="blog-filters">
+        <button class="filter-btn active" data-filter="all">All Posts</button>
+        <button class="filter-btn" data-filter="security">Security</button>
+        <button class="filter-btn" data-filter="devsecops">DevSecOps</button>
+        <button class="filter-btn" data-filter="azure">Azure</button>
+        <button class="filter-btn" data-filter="threat-modeling">Threat Modeling</button>
+      </div>
+      
+      <!-- Blog Grid -->
+      <div class="blog-grid">
+        <!-- Blog Post 1 -->
+        <article class="blog-card" data-category="osi">
+          <div class="blog-card-image" style="background-color: #fef3c7;">
+            <span class="blog-card-category category-osi">OSI Model</span>
+          </div>
+          <div class="blog-card-content">
+            <a href="blog-post-OSI.html">
+              <h3>OSI Layers - Cybersecurity Attacks</h3>
+            </a>
+            <div class="blog-card-meta">
+              <span>August 15, 2024</span> • <span>4 min read</span>
+            </div>
+            <p class="blog-card-excerpt">
+              Notes and insights on various OSI layers and related cybersecurity attacks, including best protocols and common challenges.
+            </p>
+            <a href="blog-post-OSI.html" class="read-more-btn">Read More &rarr;</a>
+          </div>
+        </article>
+           
+        <!-- Blog Post 2 -->
+        <article class="blog-card" data-category="security">
+          <div class="blog-card-image" style="background-color: #dbeafe;">
+            <span class="blog-card-category category-security">Microsoft Security</span>
+          </div>
+          <div class="blog-card-content">
+            <a href="blog-post-microsoft-security-defense-in-depth-architecture.html">
+              <h3>Microsoft Security Ecosystem: Defense-in-Depth Architecture</h3>
+            </a>
+            <div class="blog-card-meta">
+              <span>Nov 15, 2025</span> • <span>5 min read</span>
+            </div>
+            <p class="blog-card-excerpt">
+              Defense-in-depth diagram showing how all Microsoft security components work together in an enterprise environment.
+            </p>
+            <a href="blog-post-microsoft-security-defense-in-depth-architecture.html" class="read-more-btn">Read More &rarr;</a>
+          </div>
+        </article>
 
-      <!-- Blog Post 3 -->
-      <article class="blog-card">
-        <a href="blog-post-microsoft-security.html">
-          <h3>Demystifying the Microsoft Security Ecosystem</h3>
-        </a>
-        <p class="blog-card-meta">Published on May 26, 2025 • 5 min read</p>
-        <p class="blog-card-excerpt">
-          A guide to integrated threat defense using Microsoft Sentinel, Defender, Entra, and Purview to secure your entire digital estate from end to end.
-        </p>
-        <a href="blog-post-microsoft-security.html" class="read-more-btn">Read More &rarr;</a>
-      </article>
+        <!-- Blog Post 3 -->
+        <article class="blog-card" data-category="threat-modeling">
+          <div class="blog-card-image" style="background-color: #dcfce7;">
+            <span class="blog-card-category category-threat">Threat Modeling</span>
+          </div>
+          <div class="blog-card-content">
+            <a href="blog-post-threat-modeling.html">
+              <h3>Threat Modeling Framework: STRIDE · PASTA · DREAD</h3>
+            </a>
+            <div class="blog-card-meta">
+              <span>January 15, 2025</span> • <span>5 min read</span>
+            </div>
+            <p class="blog-card-excerpt">
+              Interactive reference guide to popular threat modeling frameworks with real-world use cases for automotive and e‑commerce systems.
+            </p>
+            <a href="blog-post-threat-modeling.html" class="read-more-btn">Read More &rarr;</a>
+          </div>
+        </article>
 
-      <!-- Blog Post 4 -->
-      <article class="blog-card">
-        <a href="blog-post-devsecops.html">
-          <h3>DevSecOps Automation — A Practical Blueprint</h3>
-        </a>
-        <p class="blog-card-meta">Published on October 15, 2024 • 4 min read</p>
-        <p class="blog-card-excerpt">
-          Practical guidance and a downloadable example pipeline to help you get started with DevSecOps automation and shift-left security.
-        </p>
-        <a href="blog-post-devsecops.html" class="read-more-btn">Read More &rarr;</a>
-      </article>
+        <!-- Blog Post 4 -->
+        <article class="blog-card" data-category="security">
+          <div class="blog-card-image" style="background-color: #e0e7ff;">
+            <span class="blog-card-category category-security">Microsoft Security</span>
+          </div>
+          <div class="blog-card-content">
+            <a href="blog-post-microsoft-security.html">
+              <h3>Demystifying the Microsoft Security Ecosystem</h3>
+            </a>
+            <div class="blog-card-meta">
+              <span>May 26, 2025</span> • <span>5 min read</span>
+            </div>
+            <p class="blog-card-excerpt">
+              Guide to integrated threat defense using Microsoft Sentinel, Defender, Entra, and Purview to secure your entire digital estate.
+            </p>
+            <a href="blog-post-microsoft-security.html" class="read-more-btn">Read More &rarr;</a>
+          </div>
+        </article>
 
-      <!-- Blog Post 5 -->
-      <article class="blog-card">
-        <a href="blog-post-azure-casestudies.html">
-          <h3>Azure Migration Scenario notes</h3>
-        </a>
-        <p class="blog-card-meta">Published on October 15, 2021 • 4 min read</p>
-        <p class="blog-card-excerpt">
-          Notes and insights on various Azure migration scenarios, including best practices and common challenges.
-        </p>
-        <a href="blog-post-azure-casestudies.html" class="read-more-btn">Read More &rarr;</a>
-      </article>
-    
-       <!-- add blogs posts here xxx -->
-    
+        <!-- Blog Post 5 -->
+        <article class="blog-card" data-category="devsecops">
+          <div class="blog-card-image" style="background-color: #f3e8ff;">
+            <span class="blog-card-category category-devsecops">DevSecOps</span>
+          </div>
+          <div class="blog-card-content">
+            <a href="blog-post-devsecops.html">
+              <h3>DevSecOps Automation — A Practical Blueprint</h3>
+            </a>
+            <div class="blog-card-meta">
+              <span>October 15, 2024</span> • <span>4 min read</span>
+            </div>
+            <p class="blog-card-excerpt">
+              Practical guidance and downloadable example pipeline to help you get started with DevSecOps automation and shift-left security.
+            </p>
+            <a href="blog-post-devsecops.html" class="read-more-btn">Read More &rarr;</a>
+          </div>
+        </article>
 
-
-    </section>
-  </main>
+        <!-- Blog Post 6 -->
+        <article class="blog-card" data-category="azure">
+          <div class="blog-card-image" style="background-color: #ffe4e6;">
+            <span class="blog-card-category category-azure">Azure</span>
+          </div>
+          <div class="blog-card-content">
+            <a href="blog-post-azure-casestudies.html">
+              <h3>Azure Migration Scenario Notes</h3>
+            </a>
+            <div class="blog-card-meta">
+              <span>October 15, 2021</span> • <span>4 min read</span>
+            </div>
+            <p class="blog-card-excerpt">
+              Notes and insights on various Azure migration scenarios, including best practices and common challenges.
+            </p>
+            <a href="blog-post-azure-casestudies.html" class="read-more-btn">Read More &rarr;</a>
+          </div>
+        </article>
+        
+        <!-- Add more blog posts here -->
+      </div>
+    </main>
+  </section>
 
   <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-left">
-                    <p>&copy; 2025. Designed and Developed by <a href="https://purushothammuktha.com" style="font-family: 'Courier New', Courier, monospace; font-size: larger;color: peru;"><b>Purushotham Muktha</b></a>. All rights reserved.</p>
-                </div>
-                <div class="footer-right">
-                    <nav aria-label="Footer quick links" class="footer-quicklinks">
-                        <a href="blog.html">Blog</a>
-                        <a href="#featured-work">Projects</a>
-                        <a href="#contact">Contact</a>
-                        <a href="#privacy">Privacy Policy</a>
-                        <a href="#terms">Terms of Use</a>
-                        <a href="#sitemap">Sitemap</a>
-                    </nav>
-                    <div class="footer-social" style="margin-top:0.5rem;">
-                        <a href="https://github.com/Mpurushotham" target="_blank" rel="noopener noreferrer" aria-label="GitHub - Mpurushotham">
-                            <img src="https://img.shields.io/badge/GitHub-Mpurushotham-181717?style=for-the-badge&logo=github" alt="GitHub - Mpurushotham">
-                        </a>
-                        <a href="https://linkedin.com/in/Mpurushotham" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn - Mpurushotham">
-                            <img src="https://img.shields.io/badge/LinkedIn-Mpurushotham-0A66C2?style=for-the-badge&logo=linkedin" alt="LinkedIn - Mpurushotham">
-                        </a>
-                        <a href="mailto:purushotham.muktha@gmail.com" aria-label="Send email to purushotham.muktha@gmail.com">
-                            <img src="https://img.shields.io/badge/Email-Contact%20Me-red?style=for-the-badge&logo=gmail" alt="Email - purushotham.muktha@gmail.com">
-                        </a>
-                        <a href="https://wa.me/+46764561036" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp chat">
-                            <img src="https://img.shields.io/badge/WhatsApp-Chat%20Now-25D366?style=for-the-badge&logo=whatsapp" alt="WhatsApp - Chat Now">
-                        </a>
-                    </div>
-                    <!-- <a href="https://templatemo.com" target="_blank" rel="noopener nofollow">Provided by TemplateMo</a> -->                </div>
-            </div>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-left">
+          <p>&copy; 2025. Designed and Developed by <a href="https://purushothammuktha.com" style="font-family: 'Courier New', Courier, monospace; font-size: larger; color: peru;"><b>Purushotham Muktha</b></a>. All rights reserved.</p>
         </div>
-    </footer>
-        <script src="templatemo-personal-javascripts.js"></script>
+        <div class="footer-right">
+          <nav aria-label="Footer quick links" class="footer-quicklinks">
+            <a href="blog.html">Blog</a>
+            <a href="#featured-work">Projects</a>
+            <a href="#contact">Contact</a>
+            <a href="#privacy">Privacy Policy</a>
+            <a href="#terms">Terms of Use</a>
+            <a href="#sitemap">Sitemap</a>
+          </nav>
+          <div class="footer-social" style="margin-top:0.5rem;">
+            <a href="https://github.com/Mpurushotham" target="_blank" rel="noopener noreferrer" aria-label="GitHub - Mpurushotham">
+              <img src="https://img.shields.io/badge/GitHub-Mpurushotham-181717?style=for-the-badge&logo=github" alt="GitHub - Mpurushotham">
+            </a>
+            <a href="https://linkedin.com/in/Mpurushotham" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn - Mpurushotham">
+              <img src="https://img.shields.io/badge/LinkedIn-Mpurushotham-0A66C2?style=for-the-badge&logo=linkedin" alt="LinkedIn - Mpurushotham">
+            </a>
+            <a href="mailto:purushotham.muktha@gmail.com" aria-label="Send email to purushotham.muktha@gmail.com">
+              <img src="https://img.shields.io/badge/Email-Contact%20Me-red?style=for-the-badge&logo=gmail" alt="Email - purushotham.muktha@gmail.com">
+            </a>
+            <a href="https://wa.me/+46764561036" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp chat">
+              <img src="https://img.shields.io/badge/WhatsApp-Chat%20Now-25D366?style=for-the-badge&logo=whatsapp" alt="WhatsApp - Chat Now">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Filter functionality for blog posts
+    document.addEventListener('DOMContentLoaded', function() {
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      const blogCards = document.querySelectorAll('.blog-card');
+      
+      filterButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          // Remove active class from all buttons
+          filterButtons.forEach(btn => btn.classList.remove('active'));
+          // Add active class to clicked button
+          button.classList.add('active');
+          
+          const filterValue = button.getAttribute('data-filter');
+          
+          blogCards.forEach(card => {
+            if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+      
+      // Add fade-in animation to blog cards
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, observerOptions);
+      
+      blogCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(card);
+      });
+    });
+  </script>
+  <script src="templatemo-personal-javascripts.js"></script>
 </body>
 </html>
