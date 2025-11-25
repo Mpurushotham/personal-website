@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Security Governance | Securing LLMs and Generative AI</title>
+    <style>
+        :root {
+            --primary: #1a237e;
+            --secondary: #283593;
+            --accent: #5c6bc0;
+            --light: #e8eaf6;
+            --dark: #0d1430;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --danger: #f44336;
+            --text: #333;
+            --text-light: #666;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: #f5f7fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 2rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        nav ul li a:hover {
+            color: var(--light);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--light);
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(26, 35, 126, 0.8), rgba(40, 53, 147, 0.9)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%231a237e"/><path d="M0 0L100 100M100 0L0 100" stroke="%235c6bc0" stroke-width="1"/></svg>');
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+        
+        .cta-button:hover {
+            background-color: var(--light);
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        /* Section Styles */
+        section {
+            padding: 5rem 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .section-header p {
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Problem Statement */
+        .problem-statement {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 3rem;
+        }
+        
+        .problem-statement h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        /* OWASP Section */
+        .owasp-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .owasp-item {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 4px solid var(--accent);
+        }
+        
+        .owasp-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .owasp-number {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+        
+        .owasp-item h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .solution {
+            background-color: var(--light);
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+        
+        .solution h4 {
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Implementation Checklist */
+        .checklist-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .checklist-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .checklist-icon {
+            background-color: var(--light);
+            color: var(--primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .checklist-content h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Governance Framework */
+        .framework-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .framework-item {
+            flex: 1;
+            min-width: 300px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        
+        .framework-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            color: var(--light);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 0.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">🛡️</span>
+                    AI Security Governance
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#problem">The Challenge</a></li>
+                        <li><a href="#owasp">OWASP Top 10</a></li>
+                        <li><a href="#checklist">Implementation</a></li>
+                        <li><a href="#framework">Governance</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Securing LLMs and Generative AI Implementations</h1>
+            <p>As organizations adopt AI, the attack surface expands. Security must move from model protection to prompt engineering defense and output validation.</p>
+            <a href="#framework" class="cta-button">Explore Our Framework</a>
+        </div>
+    </section>
+
+    <section id="problem">
+        <div class="container">
+            <div class="section-header">
+                <h2>The Expanding AI Attack Surface</h2>
+                <p>Traditional security approaches fall short when protecting generative AI systems. We need a new paradigm.</p>
+            </div>
+            
+            <div class="problem-statement">
+                <h3>The Challenge</h3>
+                <p>As organizations rapidly adopt Large Language Models (LLMs) and generative AI, they're inadvertently creating new attack vectors that traditional security controls cannot adequately address. The unique characteristics of these systems - their probabilistic nature, training data dependencies, and prompt-based interfaces - require specialized security approaches.</p>
+                <p>Security must evolve from simple model protection to comprehensive defenses spanning prompt engineering, output validation, and continuous monitoring. This requires a systematic approach aligned with frameworks like NIST AI RMF and OWASP Top 10 for LLMs.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="owasp" style="background-color: var(--light);">
+        <div class="container">
+            <div class="section-header">
+                <h2>OWASP LLM Top 10 Defense Strategies</h2>
+                <p>Addressing the most critical security risks for Large Language Model applications</p>
+            </div>
+            
+            <div class="owasp-container">
+                <div class="owasp-item">
+                    <span class="owasp-number">1</span>
+                    <h3>Prompt Injection</h3>
+                    <p>Malicious inputs that manipulate LLM behavior, bypassing filters or executing unauthorized actions.</p>
+                    <div class="solution">
+                        <h4>Defense Strategy</h4>
+                        <p>Use delimiters and parametrized queries to separate instructions from data. Implement input validation and sanitization.</p>
+                    </div>
+                </div>
+                
+                <div class="owasp-item">
+                    <span class="owasp-number">2</span>
+                    <h3>Insecure Output Handling</h3>
+                    <p>Vulnerabilities arising from trusting LLM outputs without proper validation.</p>
+                    <div class="solution">
+                        <h4>Defense Strategy</h4>
+                        <p>Treat LLM output as untrusted user input; encode before rendering. Implement output validation and sanitization.</p>
+                    </div>
+                </div>
+                
+                <div class="owasp-item">
+                    <span class="owasp-number">3</span>
+                    <h3>Training Data Poisoning</h3>
+                    <p>Manipulation of training data to introduce vulnerabilities, backdoors, or biases.</p>
+                    <div class="solution">
+                        <h4>Defense Strategy</h4>
+                        <p>Validate supply chain of data; use Software Bill of Materials (SBOMs) for datasets. Implement data provenance tracking.</p>
+                    </div>
+                </div>
+                
+                <div class="owasp-item">
+                    <span class="owasp-number">4</span>
+                    <h3>Model Denial of Service</h3>
+                    <p>Attacks that consume excessive resources, causing service degradation or increased costs.</p>
+                    <div class="solution">
+                        <h4>Defense Strategy</h4>
+                        <p>Cap context window and resource usage per user. Implement rate limiting and resource monitoring.</p>
+                    </div>
+                </div>
+                
+                <div class="owasp-item">
+                    <span class="owasp-number">5</span>
+                    <h3>Supply Chain Vulnerabilities</h3>
+                    <p>Risks from compromised components, packages, or pre-trained models.</p>
+                    <div class="solution">
+                        <h4>Defense Strategy</h4>
+                        <p>Vet third-party models and libraries. Maintain an AI component inventory and monitor for vulnerabilities.</p>
+                    </div>
+                </div>
+                
+                <div class="owasp-item">
+                    <span class="owasp-number">6</span>
+                    <h3>Sensitive Information Disclosure</h3>
+                    <p>LLMs may inadvertently reveal confidential data in responses.</p>
+                    <div class="solution">
+                        <h4>Defense Strategy</h4>
+                        <p>Sanitize PII from training datasets. Implement data loss prevention and content filtering.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="checklist">
+        <div class="container">
+            <div class="section-header">
+                <h2>AI Security Implementation Checklist</h2>
+                <p>A practical guide to securing your LLM and generative AI implementations</p>
+            </div>
+            
+            <div class="checklist-container">
+                <div class="checklist-item">
+                    <div class="checklist-icon">📋</div>
+                    <div class="checklist-content">
+                        <h3>Establish an AI Acceptable Use Policy (AUP)</h3>
+                        <p>Define clear guidelines for appropriate AI usage, data handling, and security requirements. Ensure all stakeholders understand their responsibilities.</p>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checklist-icon">👥</div>
+                    <div class="checklist-content">
+                        <h3>Implement 'Human in the Loop' for High-Stakes Decisions</h3>
+                        <p>Maintain human oversight for critical decisions, especially in regulated industries or high-impact scenarios.</p>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checklist-icon">🔍</div>
+                    <div class="checklist-content">
+                        <h3>Red Team Models for Jailbreak Vulnerability</h3>
+                        <p>Regularly test your AI systems against adversarial attacks, prompt injections, and jailbreak attempts to identify and mitigate vulnerabilities.</p>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checklist-icon">📊</div>
+                    <div class="checklist-content">
+                        <h3>Monitor for Model Drift and Hallucinations</h3>
+                        <p>Implement continuous monitoring to detect performance degradation, concept drift, and hallucination patterns in model outputs.</p>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checklist-icon">🔒</div>
+                    <div class="checklist-content">
+                        <h3>Sanitize PII from Training Datasets</h3>
+                        <p>Implement robust data anonymization and pseudonymization techniques to protect personally identifiable information in training data.</p>
+                    </div>
+                </div>
+                
+                <div class="checklist-item">
+                    <div class="checklist-icon">⚖️</div>
+                    <div class="checklist-content">
+                        <h3>Align with NIST AI RMF Framework</h3>
+                        <p>Structure your AI security program around the four core functions: Govern, Map, Measure, and Manage.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="framework" style="background-color: var(--light);">
+        <div class="container">
+            <div class="section-header">
+                <h2>AI Security Governance Framework</h2>
+                <p>A systematic approach to managing AI risks throughout the lifecycle</p>
+            </div>
+            
+            <div class="framework-container">
+                <div class="framework-item">
+                    <div class="framework-icon">🏛️</div>
+                    <h3>Govern</h3>
+                    <p>Establish policies, procedures, and accountability structures for AI security. Define roles, responsibilities, and risk tolerance.</p>
+                </div>
+                
+                <div class="framework-item">
+                    <div class="framework-icon">🗺️</div>
+                    <h3>Map</h3>
+                    <p>Identify and document AI systems, data flows, and potential vulnerabilities. Create an inventory of AI assets and their risk profiles.</p>
+                </div>
+                
+                <div class="framework-item">
+                    <div class="framework-icon">📏</div>
+                    <h3>Measure</h3>
+                    <p>Implement metrics and monitoring to assess AI system performance, security posture, and compliance with policies.</p>
+                </div>
+                
+                <div class="framework-item">
+                    <div class="framework-icon">🛠️</div>
+                    <h3>Manage</h3>
+                    <p>Continuously address identified risks, implement controls, and respond to incidents. Adapt to evolving threats and requirements.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>AI Security Governance</h3>
+                    <p>Expert guidance for securing LLMs and generative AI implementations in enterprise environments.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">OWASP LLM Top 10</a></li>
+                        <li><a href="#">NIST AI RMF</a></li>
+                        <li><a href="#">AI Security Best Practices</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#">AI Security Assessment</a></li>
+                        <li><a href="#">Implementation Guidance</a></li>
+                        <li><a href="#">Training & Workshops</a></li>
+                        <li><a href="#">Incident Response</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><a href="#">Email: security@aigovernance.com</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                        <li><a href="#">Twitter</a></li>
+                        <li><a href="#">Schedule Consultation</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; Written by Muktha Purushotham</p>
+                <p>&copy; 2025 AI Security Governance. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

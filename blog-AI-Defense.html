@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Defense Hub | Autonomous Security</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #d946ef;
+            --accent-dark: #a21caf;
+            --text: #f8fafc;
+            --text-secondary: #94a3b8;
+            --card-bg: #0f172a;
+            --border: #334155;
+            --blue: #3b82f6;
+            --amber: #f59e0b;
+            --emerald: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes pulseRing {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            100% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes slideInUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(217, 70, 239, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(217, 70, 239, 0.6); }
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            background-color: var(--secondary);
+            border-radius: 3rem;
+            border: 1px solid var(--border);
+            padding: 2rem;
+            margin: 2rem 0;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1s ease-out;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        @media (min-width: 992px) {
+            .hero-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            background-color: rgba(217, 70, 239, 0.1);
+            border: 1px solid rgba(217, 70, 239, 0.3);
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .hero-title {
+                font-size: 4rem;
+            }
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, var(--accent), var(--accent-dark));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-description {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 32rem;
+            line-height: 1.7;
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .center-orb {
+            position: relative;
+            width: 16rem;
+            height: 16rem;
+            background-color: var(--card-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border);
+            z-index: 10;
+            animation: glow 3s infinite ease-in-out;
+        }
+
+        .center-orb i {
+            font-size: 6rem;
+            color: var(--accent);
+        }
+
+        .orbiting-shield {
+            position: absolute;
+            top: -1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--card-bg);
+            padding: 0.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid var(--accent);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            animation: rotate 10s linear infinite;
+        }
+
+        .orbiting-shield i {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+
+        .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 1px solid var(--accent);
+            opacity: 0;
+        }
+
+        .pulse-ring:nth-child(1) {
+            animation: pulseRing 3s infinite ease-out;
+        }
+
+        .pulse-ring:nth-child(2) {
+            animation: pulseRing 3s infinite ease-out 1s;
+        }
+
+        .pulse-ring:nth-child(3) {
+            animation: pulseRing 3s infinite ease-out 2s;
+        }
+
+        .node {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            animation: slideInUp 0.5s ease-out forwards;
+            opacity: 0;
+        }
+
+        .node-icon {
+            width: 4rem;
+            height: 4rem;
+            background-color: var(--card-bg);
+            border-radius: 1rem;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            z-index: 20;
+        }
+
+        .node-icon i {
+            font-size: 2rem;
+            color: var(--text-secondary);
+        }
+
+        .node-label {
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            backdrop-filter: blur(4px);
+        }
+
+        .node:nth-child(1) {
+            top: -30px;
+            left: -35px;
+            animation-delay: 0.2s;
+        }
+
+        .node:nth-child(2) {
+            top: -30px;
+            right: -35px;
+            animation-delay: 0.4s;
+        }
+
+        .node:nth-child(3) {
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation-delay: 0.6s;
+        }
+
+        .grid-background {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(rgba(217, 70, 239, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(217, 70, 239, 0.05) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        /* Section Headers */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin: 3rem 0 2rem;
+        }
+
+        .section-header i {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .cards-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .power-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 1.5rem;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .power-card:hover {
+            background-color: rgba(30, 41, 59, 0.5);
+            transform: translateY(-0.5rem);
+        }
+
+        .power-card.blue:hover {
+            border-color: rgba(59, 130, 246, 0.5);
+        }
+
+        .power-card.amber:hover {
+            border-color: rgba(245, 158, 11, 0.5);
+        }
+
+        .power-card.emerald:hover {
+            border-color: rgba(16, 185, 129, 0.5);
+        }
+
+        .card-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .card-icon.blue {
+            color: var(--blue);
+            background-color: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .card-icon.amber {
+            color: var(--amber);
+            background-color: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .card-icon.emerald {
+            color: var(--emerald);
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .power-card h3 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+
+        .card-subtitle {
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+
+        /* Workflow Section */
+        .workflow-section {
+            background-color: rgba(30, 41, 59, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            margin: 3rem 0;
+        }
+
+        .workflow-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .workflow-header h2 {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .workflow-container {
+            position: relative;
+        }
+
+        .workflow-line {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(to right, var(--border), var(--accent-dark), var(--border));
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        @media (min-width: 768px) {
+            .workflow-line {
+                display: block;
+            }
+        }
+
+        .workflow-steps {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        @media (min-width: 768px) {
+            .workflow-steps {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .workflow-step {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            position: relative;
+            transition: border-color 0.3s ease;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .workflow-step:hover {
+            border-color: rgba(217, 70, 239, 0.3);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -0.75rem;
+            left: 1.5rem;
+            background-color: var(--card-bg);
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 0.25rem 0.75rem;
+            border-radius: 100px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .workflow-step:hover .step-number {
+            color: var(--accent);
+            border-color: rgba(217, 70, 239, 0.3);
+        }
+
+        .step-icon {
+            margin: 0.5rem 0 1rem;
+        }
+
+        .step-icon i {
+            font-size: 2rem;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+
+        .workflow-step:hover .step-icon i {
+            color: var(--text);
+        }
+
+        .step-title {
+            font-size: 1.125rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+        }
+
+        /* Animation delays for cards */
+        .power-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+        .power-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .power-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        /* Animation delays for workflow steps */
+        .workflow-step:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+        .workflow-step:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        .workflow-step:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+        .workflow-step:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="grid-background"></div>
+            <div class="hero-grid">
+                <div>
+                    <div class="hero-badge">
+                        <i class="fas fa-sparkle"></i> 24/7 Autonomous Defense
+                    </div>
+                    <h1 class="hero-title">
+                        AI vs. <br>
+                        <span class="gradient-text">Zero-Day Threats</span>
+                    </h1>
+                    <p class="hero-description">
+                        Traditional rule-based security fails against novel attacks. 
+                        AI Defense leverages Machine Learning to establish behavioral baselines, 
+                        detecting subtle anomalies that signal a breach in real-time, without human fatigue.
+                    </p>
+                </div>
+                
+                <div class="hero-visual">
+                    <div class="center-orb">
+                        <i class="fas fa-brain"></i>
+                        <div class="orbiting-shield">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="pulse-ring"></div>
+                    <div class="pulse-ring"></div>
+                    <div class="pulse-ring"></div>
+                    
+                    <div class="node">
+                        <div class="node-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <span class="node-label">Network</span>
+                    </div>
+                    
+                    <div class="node">
+                        <div class="node-icon">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <span class="node-label">Endpoint</span>
+                    </div>
+                    
+                    <div class="node">
+                        <div class="node-icon">
+                            <i class="fas fa-fingerprint"></i>
+                        </div>
+                        <span class="node-label">Identity</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Power Tools Grid -->
+        <section>
+            <div class="section-header">
+                <i class="fas fa-microchip"></i>
+                <h2>Defense Power Tools</h2>
+            </div>
+            
+            <div class="cards-grid">
+                <div class="power-card blue">
+                    <div class="card-icon blue">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>UEBA</h3>
+                    <div class="card-subtitle">User & Entity Behavior Analytics</div>
+                    <p class="card-description">
+                        Detects insider threats by learning 'normal' user patterns (login times, data access) 
+                        and flagging deviations.
+                    </p>
+                </div>
+                
+                <div class="power-card amber">
+                    <div class="card-icon amber">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>SOAR</h3>
+                    <div class="card-subtitle">Security Orchestration & Response</div>
+                    <p class="card-description">
+                        Automates triage and containment. AI executes playbooks (e.g., disable user, isolate host) 
+                        instantly upon alert.
+                    </p>
+                </div>
+                
+                <div class="power-card emerald">
+                    <div class="card-icon emerald">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h3>Predictive Intel</h3>
+                    <div class="card-subtitle">Threat Anticipation</div>
+                    <p class="card-description">
+                        Scrapes the dark web and global sensors to predict attacks on your sector 
+                        before they hit your perimeter.
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Systematic Workflow -->
+        <section class="workflow-section">
+            <div class="workflow-header">
+                <h2>Systematic AI Response Cycle</h2>
+            </div>
+            
+            <div class="workflow-container">
+                <div class="workflow-line"></div>
+                
+                <div class="workflow-steps">
+                    <div class="workflow-step">
+                        <div class="step-number">STEP 01</div>
+                        <div class="step-icon">
+                            <i class="fas fa-boxes"></i>
+                        </div>
+                        <h4 class="step-title">Ingest & Normalize</h4>
+                        <p class="step-description">
+                            AI ingests TBs of logs from firewalls, clouds, and endpoints, 
+                            normalizing data formats for analysis.
+                        </p>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="step-number">STEP 02</div>
+                        <div class="step-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h4 class="step-title">AI Inference</h4>
+                        <p class="step-description">
+                            Machine Learning models compare live traffic against baseline behavior 
+                            to identify anomalies (Zero-Day).
+                        </p>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="step-number">STEP 03</div>
+                        <div class="step-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h4 class="step-title">Automated Triage</h4>
+                        <p class="step-description">
+                            AI correlates alerts into a single 'Incident', reducing alert fatigue 
+                            by filtering 99% of false positives.
+                        </p>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="step-number">STEP 04</div>
+                        <div class="step-icon">
+                            <i class="fas fa-siren-on"></i>
+                        </div>
+                        <h4 class="step-title">Autonomous Action</h4>
+                        <p class="step-description">
+                            Pre-approved playbooks execute immediately: blocking IPs, killing processes, 
+                            or resetting passwords.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>AI Defense Hub | Autonomous Security Platform</p>
+        </footer>
+    </div>
+</body>
+</html>
