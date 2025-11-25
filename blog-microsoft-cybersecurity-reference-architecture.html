@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Cybersecurity Stack - Complete Reference Architecture</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0078d4;
+            --primary-dark: #106ebe;
+            --secondary: #107c10;
+            --accent: #d83b01;
+            --warning: #ffb900;
+            --danger: #d13438;
+            --light: #f3f2f1;
+            --dark: #323130;
+            --gray: #8a8886;
+            --success: #107c10;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            position: relative;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .header-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            position: relative;
+        }
+        
+        /* Navigation Styles */
+        .nav-tabs {
+            display: flex;
+            background: white;
+            border-radius: 15px;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            flex-wrap: wrap;
+            justify-content: center;
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+        }
+        
+        .tab {
+            padding: 0.75rem 1.5rem;
+            margin: 0.25rem;
+            background: var(--light);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .tab:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,120,212,0.3);
+        }
+        
+        .tab.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 5px 15px rgba(0,120,212,0.3);
+        }
+        
+        /* Content Section Styles */
+        .content-section {
+            display: none;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--light);
+        }
+        
+        .section-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+            color: var(--primary);
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        /* Architecture Diagram Styles */
+        .architecture-diagram {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            overflow: auto;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        /* Implementation Phase Styles */
+        .implementation-phase {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            border-left: 5px solid var(--primary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .implementation-phase::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+        
+        .implementation-phase:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .phase-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .phase-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .phase-duration {
+            background: var(--secondary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        /* Product Card Styles */
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1rem 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--primary);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .product-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .product-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--dark);
+        }
+        
+        .product-description {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .grid-4 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 1.5rem;
+        }
+        
+        /* Implementation Steps */
+        .implementation-steps {
+            list-style-type: none;
+            counter-reset: step-counter;
+        }
+        
+        .implementation-steps li {
+            padding: 1rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            position: relative;
+            padding-left: 3rem;
+        }
+        
+        .implementation-steps li:last-child {
+            border-bottom: none;
+        }
+        
+        .implementation-steps li::before {
+            counter-increment: step-counter;
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 30px;
+            height: 30px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        /* Risk Matrix Styles */
+        .risk-matrix {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .risk-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid #d83b01;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .risk-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .risk-high {
+            border-left-color: var(--danger);
+        }
+        
+        .risk-medium {
+            border-left-color: var(--warning);
+        }
+        
+        .risk-low {
+            border-left-color: var(--success);
+        }
+        
+        /* Code Block Styles */
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .kql-keyword {
+            color: #569cd6;
+        }
+        
+        .kql-function {
+            color: #dcdcaa;
+        }
+        
+        .kql-string {
+            color: #ce9178;
+        }
+        
+        .kql-comment {
+            color: #6a9955;
+        }
+        
+        /* Flow Animation Styles */
+        .flow-container {
+            position: relative;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+        
+        .flow-node {
+            background: white;
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+        
+        .flow-node:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .flow-connection {
+            position: absolute;
+            background: var(--primary);
+            z-index: 1;
+            opacity: 0.7;
+        }
+        
+        /* Progress Bar */
+        .progress-container {
+            margin: 2rem 0;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background: var(--light);
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 5px;
+            transition: width 1s ease;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            color: var(--gray);
+            border-top: 1px solid var(--light);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .grid-4 {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .grid-3 {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            .tab {
+                width: 100%;
+                text-align: left;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.7rem;
+            }
+        }
+        
+        /* Custom Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Floating Elements */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translate(0, 0px); }
+            50% { transform: translate(0, -10px); }
+            100% { transform: translate(0, 0px); }
+        }
+        
+        /* Status Indicators */
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+        
+        .status-active {
+            background: var(--success);
+        }
+        
+        .status-warning {
+            background: var(--warning);
+        }
+        
+        .status-critical {
+            background: var(--danger);
+        }
+        
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted var(--gray);
+            cursor: help;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1000;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9rem;
+            font-weight: normal;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-shield-alt"></i> Microsoft Cybersecurity Stack</h1>
+            <p class="subtitle">Complete Reference Architecture & Implementation Blueprint</p>
+            <div class="header-badge">
+                <i class="fas fa-check-circle"></i> Based on Microsoft Security Adoption Framework & MCRA
+            </div>
+        </header>
+        
+        <div class="nav-tabs">
+            <button class="tab active" onclick="showSection('architecture')">
+                <i class="fas fa-sitemap"></i> Reference Architecture
+            </button>
+            <button class="tab" onclick="showSection('implementation')">
+                <i class="fas fa-road"></i> Implementation Plan
+            </button>
+            <button class="tab" onclick="showSection('products')">
+                <i class="fas fa-cube"></i> Product Deep Dive
+            </button>
+            <button class="tab" onclick="showSection('automation')">
+                <i class="fas fa-robot"></i> Automation & KQL
+            </button>
+            <button class="tab" onclick="showSection('risk')">
+                <i class="fas fa-exclamation-triangle"></i> Risk Mitigation
+            </button>
+            <button class="tab" onclick="showSection('resources')">
+                <i class="fas fa-book"></i> Resources
+            </button>
+        </div>
+        
+        <!-- Reference Architecture Section -->
+        <section id="architecture" class="content-section active">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-sitemap"></i>
+                </div>
+                <h2 class="section-title">Microsoft Cybersecurity Reference Architecture</h2>
+            </div>
+            
+            <p>This comprehensive architecture visualizes how all Microsoft security components integrate to provide end-to-end protection across identity, devices, applications, data, and infrastructure following Zero Trust principles.</p>
+            
+            <div class="architecture-diagram">
+                <div class="mermaid">
+graph TD
+    subgraph ZT [Zero Trust Foundation]
+        ZT1[Verify Explicitly]
+        ZT2[Least Privilege Access]
+        ZT3[Assume Breach]
+    end
+
+    subgraph A [Identity & Access Management]
+        A1[Azure Active Directory]
+        A2[Conditional Access]
+        A3[Privileged Identity Management]
+        A4[Identity Protection]
+        A5[External Identities]
+    end
+
+    subgraph B [Threat Protection]
+        B1[Microsoft Defender XDR]
+        B2[Defender for Endpoint]
+        B3[Defender for Office 365]
+        B4[Defender for Identity]
+        B5[Defender for Cloud Apps]
+        B6[Defender for Cloud]
+    end
+
+    subgraph C [Information Protection]
+        C1[Microsoft Purview]
+        C2[Data Loss Prevention]
+        C3[Information Barriers]
+        C4[Double Key Encryption]
+        C5[Sensitivity Labels]
+        C6[Data Lifecycle Management]
+    end
+
+    subgraph D [Security Management]
+        D1[Microsoft 365 Defender]
+        D2[Azure Sentinel]
+        D3[Defender for Cloud]
+        D4[Security Score]
+        D5[Compliance Manager]
+    end
+
+    subgraph E [Endpoint Management]
+        E1[Microsoft Intune]
+        E2[Autopilot]
+        E3[Configuration Manager]
+        E4[Update Management]
+    end
+
+    ZT --> A
+    ZT --> B
+    ZT --> C
+    ZT --> D
+    
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    
+    A1 --> A2
+    A2 --> A3
+    A3 --> A4
+    
+    B1 --> B2
+    B1 --> B3
+    B1 --> B4
+    B1 --> B5
+    B1 --> B6
+    
+    C1 --> C2
+    C2 --> C3
+    C3 --> C4
+    
+    D1 --> D2
+    D2 --> D3
+    D3 --> D4
+    
+    E1 --> E2
+    E2 --> E3
+    E3 --> E4
+
+    style ZT fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style A fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+    style B fill:#ffebee,stroke:#d32f2f,stroke-width:2px
+    style C fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style D fill:#e8eaf6,stroke:#303f9f,stroke-width:2px
+    style E fill:#fff3e0,stroke:#ef6c00,stroke-width:2px
+                </div>
+            </div>
+            
+            <div class="grid-3">
+                <div class="product-card floating">
+                    <div class="product-icon"><i class="fas fa-user-shield"></i></div>
+                    <div class="product-title">Zero Trust Foundation</div>
+                    <div class="product-description">Verify explicitly, use least privilege access, and assume breach across all security pillars.</div>
+                    <div class="status-indicator status-active"></div> <span class="tooltip">Core Principle<span class="tooltiptext">Foundation for all security controls</span></span>
+                </div>
+                
+                <div class="product-card floating" style="animation-delay: 0.5s;">
+                    <div class="product-icon"><i class="fas fa-exchange-alt"></i></div>
+                    <div class="product-title">Integrated Signals</div>
+                    <div class="product-description">All components share telemetry and correlate alerts for unified incident response.</div>
+                    <div class="status-indicator status-active"></div> <span class="tooltip">Real-time Correlation<span class="tooltiptext">Cross-domain threat intelligence sharing</span></span>
+                </div>
+                
+                <div class="product-card floating" style="animation-delay: 1s;">
+                    <div class="product-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="product-title">Automated Response</div>
+                    <div class="product-description">Native automation and SOAR capabilities reduce response time from hours to seconds.</div>
+                    <div class="status-indicator status-active"></div> <span class="tooltip">SOAR Enabled<span class="tooltiptext">Automated investigation and response</span></span>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 2rem; margin-bottom: 1rem;">Data Flow & Integration Points</h3>
+            <div class="flow-container">
+                <div class="mermaid">
+flowchart LR
+    A[Endpoints] --> B[Defender for Endpoint]
+    C[Email] --> D[Defender for Office 365]
+    E[Identity] --> F[Defender for Identity]
+    G[Cloud Apps] --> H[Defender for Cloud Apps]
+    I[Cloud Resources] --> J[Defender for Cloud]
+    
+    B --> K[Microsoft Defender XDR]
+    D --> K
+    F --> K
+    H --> K
+    
+    K --> L[Azure Sentinel]
+    L --> M[Automated Response]
+    L --> N[Threat Hunting]
+    L --> O[Incident Management]
+    
+    P[Intune] --> Q[Device Compliance]
+    Q --> R[Conditional Access]
+    R --> S[Access Decisions]
+    
+    K --> T[Microsoft Purview]
+    T --> U[Data Protection]
+    T --> V[Compliance Management]
+    
+    style K fill:#0078d4,color:white,stroke:#0078d4,stroke-width:2px
+    style L fill:#68217a,color:white,stroke:#68217a,stroke-width:2px
+                </div>
+            </div>
+        </section>
+        
+        <!-- Implementation Plan Section -->
+        <section id="implementation" class="content-section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-road"></i>
+                </div>
+                <h2 class="section-title">Practical Implementation Roadmap</h2>
+            </div>
+            
+            <p>This 12-week implementation plan follows Microsoft's security adoption framework with practical, actionable steps based on real-world deployment experience.</p>
+            
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 25%;"></div>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span>Week 1</span>
+                    <span>Week 12</span>
+                </div>
+            </div>
+            
+            <div class="implementation-phase">
+                <div class="phase-header">
+                    <div class="phase-title">Phase 1: Foundation (Weeks 1-3)</div>
+                    <div class="phase-duration">3 Weeks</div>
+                </div>
+                <p><strong>Objective:</strong> Establish identity and device management foundation</p>
+                <ul class="implementation-steps">
+                    <li>Configure Azure AD Connect for hybrid identity with password hash sync</li>
+                    <li>Enable security defaults or implement basic Conditional Access policies</li>
+                    <li>Set up Intune for mobile device management and enrollment</li>
+                    <li>Deploy Azure AD Privileged Identity Management for admin accounts</li>
+                    <li>Configure basic security baselines in Intune for Windows 10/11</li>
+                    <li>Establish Azure AD Identity Protection with risk policies</li>
+                </ul>
+            </div>
+            
+            <div class="implementation-phase">
+                <div class="phase-header">
+                    <div class="phase-title">Phase 2: Core Protection (Weeks 4-6)</div>
+                    <div class="phase-duration">3 Weeks</div>
+                </div>
+                <p><strong>Objective:</strong> Deploy critical threat protection capabilities</p>
+                <ul class="implementation-steps">
+                    <li>Deploy Defender for Endpoint to all workstations and servers</li>
+                    <li>Enable and configure Defender for Office 365 protections</li>
+                    <li>Install Defender for Identity sensors on domain controllers</li>
+                    <li>Configure Microsoft 365 Defender portal and settings</li>
+                    <li>Set up basic Automated Investigation & Response (AIR) rules</li>
+                    <li>Implement Defender for Cloud Apps for cloud visibility</li>
+                </ul>
+            </div>
+            
+            <div class="implementation-phase">
+                <div class="phase-header">
+                    <div class="phase-title">Phase 3: Security Operations (Weeks 7-9)</div>
+                    <div class="phase-duration">3 Weeks</div>
+                </div>
+                <p><strong>Objective:</strong> Establish security operations and monitoring</p>
+                <ul class="implementation-steps">
+                    <li>Deploy Azure Sentinel workspace and configure data connectors</li>
+                    <li>Connect all Microsoft 365 Defender data to Sentinel</li>
+                    <li>Create critical analytics rules for common attack patterns</li>
+                    <li>Build SOC operational dashboards and workbooks</li>
+                    <li>Develop and test incident response playbooks</li>
+                    <li>Establish alert tuning and false positive management process</li>
+                </ul>
+            </div>
+            
+            <div class="implementation-phase">
+                <div class="phase-header">
+                    <div class="phase-title">Phase 4: Advanced Protection (Weeks 10-12)</div>
+                    <div class="phase-duration">3 Weeks</div>
+                </div>
+                <p><strong>Objective:</strong> Implement advanced security and compliance controls</p>
+                <ul class="implementation-steps">
+                    <li>Deploy Microsoft Purview information protection and labels</li>
+                    <li>Configure Data Loss Prevention policies for sensitive data</li>
+                    <li>Enable and tune Defender for Cloud Apps policies</li>
+                    <li>Implement compliance management baselines and assessments</li>
+                    <li>Conduct security posture assessment and gap analysis</li>
+                    <li>Establish continuous improvement and optimization process</li>
+                </ul>
+            </div>
+            
+            <h3 style="margin-top: 2rem;">Implementation Success Metrics</h3>
+            <div class="grid-4">
+                <div class="product-card">
+                    <div class="product-icon"><i class="fas fa-clock"></i></div>
+                    <div class="product-title">MTTD</div>
+                    <div class="product-description">Mean Time to Detect: Target &lt; 1 hour for critical threats</div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-icon"><i class="fas fa-hourglass-half"></i></div>
+                    <div class="product-title">MTTR</div>
+                    <div class="product-description">Mean Time to Respond: Target &lt; 4 hours for containment</div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="product-title">Coverage</div>
+                    <div class="product-description">100% endpoint coverage with Defender for Endpoint</div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-icon"><i class="fas fa-chart-line"></i></div>
+                    <div class="product-title">Secure Score</div>
+                    <div class="product-description">Target 85%+ Microsoft Secure Score implementation</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Product Deep Dive Section -->
+        <section id="products" class="content-section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-cube"></i>
+                </div>
+                <h2 class="section-title">Microsoft Security Product Ecosystem</h2>
+            </div>
+            
+            <p>Detailed overview of each component in the Microsoft security stack and their integration points with implementation guidance.</p>
+            
+            <div class="grid-2">
+                <div class="product-card">
+                    <div class="product-icon"><i class="fas fa-chess-board"></i></div>
+                    <div class="product-title">Microsoft Defender XDR</div>
+                    <div class="product-description">Unified cross-domain security operations platform that correlates signals from endpoints, identity, email, and cloud apps into unified incidents.</div>
+                    <p><strong>Key Capabilities:</strong> Automated investigation, advanced hunting, cross-domain correlation, threat analytics</p>
+                    <p><strong>Integration:</strong> Native connection to all Defender products, Sentinel, Intune, and Azure AD</p>
+                    <p><strong>Deployment Time:</strong> 2-4 weeks</p>
+                    <div class="status-indicator status-active"></div> <span>Core XDR Platform</span>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-icon"><i class="fas fa-laptop"></i></div>
+                    <div class="product-title">Microsoft Intune</div>
+                    <div class="product-description">Cloud-based endpoint management for deployment, configuration, application management, and compliance enforcement across devices.</div>
+                    <p><strong>Key Capabilities:</strong> Device compliance, application management, conditional access enforcement, Autopilot</p>
+                    <p><strong>Integration:</strong> Azure AD, Defender for Endpoint, Configuration Manager, Third-party MDM</p>
+                    <p><strong>Deployment Time:</strong> 3-5 weeks</p>
+                    <div class="status-indicator status-active"></div> <span>Endpoint Management</span>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-icon"><i class="fas fa-chart-network"></i></div>
+                    <div class="product-title">Azure Sentinel</div>
+                    <div class="product-description">Cloud-native SIEM with built-in SOAR capabilities for security analytics, threat intelligence, and automated response across hybrid environments.</div>
+                    <p><strong>Key Capabilities:</strong> Security analytics, threat intelligence, automated response, advanced hunting</p>
+                    <p><strong>Integration:</strong> All Microsoft security products, 100+ third-party connectors, Logic Apps</p>
+                    <p><strong>Deployment Time:</strong> 4-6 weeks</p>
+                    <div class="status-indicator status-active"></div> <span>SIEM/SOAR</span>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-icon"><i class="fas fa-database"></i></div>
+                    <div class="product-title">Microsoft Purview</div>
+                    <div class="product-description">Unified data governance and compliance platform for data protection, classification, loss prevention, and risk management.</div>
+                    <p><strong>Key Capabilities:</strong> Data classification, loss prevention, information protection, insider risk management</p>
+                    <p><strong>Integration:</strong> Defender XDR, Office 365, Azure services, Third-party apps</p>
+                    <p><strong>Deployment Time:</strong> 4-8 weeks</p>
+                    <div class="status-indicator status-active"></div> <span>Data Governance</span>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 2rem;">Integration Architecture</h3>
+            <div class="architecture-diagram">
+                <div class="mermaid">
+graph TB
+    subgraph A [Identity Layer]
+        A1[Azure AD]
+        A2[Conditional Access]
+    end
+    
+    subgraph B [Management Layer]
+        B1[Intune]
+        B2[Endpoint Manager Admin Center]
+    end
+    
+    subgraph C [Protection Layer]
+        C1[Defender XDR]
+        C2[Defender for Endpoint]
+        C3[Defender for Office 365]
+        C4[Defender for Identity]
+    end
+    
+    subgraph D [Operations Layer]
+        D1[Azure Sentinel]
+        D2[Microsoft 365 Defender]
+    end
+    
+    subgraph E [Compliance Layer]
+        E1[Microsoft Purview]
+        E2[Compliance Manager]
+    end
+    
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    
+    A1 --> C4
+    B1 --> C2
+    C1 --> D1
+    D1 --> E1
+    
+    style A fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style B fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+    style C fill:#ffebee,stroke:#d32f2f,stroke-width:2px
+    style D fill:#e8eaf6,stroke:#303f9f,stroke-width:2px
+    style E fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+                </div>
+            </div>
+        </section>
+        
+        <!-- Automation & KQL Section -->
+        <section id="automation" class="content-section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h2 class="section-title">Security Automation & KQL Examples</h2>
+            </div>
+            
+            <p>Practical Kusto Query Language examples for threat detection, hunting, and automated response playbooks used in real-world security operations.</p>
+            
+            <h3>Critical Detection Rules</h3>
+            
+            <div class="code-block">
+                <span class="kql-comment">// 1. Ransomware Behavior Detection - File Encryption Patterns</span><br>
+                <span class="kql-keyword">DeviceFileEvents</span><br>
+                | <span class="kql-keyword">where</span> TimeGenerated >= ago(2h)<br>
+                | <span class="kql-keyword">where</span> ActionType == "FileRenamed"<br>
+                | <span class="kql-keyword">where</span> FileName <span class="kql-keyword">endswith</span> <span class="kql-string">".encrypted"</span> <br>
+                | <span class="kql-keyword">or</span> FileName <span class="kql-keyword">endswith</span> <span class="kql-string">".crypted"</span><br>
+                | <span class="kql-keyword">or</span> FileName <span class="kql-keyword">contains</span> <span class="kql-string">"[RANSOM_"</span><br>
+                | <span class="kql-keyword">summarize</span> FileCount = count() <span class="kql-keyword">by</span> DeviceName, InitiatingProcessFileName<br>
+                | <span class="kql-keyword">where</span> FileCount > 10<br>
+            </div>
+            
+            <div class="code-block">
+                <span class="kql-comment">// 2. Credential Phishing Campaign Detection</span><br>
+                <span class="kql-keyword">EmailEvents</span><br>
+                | <span class="kql-keyword">where</span> TimeGenerated >= ago(24h)<br>
+                | <span class="kql-keyword">where</span> ThreatTypes <span class="kql-keyword">has</span> <span class="kql-string">"Phish"</span><br>
+                | <span class="kql-keyword">where</span> DeliveryAction == <span class="kql-string">"Delivered"</span><br>
+                | <span class="kql-keyword">join</span> (EmailUrlInfo | <span class="kql-keyword">where</span> Url <span class="kql-keyword">contains</span> <span class="kql-string">"login"</span>) <span class="kql-keyword">on</span> NetworkMessageId<br>
+                | <span class="kql-keyword">summarize</span> PhishCount = count(), Recipients = makeset(RecipientEmailAddress) <br>
+                | <span class="kql-keyword">by</span> SenderFromDomain, Subject, Url<br>
+                | <span class="kql-keyword">where</span> PhishCount > 5<br>
+            </div>
+            
+            <div class="code-block">
+                <span class="kql-comment">// 3. Lateral Movement & Golden Ticket Detection</span><br>
+                <span class="kql-keyword">IdentityLogonEvents</span><br>
+                | <span class="kql-keyword">where</span> TimeGenerated >= ago(6h)<br>
+                | <span class="kql-keyword">where</span> ActionType == <span class="kql-string">"LogonSuccess"</span><br>
+                | <span class="kql-keyword">where</span> LogonType == <span class="kql-string">"Network"</span><br>
+                | <span class="kql-keyword">summarize</span> <br>
+                    TargetComputers = dcount(DeviceName),<br>
+                    LogonCount = count()<br>
+                <span class="kql-keyword">by</span> AccountName, AccountDomain, bin(TimeGenerated, 1h)<br>
+                | <span class="kql-keyword">where</span> TargetComputers > 5 <span class="kql-keyword">and</span> LogonCount > 10<br>
+                | <span class="kql-keyword">order</span> <span class="kql-keyword">by</span> TargetComputers <span class="kql-keyword">desc</span><br>
+            </div>
+            
+            <h3>Automated Response Playbooks</h3>
+            <div class="grid-2">
+                <div class="product-card">
+                    <div class="product-title"><i class="fas fa-fish"></i> Phishing Response Automation</div>
+                    <ul class="implementation-steps">
+                        <li>Detect phishing email through Defender for Office 365</li>
+                        <li>Automatically quarantine malicious emails across organization</li>
+                        <li>Block sender domains and malicious URLs in real-time</li>
+                        <li>Force password reset for users who clicked links</li>
+                        <li>Create Service Now ticket for tracking and follow-up</li>
+                        <li>Send Teams notification to SOC team with incident details</li>
+                    </ul>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-title"><i class="fas fa-lock"></i> Ransomware Containment</div>
+                    <ul class="implementation-steps">
+                        <li>Detect ransomware behavior through file encryption patterns</li>
+                        <li>Automatically isolate compromised devices from network</li>
+                        <li>Disable affected user accounts to prevent spread</li>
+                        <li>Block malicious process hashes across environment</li>
+                        <li>Alert security team via Teams with critical priority</li>
+                        <li>Initiate backup restoration procedures</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 2rem;">Advanced Hunting Scenarios</h3>
+            <div class="code-block">
+                <span class="kql-comment">// Advanced Hunting: Supply Chain Attack Detection</span><br>
+                <span class="kql-keyword">let</span> TrustedPublishers = dynamic([<span class="kql-string">"Microsoft Corporation"</span>, <span class="kql-string">"Adobe Inc."</span>, <span class="kql-string">"Google LLC"</span>]);<br>
+                <span class="kql-keyword">DeviceProcessEvents</span><br>
+                | <span class="kql-keyword">where</span> TimeGenerated >= ago(7d)<br>
+                | <span class="kql-keyword">where</span> InitiatingProcessFileName !in~(TrustedPublishers)<br>
+                | <span class="kql-keyword">where</span> IsUncommonPublisher == 1<br>
+                | <span class="kql-keyword">summarize</span> <br>
+                    ExecutionCount = count(),<br>
+                    UniqueComputers = dcount(DeviceName),<br>
+                    FirstSeen = min(TimeGenerated),<br>
+                    LastSeen = max(TimeGenerated)<br>
+                <span class="kql-keyword">by</span> Publisher, InitiatingProcessFileName, InitiatingProcessFolderPath<br>
+                | <span class="kql-keyword">where</span> ExecutionCount > 10 <span class="kql-keyword">and</span> UniqueComputers > 3<br>
+                | <span class="kql-keyword">order</span> <span class="kql-keyword">by</span> ExecutionCount <span class="kql-keyword">desc</span><br>
+            </div>
+        </section>
+        
+        <!-- Risk Mitigation Section -->
+        <section id="risk" class="content-section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h2 class="section-title">Top 10 Security Risks & Mitigation</h2>
+            </div>
+            
+            <p>Critical security risks organizations face and how the Microsoft security stack provides comprehensive, permanent solutions with specific controls and configurations.</p>
+            
+            <div class="risk-matrix">
+                <div class="risk-item risk-high">
+                    <strong><i class="fas fa-user-secret"></i> Credential Theft</strong>
+                    <p><strong>Solution:</strong> Azure AD Identity Protection + Conditional Access + MFA</p>
+                    <p><strong>Controls:</strong> Risky sign-in detection, MFA registration policy, banned password protection</p>
+                </div>
+                
+                <div class="risk-item risk-high">
+                    <strong><i class="fas fa-lock"></i> Ransomware</strong>
+                    <p><strong>Solution:</strong> Defender for Endpoint + Attack Surface Reduction + Controlled Folder Access</p>
+                    <p><strong>Controls:</strong> Behavioral blocking, ransomware mitigation, file backup protection</p>
+                </div>
+                
+                <div class="risk-item risk-high">
+                    <strong><i class="fas fa-fish"></i> Phishing Attacks</strong>
+                    <p><strong>Solution:</strong> Defender for Office 365 + Safe Links + Safe Attachments</p>
+                    <p><strong>Controls:</strong> Impersonation protection, URL detonation, attachment scanning</p>
+                </div>
+                
+                <div class="risk-item risk-medium">
+                    <strong><i class="fas fa-user-minus"></i> Insider Threats</strong>
+                    <p><strong>Solution:</strong> Purview Information Protection + Communication Compliance + Insider Risk Management</p>
+                    <p><strong>Controls:</strong> Data exfiltration detection, policy violations, user activity monitoring</p>
+                </div>
+                
+                <div class="risk-item risk-medium">
+                    <strong><i class="fas fa-cloud-download-alt"></i> Data Exfiltration</strong>
+                    <p><strong>Solution:</strong> Data Loss Prevention + Microsoft Cloud App Security + Information Barriers</p>
+                    <p><strong>Controls:</strong> Content scanning, policy enforcement, session monitoring</p>
+                </div>
+                
+                <div class="risk-item risk-medium">
+                    <strong><i class="fas fa-cloud"></i> Misconfigured Cloud Resources</strong>
+                    <p><strong>Solution:</strong> Defender for Cloud + Security Benchmark assessments</p>
+                    <p><strong>Controls:</strong> Continuous assessment, compliance monitoring, auto-remediation</p>
+                </div>
+                
+                <div class="risk-item risk-low">
+                    <strong><i class="fas fa-gavel"></i> Compliance Violations</strong>
+                    <p><strong>Solution:</strong> Compliance Manager + Audit + eDiscovery</p>
+                    <p><strong>Controls:</strong> Regulatory assessment, audit log retention, legal hold capabilities</p>
+                </div>
+                
+                <div class="risk-item risk-low">
+                    <strong><i class="fas fa-link"></i> Supply Chain Attacks</strong>
+                    <p><strong>Solution:</strong> App Governance + Tenant Restrictions + Cloud App Security</p>
+                    <p><strong>Controls:</strong> App permission monitoring, OAuth app control, SaaS security posture</p>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 2rem;">Risk Reduction Metrics</h3>
+            <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                <canvas id="riskChart" width="400" height="200"></canvas>
+            </div>
+            
+            <div class="grid-3" style="margin-top: 2rem;">
+                <div class="product-card">
+                    <div class="product-icon"><i class="fas fa-bullseye"></i></div>
+                    <div class="product-title">Prevention Focus</div>
+                    <div class="product-description">Stop attacks before they happen with proactive controls and hardening</div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-icon"><i class="fas fa-binoculars"></i></div>
+                    <div class="product-title">Detection Capabilities</div>
+                    <div class="product-description">Identify threats that bypass prevention with advanced analytics</div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-icon"><i class="fas fa-history"></i></div>
+                    <div class="product-title">Response Automation</div>
+                    <div class="product-description">Contain and eradicate threats quickly with automated playbooks</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Resources Section -->
+        <section id="resources" class="content-section">
+            <div class="section-header">
+                <div class="section-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h2 class="section-title">Implementation Resources & References</h2>
+            </div>
+            
+            <p>Comprehensive collection of official Microsoft resources, tools, and community support to successfully implement and operate the Microsoft security stack.</p>
+            
+            <div class="grid-2">
+                <div class="product-card">
+                    <div class="product-title"><i class="fas fa-file-alt"></i> Official Microsoft Resources</div>
+                    <ul class="implementation-steps">
+                        <li><a href="https://learn.microsoft.com/en-us/security/adoption/mcra" target="_blank">Microsoft Cybersecurity Reference Architecture (MCRA)</a></li>
+                        <li><a href="https://learn.microsoft.com/en-us/security/adoption/cybersecurity-transformation" target="_blank">Cybersecurity Transformation Guide</a></li>
+                        <li><a href="https://learn.microsoft.com/en-us/security/adoption/zero-trust" target="_blank">Zero Trust Deployment Center</a></li>
+                        <li><a href="https://learn.microsoft.com/en-us/security/adoption/security-adoption-plan" target="_blank">Security Adoption Framework</a></li>
+                        <li><a href="https://learn.microsoft.com/en-us/security/adoption/roles-and-competencies" target="_blank">Security Roles & Competencies</a></li>
+                    </ul>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-title"><i class="fas fa-wrench"></i> Technical Documentation</div>
+                    <ul class="implementation-steps">
+                        <li><a href="https://learn.microsoft.com/en-us/defender-xdr/" target="_blank">Microsoft Defender XDR Documentation</a></li>
+                        <li><a href="https://learn.microsoft.com/en-us/sentinel/" target="_blank">Azure Sentinel Documentation</a></li>
+                        <li><a href="https://learn.microsoft.com/en-us/purview/" target="_blank">Microsoft Purview Documentation</a></li>
+                        <li><a href="https://learn.microsoft.com/en-us/mem/intune/" target="_blank">Microsoft Intune Documentation</a></li>
+                        <li><a href="https://learn.microsoft.com/en-us/azure/security/fundamentals/" target="_blank">Azure Security Fundamentals</a></li>
+                    </ul>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-title"><i class="fas fa-tools"></i> Implementation Tools</div>
+                    <ul class="implementation-steps">
+                        <li>Microsoft 365 Defender Evaluation Lab</li>
+                        <li>Azure Sentinel GitHub Repository & ARM Templates</li>
+                        <li>Security Compliance Toolkit (Policy Analyzer)</li>
+                        <li>Attack Simulation Training in Microsoft 365</li>
+                        <li>Microsoft Secure Score API and PowerShell</li>
+                    </ul>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-title"><i class="fas fa-users"></i> Community & Support</div>
+                    <ul class="implementation-steps">
+                        <li>Microsoft Security Community & Tech Community</li>
+                        <li>FastTrack for Microsoft 365</li>
+                        <li>Microsoft Learn Security Paths & Certifications</li>
+                        <li>Security Documentation Updates & Announcements</li>
+                        <li>Microsoft Q&A Security Forum</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 2rem;">Quick Start Checklists</h3>
+            <div class="grid-2">
+                <div class="product-card">
+                    <div class="product-title"><i class="fas fa-list-check"></i> Week 1 Checklist</div>
+                    <ul class="implementation-steps">
+                        <li>Verify licensing (Microsoft 365 E5/A5, EMS E5)</li>
+                        <li>Set up global admin and security admin roles</li>
+                        <li>Configure basic Azure AD security settings</li>
+                        <li>Enable security defaults or equivalent policies</li>
+                        <li>Start Azure AD Connect deployment planning</li>
+                    </ul>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-title"><i class="fas fa-list-check"></i> Week 4 Checklist</div>
+                    <ul class="implementation-steps">
+                        <li>Deploy Defender for Endpoint to pilot group</li>
+                        <li>Enable Defender for Office 365 protections</li>
+                        <li>Configure Microsoft 365 Defender portal</li>
+                        <li>Set up basic Intune compliance policies</li>
+                        <li>Begin security awareness training</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>Microsoft Cybersecurity Stack Reference Architecture v2.0 | Based on MCRA and Security Adoption Framework</p>
+            <p>This blueprint provides comprehensive guidance for implementing Microsoft's integrated security ecosystem</p>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            }
+        });
+        
+        // Tab navigation
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Activate clicked tab
+            event.currentTarget.classList.add('active');
+            
+            // Reinitialize Mermaid for any new diagrams
+            mermaid.init(undefined, document.getElementById(sectionId));
+        }
+        
+        // Initialize risk chart
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('riskChart').getContext('2d');
+            const riskChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Credential Theft', 'Ransomware', 'Phishing', 'Insider Threats', 'Data Exfiltration'],
+                    datasets: [{
+                        label: 'Risk Level Before',
+                        data: [85, 90, 80, 65, 70],
+                        backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }, {
+                        label: 'Risk Level After',
+                        data: [15, 10, 5, 20, 10],
+                        backgroundColor: 'rgba(75, 192, 192, 0.7)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Risk Level (%)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Risk Reduction with Microsoft Security Stack Implementation',
+                            font: {
+                                size: 16
+                            }
+                        },
+                        legend: {
+                            position: 'top',
+                        }
+                    }
+                }
+            });
+            
+            // Add floating animations to cards
+            anime({
+                targets: '.floating',
+                translateY: [-10, 0],
+                duration: 2000,
+                delay: anime.stagger(100),
+                loop: true,
+                direction: 'alternate',
+                easing: 'easeInOutSine'
+            });
+        });
+    </script>
+</body>
+</html>

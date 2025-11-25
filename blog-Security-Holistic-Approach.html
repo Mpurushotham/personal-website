@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Security Stack - Holistic Architecture</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a2e38 0%, #1e3c52 50%, #2d4e6b 100%);
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #00bcff, #0078d4, #6b69d6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { text-shadow: 0 0 20px #0078d4; }
+            to { text-shadow: 0 0 30px #00bcff, 0 0 40px #6b69d6; }
+        }
+
+        .architecture-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .layer {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .layer:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 10px 30px rgba(0, 120, 212, 0.3);
+        }
+
+        .layer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .layer:hover::before {
+            left: 100%;
+        }
+
+        .layer-1 { border-left: 5px solid #0078d4; }
+        .layer-2 { border-left: 5px solid #107c10; }
+        .layer-3 { border-left: 5px solid #ffb900; }
+        .layer-4 { border-left: 5px solid #b4009e; }
+        .layer-5 { border-left: 5px solid #e81123; }
+
+        .layer-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .layer-icon {
+            font-size: 2em;
+            margin-right: 15px;
+        }
+
+        .layer-title {
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .component {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .component:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+
+        .component-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #00bcff;
+        }
+
+        .component-desc {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .metrics-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .metric-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin: 10px 0;
+            background: linear-gradient(90deg, #00bcff, #0078d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .metric-label {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        .integration-flow {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .flow-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            margin: 30px 0;
+        }
+
+        .flow-steps::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: linear-gradient(90deg, #0078d4, #107c10, #ffb900, #b4009e, #e81123);
+            z-index: 1;
+            animation: flowAnimation 3s ease-in-out infinite;
+        }
+
+        @keyframes flowAnimation {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .flow-step {
+            background: #1e3c52;
+            padding: 15px;
+            border-radius: 50%;
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            border: 2px solid;
+            position: relative;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .step-1 { border-color: #0078d4; }
+        .step-2 { border-color: #107c10; }
+        .step-3 { border-color: #ffb900; }
+        .step-4 { border-color: #b4009e; }
+        .step-5 { border-color: #e81123; }
+
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .chart-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .chart-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            color: #00bcff;
+        }
+
+        .implementation-roadmap {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 40px 0;
+        }
+
+        .roadmap-timeline {
+            position: relative;
+            margin: 40px 0;
+        }
+
+        .timeline-phase {
+            background: rgba(255, 255, 255, 0.1);
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #0078d4;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .phase-title {
+            color: #00bcff;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #0078d4, #00bcff);
+            border-radius: 4px;
+            animation: progressAnimation 2s ease-in-out;
+        }
+
+        @keyframes progressAnimation {
+            from { width: 0%; }
+            to { width: var(--progress); }
+        }
+
+        @media (max-width: 768px) {
+            .components-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .flow-steps {
+                flex-direction: column;
+            }
+            
+            .flow-steps::before {
+                display: none;
+            }
+            
+            .flow-step {
+                margin: 10px 0;
+            }
+            
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Microsoft Security Stack Architecture</h1>
+            <p>Holistic Implementation Blueprint with Zero Trust Framework</p>
+        </div>
+
+        <!-- Architecture Layers -->
+        <div class="architecture-grid">
+            <!-- Layer 1 -->
+            <div class="layer layer-1">
+                <div class="layer-header">
+                    <div class="layer-icon">🔵</div>
+                    <div class="layer-title">LAYER 1: Foundation & Posture Management</div>
+                </div>
+                <div class="components-grid">
+                    <div class="component">
+                        <div class="component-title">Azure Tenant & Management Groups</div>
+                        <div class="component-desc">Structural foundation for governance and policy organization</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-title">Microsoft Entra ID</div>
+                        <div class="component-desc">Primary identity and access control plane</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-title">Defender for Cloud</div>
+                        <div class="component-desc">CSPM/CWPP/CNAPP for cloud security posture</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-title">Purview Compliance</div>
+                        <div class="component-desc">Data security and compliance governance</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Layer 2 -->
+            <div class="layer layer-2">
+                <div class="layer-header">
+                    <div class="layer-icon">🟢</div>
+                    <div class="layer-title">LAYER 2: Identity & Access - Zero Trust</div>
+                </div>
+                <div class="components-grid">
+                    <div class="component">
+                        <div class="component-title">Conditional Access</div>
+                        <div class="component-desc">Policy decision engine for access control</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-title">Entra ID Protection</div>
+                        <div class="component-desc">User risk assessment and identity protection</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-title">Privileged Identity Management</div>
+                        <div class="component-desc">Just-In-Time privileged access management</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-title">Defender for Identity</div>
+                        <div class="component-desc">Active Directory threat protection</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Layer 3 -->
+            <div class="layer layer-3">
+                <div class="layer-header">
+                    <div class="layer-icon">🟠</div>
+                    <div class="layer-title">LAYER 3: Prevent & Protect - Workloads</div>
+                </div>
+                <div class="components-grid">
+                    <div class="component">
+                        <div class="component-title">Defender for Endpoint</div>
+                        <div class="component-desc">EDR for endpoints and servers</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-title">Defender for Office 365</div>
+                        <div class="component-desc">Email and collaboration security</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-title">Defender for Cloud Apps</div>
+                        <div class="component-desc">CASB for SaaS application security</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-title">Purview Information Protection</div>
+                        <div class="component-desc">Data classification and loss prevention</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Layer 4 -->
+            <div class="layer layer-4">
+                <div class="layer-header">
+                    <div class="layer-icon">🟣</div>
+                    <div class="layer-title">LAYER 4: Detect & Respond - XDR & SIEM</div>
+                </div>
+                <div class="components-grid">
+                    <div class="component">
+                        <div class="component-title">Microsoft Defender XDR</div>
+                        <div class="component-desc">Unified XDR incident management</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-title">Microsoft Sentinel</div>
+                        <div class="component-desc">Cloud-native SIEM/SOAR platform</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-title">Log Analytics</div>
+                        <div class="component-desc">Centralized log data repository</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-title">Logic Apps</div>
+                        <div class="component-desc">Security automation and orchestration</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Layer 5 -->
+            <div class="layer layer-5">
+                <div class="layer-header">
+                    <div class="layer-icon">🔴</div>
+                    <div class="layer-title">LAYER 5: Intelligence & Assurance - AI</div>
+                </div>
+                <div class="components-grid">
+                    <div class="component">
+                        <div class="component-title">Security Copilot</div>
+                        <div class="component-desc">AI-powered security analyst assistant</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-title">Threat Intelligence</div>
+                        <div class="component-desc">IOCs and threat context enrichment</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-title">Compliance Manager</div>
+                        <div class="component-desc">Regulatory compliance tracking</div>
+                    </div>
+                    <div class="component">
+                        <div class="component-title">Secure Score</div>
+                        <div class="component-desc">Security posture benchmarking</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Metrics Dashboard -->
+        <div class="metrics-dashboard">
+            <div class="metric-card">
+                <div class="metric-value" id="incidentReduction">50%</div>
+                <div class="metric-label">Reduction in Mean Time to Respond</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="configDrift">60%</div>
+                <div class="metric-label">Reduction in Configuration Drift</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="threatDetection">75%</div>
+                <div class="metric-label">True Positive Threat Detection Rate</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="secureScore">85%</div>
+                <div class="metric-label">Microsoft Secure Score Achievement</div>
+            </div>
+        </div>
+
+        <!-- Integration Flow -->
+        <div class="integration-flow">
+            <h2 style="text-align: center; margin-bottom: 30px; color: #00bcff;">Security Integration Flow</h2>
+            <div class="flow-steps">
+                <div class="flow-step step-1">🔵<br>Foundation</div>
+                <div class="flow-step step-2">🟢<br>Identity</div>
+                <div class="flow-step step-3">🟠<br>Protect</div>
+                <div class="flow-step step-4">🟣<br>Detect</div>
+                <div class="flow-step step-5">🔴<br>Intelligence</div>
+            </div>
+        </div>
+
+        <!-- Charts Container -->
+        <div class="charts-container">
+            <div class="chart-card">
+                <div class="chart-title">Threat Detection Performance</div>
+                <canvas id="threatChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <div class="chart-title">Security Control Coverage</div>
+                <canvas id="coverageChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <div class="chart-title">Incident Response Timeline</div>
+                <canvas id="responseChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <div class="chart-title">Compliance Status</div>
+                <canvas id="complianceChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Implementation Roadmap -->
+        <div class="implementation-roadmap">
+            <h2 style="text-align: center; margin-bottom: 30px; color: #00bcff;">Implementation Roadmap</h2>
+            <div class="roadmap-timeline">
+                <div class="timeline-phase">
+                    <div class="phase-title">Phase 1: Foundation & Identity (Weeks 1-4)</div>
+                    <p>Establish Entra ID, Conditional Access, and basic governance</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--progress: 100%;"></div>
+                    </div>
+                </div>
+                <div class="timeline-phase">
+                    <div class="phase-title">Phase 2: Endpoint Protection (Weeks 5-8)</div>
+                    <p>Deploy Defender for Endpoint and implement device compliance</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--progress: 75%;"></div>
+                    </div>
+                </div>
+                <div class="timeline-phase">
+                    <div class="phase-title">Phase 3: XDR Integration (Weeks 9-12)</div>
+                    <p>Enable Defender XDR suite and integrate data sources</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--progress: 50%;"></div>
+                    </div>
+                </div>
+                <div class="timeline-phase">
+                    <div class="phase-title">Phase 4: SIEM & Automation (Weeks 13-16)</div>
+                    <p>Deploy Sentinel and build SOAR playbooks</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--progress: 25%;"></div>
+                    </div>
+                </div>
+                <div class="timeline-phase">
+                    <div class="phase-title">Phase 5: AI & Optimization (Weeks 17-20)</div>
+                    <p>Implement Security Copilot and continuous improvement</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--progress: 10%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Initialize charts after page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Threat Detection Chart
+            const threatCtx = document.getElementById('threatChart').getContext('2d');
+            new Chart(threatCtx, {
+                type: 'radar',
+                data: {
+                    labels: ['Malware', 'Phishing', 'Lateral Movement', 'Data Exfiltration', 'Identity Attacks'],
+                    datasets: [{
+                        label: 'Detection Rate',
+                        data: [92, 88, 75, 82, 78],
+                        backgroundColor: 'rgba(0, 188, 255, 0.2)',
+                        borderColor: '#00bcff',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#00bcff'
+                    }]
+                },
+                options: {
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            pointLabels: { color: '#ffffff' },
+                            ticks: { color: '#ffffff', backdropColor: 'transparent' }
+                        }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#ffffff' } }
+                    }
+                }
+            });
+
+            // Coverage Chart
+            const coverageCtx = document.getElementById('coverageChart').getContext('2d');
+            new Chart(coverageCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Identity', 'Endpoint', 'Email', 'Cloud Apps', 'Data'],
+                    datasets: [{
+                        data: [25, 20, 15, 20, 20],
+                        backgroundColor: [
+                            '#107c10',
+                            '#0078d4',
+                            '#ffb900',
+                            '#b4009e',
+                            '#e81123'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    plugins: {
+                        legend: { 
+                            position: 'bottom',
+                            labels: { color: '#ffffff', padding: 20 }
+                        }
+                    }
+                }
+            });
+
+            // Response Timeline Chart
+            const responseCtx = document.getElementById('responseChart').getContext('2d');
+            new Chart(responseCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Week 1', 'Week 4', 'Week 8', 'Week 12', 'Week 16', 'Week 20'],
+                    datasets: [{
+                        label: 'Mean Time to Respond (hours)',
+                        data: [48, 36, 24, 12, 6, 2.4],
+                        borderColor: '#00bcff',
+                        backgroundColor: 'rgba(0, 188, 255, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            ticks: { color: '#ffffff' }
+                        },
+                        x: {
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            ticks: { color: '#ffffff' }
+                        }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#ffffff' } }
+                    }
+                }
+            });
+
+            // Compliance Chart
+            const complianceCtx = document.getElementById('complianceChart').getContext('2d');
+            new Chart(complianceCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['CIS', 'NIST', 'ISO 27001', 'GDPR', 'Zero Trust'],
+                    datasets: [{
+                        label: 'Compliance Score',
+                        data: [85, 78, 92, 88, 75],
+                        backgroundColor: [
+                            'rgba(0, 120, 212, 0.8)',
+                            'rgba(16, 124, 16, 0.8)',
+                            'rgba(255, 185, 0, 0.8)',
+                            'rgba(180, 0, 158, 0.8)',
+                            'rgba(232, 17, 35, 0.8)'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            ticks: { color: '#ffffff' }
+                        },
+                        x: {
+                            grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                            ticks: { color: '#ffffff' }
+                        }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#ffffff' } }
+                    }
+                }
+            });
+
+            // Animate metric counters
+            function animateValue(id, start, end, duration) {
+                let obj = document.getElementById(id);
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    const value = Math.floor(progress * (end - start) + start);
+                    obj.textContent = value + "%";
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+
+            // Start animations with delays
+            setTimeout(() => animateValue('incidentReduction', 0, 50, 2000), 500);
+            setTimeout(() => animateValue('configDrift', 0, 60, 2000), 1000);
+            setTimeout(() => animateValue('threatDetection', 0, 75, 2000), 1500);
+            setTimeout(() => animateValue('secureScore', 0, 85, 2000), 2000);
+        });
+    </script>
+</body>
+</html>
