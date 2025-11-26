@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microsoft Security Stack</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'microsoft-blue': '#0078d4',
+                        'microsoft-purple': '#5c2d91',
+                        'microsoft-green': '#107c10',
+                        'microsoft-orange': '#ff8c00',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #0f172a 100%);
+        }
+        
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .selected-card {
+            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.8);
+        }
+        
+        .backdrop-blur-sm {
+            backdrop-filter: blur(8px);
+        }
+        
+        .bg-opacity-5 {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .bg-opacity-10 {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .bg-opacity-20 {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="gradient-bg text-white min-h-screen">
+    <div class="max-w-7xl mx-auto p-8">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-5xl font-bold mb-4 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                Microsoft Security Stack
+            </h1>
+            <p class="text-xl text-gray-300">Complete Integration Architecture (2025)</p>
+            <p class="text-sm text-gray-400 mt-2">Based on Microsoft Cybersecurity Reference Architecture (MCRA)</p>
+        </div>
+
+        <!-- Integration Flow -->
+        <div class="mb-12 bg-opacity-5 bg-white rounded-lg p-8 backdrop-blur-sm">
+            <h2 class="text-2xl font-bold mb-6 flex items-center">
+                <i class="fas fa-arrow-right mr-3"></i>
+                Implementation Sequence
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="integration-flow">
+                <!-- Integration steps will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12" id="product-grid">
+            <!-- Product cards will be populated by JavaScript -->
+        </div>
+
+        <!-- Detailed Product View -->
+        <div class="bg-opacity-10 bg-white rounded-lg p-8 backdrop-blur-sm mb-12 hidden" id="product-detail">
+            <!-- Product details will be populated by JavaScript -->
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-opacity-5 bg-white rounded-lg p-6 text-center">
+                <div class="text-3xl font-bold text-blue-400 mb-2" id="product-count">0</div>
+                <div class="text-sm text-gray-300">Security Products</div>
+            </div>
+            <div class="bg-opacity-5 bg-white rounded-lg p-6 text-center">
+                <div class="text-3xl font-bold text-green-400 mb-2">1.5M+</div>
+                <div class="text-sm text-gray-300">Customers</div>
+            </div>
+            <div class="bg-opacity-5 bg-white rounded-lg p-6 text-center">
+                <div class="text-3xl font-bold text-purple-400 mb-2">99.9%</div>
+                <div class="text-sm text-gray-300">Breach Reduction</div>
+            </div>
+            <div class="bg-opacity-5 bg-white rounded-lg p-6 text-center">
+                <div class="text-3xl font-bold text-orange-400 mb-2">24/7</div>
+                <div class="text-sm text-gray-300">Threat Intelligence</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Security Products Data
+        const securityProducts = [
+            {
+                id: 'entra',
+                name: 'Microsoft Entra',
+                category: 'Identity & Access',
+                icon: 'users',
+                color: 'from-purple-600 to-purple-800',
+                tagline: 'Zero Trust Identity & Access Management',
+                components: [
+                    'Entra ID (Azure AD)',
+                    'Entra ID Protection',
+                    'Entra Privileged Identity Management (PIM)',
+                    'Entra ID Governance',
+                    'Entra Verified ID',
+                    'Entra Global Secure Access',
+                    'Entra Permissions Management',
+                    'Entra Workload Identities',
+                    'Entra External ID'
+                ],
+                problems: [
+                    'Prevents unauthorized access with Zero Trust',
+                    'Stops credential theft and account compromise',
+                    'Eliminates standing admin privileges',
+                    'Automates identity lifecycle management',
+                    'Prevents lateral movement attacks',
+                    'Reduces insider threat risk',
+                    'Ensures compliance with access policies',
+                    'Eliminates password-related breaches'
+                ],
+                businessValue: 'Reduces identity-related breaches by 99.9% with MFA and conditional access',
+                setupTime: '2-4 weeks',
+                priority: 'Critical',
+                integrates: ['defender', 'sentinel', 'purview', 'intune']
+            },
+            {
+                id: 'defender',
+                name: 'Microsoft Defender',
+                category: 'Threat Protection',
+                icon: 'shield-alt',
+                color: 'from-red-600 to-red-800',
+                tagline: 'Extended Detection & Response (XDR)',
+                components: [
+                    'Defender XDR',
+                    'Defender for Endpoint',
+                    'Defender for Office 365',
+                    'Defender for Identity',
+                    'Defender for Cloud Apps',
+                    'Defender for Cloud',
+                    'Defender Threat Intelligence',
+                    'Defender External Attack Surface Management',
+                    'Defender Vulnerability Management'
+                ],
+                problems: [
+                    'Detects and stops ransomware attacks',
+                    'Prevents phishing and email threats',
+                    'Blocks zero-day exploits and malware',
+                    'Stops lateral movement in networks',
+                    'Identifies and remediates vulnerabilities',
+                    'Protects against cloud threats',
+                    'Prevents data exfiltration',
+                    'Automates threat response and remediation'
+                ],
+                businessValue: 'Reduces Mean Time to Detect (MTTD) from hours to minutes with automated XDR',
+                setupTime: '3-6 weeks',
+                priority: 'Critical',
+                integrates: ['sentinel', 'entra', 'intune', 'purview']
+            },
+            {
+                id: 'sentinel',
+                name: 'Microsoft Sentinel',
+                category: 'Security Operations',
+                icon: 'eye',
+                color: 'from-blue-600 to-blue-800',
+                tagline: 'Cloud-Native SIEM & SOAR',
+                components: [
+                    'Sentinel SIEM',
+                    'Sentinel SOAR',
+                    'Threat Intelligence',
+                    'User and Entity Behavior Analytics (UEBA)',
+                    'Security Orchestration',
+                    'Threat Hunting',
+                    'Incident Management',
+                    'Security Analytics',
+                    'Data Connectors (150+)'
+                ],
+                problems: [
+                    'Provides unified visibility across entire estate',
+                    'Automates threat detection and response',
+                    'Reduces alert fatigue with AI',
+                    'Enables proactive threat hunting',
+                    'Orchestrates complex security workflows',
+                    'Reduces MTTR with automated playbooks',
+                    'Provides compliance and audit trails',
+                    'Scales security operations efficiently'
+                ],
+                businessValue: 'Reduces SOC operational costs by 40% with automation and AI-driven insights',
+                setupTime: '4-8 weeks',
+                priority: 'Critical',
+                integrates: ['defender', 'entra', 'purview', 'intune']
+            },
+            {
+                id: 'purview',
+                name: 'Microsoft Purview',
+                category: 'Data Security & Compliance',
+                icon: 'lock',
+                color: 'from-green-600 to-green-800',
+                tagline: 'Data Security, Governance & Compliance',
+                components: [
+                    'Data Loss Prevention (DLP)',
+                    'Information Protection',
+                    'Insider Risk Management',
+                    'Communication Compliance',
+                    'eDiscovery',
+                    'Data Lifecycle Management',
+                    'Records Management',
+                    'Audit',
+                    'Data Security Posture Management (DSPM)'
+                ],
+                problems: [
+                    'Prevents sensitive data leakage',
+                    'Ensures regulatory compliance (GDPR, HIPAA)',
+                    'Detects and mitigates insider threats',
+                    'Protects intellectual property',
+                    'Automates data classification',
+                    'Manages data retention policies',
+                    'Enables legal hold and eDiscovery',
+                    'Monitors compliance violations'
+                ],
+                businessValue: 'Prevents data breach costs averaging $4.45M per incident',
+                setupTime: '3-6 weeks',
+                priority: 'High',
+                integrates: ['defender', 'entra', 'sentinel', 'copilot']
+            },
+            {
+                id: 'intune',
+                name: 'Microsoft Intune',
+                category: 'Endpoint Management',
+                icon: 'server',
+                color: 'from-cyan-600 to-cyan-800',
+                tagline: 'Unified Endpoint Management',
+                components: [
+                    'Mobile Device Management (MDM)',
+                    'Mobile Application Management (MAM)',
+                    'Endpoint Security',
+                    'App Protection Policies',
+                    'Configuration Profiles',
+                    'Compliance Policies',
+                    'Windows Autopilot',
+                    'Endpoint Analytics',
+                    'Remote Actions'
+                ],
+                problems: [
+                    'Manages and secures all endpoints',
+                    'Ensures device compliance',
+                    'Protects corporate data on BYOD',
+                    'Automates device provisioning',
+                    'Enforces security baselines',
+                    'Enables zero-touch deployment',
+                    'Provides remote device management',
+                    'Reduces IT support costs'
+                ],
+                businessValue: 'Reduces endpoint management costs by 35% with automation',
+                setupTime: '2-4 weeks',
+                priority: 'High',
+                integrates: ['defender', 'entra', 'copilot']
+            },
+            {
+                id: 'copilot',
+                name: 'Security Copilot',
+                category: 'AI-Powered Security',
+                icon: 'bolt',
+                color: 'from-orange-600 to-orange-800',
+                tagline: 'Agentic AI Security Assistant',
+                components: [
+                    'Security Copilot Standalone',
+                    'Copilot for Defender',
+                    'Copilot for Sentinel',
+                    'Copilot for Entra',
+                    'Copilot for Intune',
+                    'Copilot for Purview',
+                    'Threat Intelligence Agent',
+                    'Incident Response Agent',
+                    'Custom Agents'
+                ],
+                problems: [
+                    'Accelerates incident investigation',
+                    'Automates routine SOC tasks',
+                    'Provides natural language security queries',
+                    'Generates threat intelligence summaries',
+                    'Suggests remediation actions',
+                    'Reduces analyst skill gap',
+                    'Improves threat hunting efficiency',
+                    'Enables proactive security posture'
+                ],
+                businessValue: 'Increases SOC analyst productivity by 30% with AI assistance',
+                setupTime: '1-2 weeks',
+                priority: 'Medium',
+                integrates: ['defender', 'sentinel', 'entra', 'purview', 'intune']
+            },
+            {
+                id: 'defender-cloud',
+                name: 'Defender for Cloud',
+                category: 'Cloud Security',
+                icon: 'cloud',
+                color: 'from-indigo-600 to-indigo-800',
+                tagline: 'Cloud Security Posture Management (CSPM)',
+                components: [
+                    'CSPM for Azure, AWS, GCP',
+                    'Cloud Workload Protection (CWP)',
+                    'Container Security',
+                    'Kubernetes Protection',
+                    'DevOps Security',
+                    'Security Recommendations',
+                    'Regulatory Compliance',
+                    'Secure Score',
+                    'Just-in-Time VM Access'
+                ],
+                problems: [
+                    'Identifies cloud misconfigurations',
+                    'Prevents cloud breaches',
+                    'Ensures multi-cloud compliance',
+                    'Protects containerized workloads',
+                    'Secures DevOps pipelines',
+                    'Reduces attack surface',
+                    'Automates cloud security',
+                    'Provides unified cloud visibility'
+                ],
+                businessValue: 'Reduces cloud security incidents by 60% with continuous monitoring',
+                setupTime: '2-3 weeks',
+                priority: 'High',
+                integrates: ['sentinel', 'defender', 'purview']
+            },
+            {
+                id: 'priva',
+                name: 'Microsoft Priva',
+                category: 'Privacy Management',
+                icon: 'eye',
+                color: 'from-teal-600 to-teal-800',
+                tagline: 'Privacy Risk & Subject Rights Management',
+                components: [
+                    'Privacy Risk Management',
+                    'Subject Rights Requests',
+                    'Data Minimization',
+                    'Consent Management',
+                    'Privacy Assessments',
+                    'Data Transfer Impact Analysis',
+                    'Privacy by Design',
+                    'GDPR Compliance Tools'
+                ],
+                problems: [
+                    'Ensures privacy regulation compliance',
+                    'Automates subject rights requests',
+                    'Identifies privacy risks',
+                    'Manages data retention',
+                    'Reduces privacy breach fines',
+                    'Provides privacy impact assessments',
+                    'Tracks data flows across systems',
+                    'Enables privacy by design'
+                ],
+                businessValue: 'Avoids GDPR fines up to 4% of annual revenue with automated compliance',
+                setupTime: '2-4 weeks',
+                priority: 'Medium',
+                integrates: ['purview', 'entra']
+            }
+        ];
+
+        // Integration Flow Data
+        const integrationFlow = [
+            {
+                step: 1,
+                title: 'Identity Foundation',
+                description: 'Start with Entra ID for Zero Trust identity',
+                products: ['entra']
+            },
+            {
+                step: 2,
+                title: 'Endpoint Protection',
+                description: 'Deploy Defender for Endpoint and Intune',
+                products: ['defender', 'intune']
+            },
+            {
+                step: 3,
+                title: 'Cloud Security',
+                description: 'Enable Defender for Cloud across all clouds',
+                products: ['defender-cloud']
+            },
+            {
+                step: 4,
+                title: 'Data Protection',
+                description: 'Implement Purview for DLP and compliance',
+                products: ['purview']
+            },
+            {
+                step: 5,
+                title: 'Security Operations',
+                description: 'Deploy Sentinel as central SIEM/SOAR',
+                products: ['sentinel']
+            },
+            {
+                step: 6,
+                title: 'AI Enhancement',
+                description: 'Enable Security Copilot for AI-driven security',
+                products: ['copilot']
+            }
+        ];
+
+        // State variables
+        let selectedProduct = null;
+        let expandedSection = null;
+
+        // Helper function to get product by ID
+        function getProductById(id) {
+            return securityProducts.find(p => p.id === id);
+        }
+
+        // Render integration flow
+        function renderIntegrationFlow() {
+            const container = document.getElementById('integration-flow');
+            container.innerHTML = '';
+            
+            integrationFlow.forEach(flow => {
+                const flowElement = document.createElement('div');
+                flowElement.className = 'bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg p-6 relative';
+                
+                flowElement.innerHTML = `
+                    <div class="absolute top-4 right-4 w-10 h-10 bg-white text-blue-600 rounded-full flex items-center justify-center font-bold text-lg">
+                        ${flow.step}
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 pr-12">${flow.title}</h3>
+                    <p class="text-sm text-gray-200 mb-4">${flow.description}</p>
+                    <div class="flex flex-wrap gap-2" id="flow-products-${flow.step}">
+                        <!-- Products will be populated below -->
+                    </div>
+                `;
+                
+                container.appendChild(flowElement);
+                
+                // Add products to this flow step
+                const productsContainer = document.getElementById(`flow-products-${flow.step}`);
+                flow.products.forEach(productId => {
+                    const product = getProductById(productId);
+                    const productElement = document.createElement('div');
+                    productElement.className = 'flex items-center bg-white bg-opacity-20 rounded px-2 py-1 text-xs';
+                    productElement.innerHTML = `
+                        <i class="fas fa-${product.icon} w-3 h-3 mr-1"></i>
+                        ${product.name.replace('Microsoft ', '')}
+                    `;
+                    productsContainer.appendChild(productElement);
+                });
+            });
+        }
+
+        // Render product grid
+        function renderProductGrid() {
+            const container = document.getElementById('product-grid');
+            container.innerHTML = '';
+            
+            securityProducts.forEach(product => {
+                const productElement = document.createElement('div');
+                productElement.className = `product-card bg-gradient-to-br ${product.color} rounded-lg p-6 cursor-pointer ${
+                    selectedProduct === product.id ? 'selected-card' : ''
+                }`;
+                productElement.setAttribute('data-product-id', product.id);
+                
+                productElement.innerHTML = `
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="bg-white bg-opacity-20 rounded-lg p-3">
+                            <i class="fas fa-${product.icon} w-8 h-8"></i>
+                        </div>
+                        <span class="text-xs px-2 py-1 rounded ${
+                            product.priority === 'Critical' ? 'bg-red-500' :
+                            product.priority === 'High' ? 'bg-orange-500' : 'bg-yellow-500'
+                        }">
+                            ${product.priority}
+                        </span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">${product.name}</h3>
+                    <p class="text-sm text-gray-200 mb-4">${product.tagline}</p>
+                    <div class="flex items-center justify-between text-xs text-gray-200">
+                        <span>⏱️ ${product.setupTime}</span>
+                        <span>${product.components.length} Components</span>
+                    </div>
+                `;
+                
+                productElement.addEventListener('click', () => {
+                    if (selectedProduct === product.id) {
+                        selectedProduct = null;
+                        document.getElementById('product-detail').classList.add('hidden');
+                    } else {
+                        selectedProduct = product.id;
+                        renderProductDetail();
+                        document.getElementById('product-detail').classList.remove('hidden');
+                    }
+                    
+                    // Update selected state in grid
+                    document.querySelectorAll('.product-card').forEach(card => {
+                        if (card.getAttribute('data-product-id') === product.id) {
+                            card.classList.toggle('selected-card', selectedProduct === product.id);
+                        } else {
+                            card.classList.remove('selected-card');
+                        }
+                    });
+                });
+                
+                container.appendChild(productElement);
+            });
+            
+            // Update product count
+            document.getElementById('product-count').textContent = securityProducts.length;
+        }
+
+        // Render product detail view
+        function renderProductDetail() {
+            if (!selectedProduct) return;
+            
+            const product = getProductById(selectedProduct);
+            const container = document.getElementById('product-detail');
+            
+            container.innerHTML = `
+                <div class="flex items-center mb-6">
+                    <div class="bg-gradient-to-br ${product.color} rounded-lg p-4 mr-4">
+                        <i class="fas fa-${product.icon} w-12 h-12"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-bold">${product.name}</h2>
+                        <p class="text-xl text-gray-300">${product.tagline}</p>
+                    </div>
+                </div>
+
+                <!-- Business Value -->
+                <div class="bg-green-500 bg-opacity-20 border-l-4 border-green-500 rounded p-4 mb-6">
+                    <div class="flex items-start">
+                        <i class="fas fa-check-circle w-6 h-6 mr-3 flex-shrink-0 text-green-400"></i>
+                        <div>
+                            <h4 class="font-bold mb-1">Business Value</h4>
+                            <p class="text-gray-200">${product.businessValue}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Components -->
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold mb-4 flex items-center cursor-pointer" id="components-toggle">
+                        ${expandedSection === 'components' ? 
+                            '<i class="fas fa-chevron-up mr-2"></i>' : 
+                            '<i class="fas fa-chevron-down mr-2"></i>'
+                        }
+                        Components & Capabilities
+                    </h3>
+                    <div id="components-list" class="${expandedSection === 'components' ? '' : 'hidden'}">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            ${product.components.map(component => `
+                                <div class="bg-white bg-opacity-5 rounded p-3 flex items-center">
+                                    <i class="fas fa-check-circle w-4 h-4 mr-2 text-green-400 flex-shrink-0"></i>
+                                    <span class="text-sm">${component}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Problems Solved -->
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold mb-4 flex items-center cursor-pointer" id="problems-toggle">
+                        ${expandedSection === 'problems' ? 
+                            '<i class="fas fa-chevron-up mr-2"></i>' : 
+                            '<i class="fas fa-chevron-down mr-2"></i>'
+                        }
+                        Problems Solved for Companies
+                    </h3>
+                    <div id="problems-list" class="${expandedSection === 'problems' ? '' : 'hidden'}">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            ${product.problems.map(problem => `
+                                <div class="bg-blue-500 bg-opacity-10 rounded p-3 flex items-start border-l-2 border-blue-400">
+                                    <i class="fas fa-shield-alt w-4 h-4 mr-2 mt-0.5 text-blue-400 flex-shrink-0"></i>
+                                    <span class="text-sm">${problem}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Integrations -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Integrates With</h3>
+                    <div class="flex flex-wrap gap-3" id="integrations-list">
+                        <!-- Integrations will be populated by JavaScript -->
+                    </div>
+                </div>
+            `;
+            
+            // Add event listeners for expandable sections
+            document.getElementById('components-toggle').addEventListener('click', () => {
+                expandedSection = expandedSection === 'components' ? null : 'components';
+                document.getElementById('components-list').classList.toggle('hidden');
+                document.getElementById('components-toggle').innerHTML = 
+                    (expandedSection === 'components' ? 
+                        '<i class="fas fa-chevron-up mr-2"></i>' : 
+                        '<i class="fas fa-chevron-down mr-2"></i>'
+                    ) + 'Components & Capabilities';
+            });
+            
+            document.getElementById('problems-toggle').addEventListener('click', () => {
+                expandedSection = expandedSection === 'problems' ? null : 'problems';
+                document.getElementById('problems-list').classList.toggle('hidden');
+                document.getElementById('problems-toggle').innerHTML = 
+                    (expandedSection === 'problems' ? 
+                        '<i class="fas fa-chevron-up mr-2"></i>' : 
+                        '<i class="fas fa-chevron-down mr-2"></i>'
+                    ) + 'Problems Solved for Companies';
+            });
+            
+            // Render integrations
+            const integrationsContainer = document.getElementById('integrations-list');
+            product.integrates.forEach(intId => {
+                const intProduct = getProductById(intId);
+                const integrationElement = document.createElement('div');
+                integrationElement.className = `bg-gradient-to-br ${intProduct.color} rounded-lg px-4 py-2 flex items-center`;
+                integrationElement.innerHTML = `
+                    <i class="fas fa-${intProduct.icon} w-5 h-5 mr-2"></i>
+                    <span class="text-sm font-semibold">${intProduct.name}</span>
+                `;
+                integrationsContainer.appendChild(integrationElement);
+            });
+        }
+
+        // Initialize the application
+        function init() {
+            renderIntegrationFlow();
+            renderProductGrid();
+        }
+
+        // Start the application when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

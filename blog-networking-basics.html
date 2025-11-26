@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Networking Guide: Ports, OSI Model & Security</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --osi-7: #8e44ad;
+            --osi-6: #9b59b6;
+            --osi-5: #3498db;
+            --osi-4: #1abc9c;
+            --osi-3: #f1c40f;
+            --osi-2: #e67e22;
+            --osi-1: #e74c3c;
+            --background: #f8f9fa;
+            --card-bg: #ffffff;
+            --text: #333333;
+            --text-light: #666666;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .network-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: 
+                radial-gradient(circle at 20% 30%, #3498db 2px, transparent 2px),
+                radial-gradient(circle at 80% 70%, #e74c3c 2px, transparent 2px),
+                radial-gradient(circle at 40% 80%, #2ecc71 2px, transparent 2px),
+                radial-gradient(circle at 60% 20%, #f39c12 2px, transparent 2px);
+            background-size: 100px 100px;
+        }
+        
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            animation: fadeIn 1s ease-in;
+            font-weight: 700;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 2rem;
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        
+        .tab {
+            padding: 1.2rem 1.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            flex-grow: 1;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+        
+        .tab.active {
+            background-color: var(--secondary-color);
+            color: white;
+            border-bottom: 3px solid var(--primary-color);
+        }
+        
+        .content-section {
+            display: none;
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.5s ease-in;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid var(--light-color);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+        }
+        
+        h3 {
+            color: var(--secondary-color);
+            margin: 2rem 0 1rem;
+            font-weight: 600;
+        }
+        
+        p {
+            margin-bottom: 1.2rem;
+            color: var(--text-light);
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 1.8rem;
+            margin-bottom: 1.8rem;
+            transition: all 0.3s ease;
+            border-left: 5px solid var(--secondary-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+        }
+        
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-header {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            font-size: 1.2rem;
+        }
+        
+        .card-header i {
+            margin-right: 0.8rem;
+            color: var(--secondary-color);
+            font-size: 1.3rem;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.8rem;
+        }
+        
+        .diagram-container {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin: 1.8rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .port-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .port-table th, .port-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .port-table th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .port-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .port-table tr:hover {
+            background-color: #f1f7fd;
+        }
+        
+        .protocol-badge {
+            display: inline-block;
+            padding: 0.3rem 0.7rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        
+        .tcp-badge {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .udp-badge {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .well-known {
+            border-left: 5px solid var(--secondary-color);
+        }
+        
+        .registered {
+            border-left: 5px solid var(--success-color);
+        }
+        
+        .dynamic {
+            border-left: 5px solid var(--warning-color);
+        }
+        
+        .animation-container {
+            height: 220px;
+            position: relative;
+            margin: 2.5rem 0;
+            background: linear-gradient(135deg, #1a2a3a, #2c3e50);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .packet {
+            position: absolute;
+            width: 40px;
+            height: 25px;
+            background-color: var(--secondary-color);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+            animation: movePacket 6s linear infinite;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .packet:nth-child(2) {
+            background-color: var(--success-color);
+            animation-delay: 1.2s;
+            top: 30%;
+        }
+        
+        .packet:nth-child(3) {
+            background-color: var(--warning-color);
+            animation-delay: 2.4s;
+            top: 60%;
+        }
+        
+        .packet:nth-child(4) {
+            background-color: var(--danger-color);
+            animation-delay: 3.6s;
+            top: 45%;
+        }
+        
+        .flow-chart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 2.5rem 0;
+        }
+        
+        .flow-step {
+            width: 85%;
+            padding: 1.5rem;
+            margin: 0.8rem 0;
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .flow-step:hover {
+            transform: translateX(10px);
+        }
+        
+        .flow-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            bottom: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 18px;
+            background-color: var(--secondary-color);
+        }
+        
+        .tool-container {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.8rem;
+            margin: 1.8rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .code-block {
+            background: linear-gradient(135deg, #2d3748, #4a5568);
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 10px;
+            font-family: 'Roboto Mono', monospace;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .security-alert {
+            background: linear-gradient(135deg, #fff5f5, #fed7d7);
+            border-left: 5px solid var(--danger-color);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* OSI Model Styles */
+        .osi-container {
+            display: flex;
+            flex-direction: column;
+            margin: 2.5rem 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .osi-layer {
+            padding: 1.8rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .osi-layer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .osi-layer:hover::before {
+            left: 100%;
+        }
+        
+        .osi-layer:hover {
+            filter: brightness(1.1);
+            transform: translateX(10px);
+        }
+        
+        .osi-layer-7 { background-color: var(--osi-7); }
+        .osi-layer-6 { background-color: var(--osi-6); }
+        .osi-layer-5 { background-color: var(--osi-5); }
+        .osi-layer-4 { background-color: var(--osi-4); }
+        .osi-layer-3 { background-color: var(--osi-3); }
+        .osi-layer-2 { background-color: var(--osi-2); }
+        .osi-layer-1 { background-color: var(--osi-1); }
+        
+        .layer-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-right: 1.5rem;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+        }
+        
+        .layer-content {
+            flex-grow: 1;
+        }
+        
+        .layer-name {
+            font-weight: 600;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .layer-description {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        /* Network Topology */
+        .topology {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 320px;
+            margin: 2.5rem 0;
+            position: relative;
+        }
+        
+        .network-node {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            padding: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .network-node:hover {
+            transform: scale(1.1);
+        }
+        
+        .node-server { background: linear-gradient(135deg, var(--osi-7), #6c3483); }
+        .node-router { background: linear-gradient(135deg, var(--osi-3), #d68910); }
+        .node-switch { background: linear-gradient(135deg, var(--osi-2), #ca6f1e); }
+        .node-pc { background: linear-gradient(135deg, var(--osi-5), #2980b9); }
+        
+        .connection {
+            position: absolute;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            z-index: 1;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Security Visualization */
+        .security-visual {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 2.5rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .security-item {
+            text-align: center;
+            padding: 1.5rem;
+            width: 180px;
+            transition: all 0.3s ease;
+        }
+        
+        .security-item:hover {
+            transform: translateY(-10px);
+        }
+        
+        .security-icon {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.2rem;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .firewall { background: linear-gradient(135deg, var(--danger-color), #c0392b); }
+        .encryption { background: linear-gradient(135deg, var(--success-color), #27ae60); }
+        .ids { background: linear-gradient(135deg, var(--warning-color), #d68910); }
+        .vpn { background: linear-gradient(135deg, var(--secondary-color), #2980b9); }
+        
+        /* Port Scanner Visualization */
+        .scanner-container {
+            height: 220px;
+            position: relative;
+            margin: 2.5rem 0;
+            background: linear-gradient(135deg, #1a2530, #2c3e50);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .scan-beam {
+            position: absolute;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(to right, transparent, #3498db, #2ecc71, transparent);
+            animation: scan 4s linear infinite;
+            box-shadow: 0 0 20px #3498db;
+        }
+        
+        .port-dot {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: #e74c3c;
+            transition: all 0.5s ease;
+        }
+        
+        .port-dot.open {
+            background-color: #2ecc71;
+            box-shadow: 0 0 15px #2ecc71;
+            transform: scale(1.3);
+        }
+        
+        /* Three-Way Handshake */
+        .handshake-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 2.5rem 0;
+        }
+        
+        .handshake-step {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin: 1.2rem 0;
+            align-items: center;
+        }
+        
+        .handshake-node {
+            width: 120px;
+            height: 120px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .handshake-node:hover {
+            transform: scale(1.05);
+        }
+        
+        .client { background: linear-gradient(135deg, var(--osi-5), #2980b9); }
+        .server { background: linear-gradient(135deg, var(--osi-7), #6c3483); }
+        
+        .handshake-arrow {
+            flex-grow: 1;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+            margin: 0 1.5rem;
+            position: relative;
+            border-radius: 2px;
+        }
+        
+        .handshake-arrow::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 12px solid var(--secondary-color);
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+        }
+        
+        .handshake-label {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            color: var(--text-light);
+            border-top: 1px solid #eaeaea;
+        }
+        
+        .reference {
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes movePacket {
+            0% { left: -60px; top: 50%; transform: translateY(-50%); }
+            25% { left: 25%; top: 50%; transform: translateY(-50%); }
+            50% { left: 50%; top: 50%; transform: translateY(-50%); }
+            75% { left: 75%; top: 50%; transform: translateY(-50%); }
+            100% { left: 100%; top: 50%; transform: translateY(-50%); }
+        }
+        
+        @keyframes scan {
+            0% { left: 0; }
+            100% { left: 100%; }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        @media (max-width: 1024px) {
+            .grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+            
+            .topology {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            .network-node {
+                margin: 1.5rem 0;
+            }
+            
+            .connection {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .tab {
+                padding: 1rem 1.5rem;
+            }
+            
+            .content-section {
+                padding: 1.8rem;
+            }
+            
+            .handshake-step {
+                flex-direction: column;
+            }
+            
+            .handshake-arrow {
+                width: 4px;
+                height: 50px;
+                margin: 0.8rem 0;
+            }
+            
+            .handshake-arrow::after {
+                top: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+                border-left: 8px solid transparent;
+                border-right: 8px solid transparent;
+                border-top: 12px solid var(--secondary-color);
+            }
+            
+            .security-visual {
+                gap: 1rem;
+            }
+            
+            .security-item {
+                width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="network-background"></div>
+            <div class="logo">
+                <i class="fas fa-network-wired"></i>
+            </div>
+            <h1> Networking Basics</h1>
+            <p class="subtitle">Master Network Ports, OSI Model, Security Concepts, and Tools with Interactive Visualizations</p>
+        </header>
+        
+        <div class="nav-tabs">
+            <div class="tab active" data-target="basics">
+                <i class="fas fa-network-wired"></i> Port Basics
+            </div>
+            <div class="tab" data-target="osi">
+                <i class="fas fa-layer-group"></i> OSI Model
+            </div>
+            <div class="tab" data-target="types">
+                <i class="fas fa-plug"></i> Port Types
+            </div>
+            <div class="tab" data-target="traffic">
+                <i class="fas fa-exchange-alt"></i> Traffic Flow
+            </div>
+            <div class="tab" data-target="security">
+                <i class="fas fa-shield-alt"></i> Security
+            </div>
+            <div class="tab" data-target="tools">
+                <i class="fas fa-tools"></i> Network Tools
+            </div>
+        </div>
+        
+        <section id="basics" class="content-section active">
+            <h2><i class="fas fa-network-wired"></i> Network Ports Fundamentals</h2>
+            
+            <div class="animation-container">
+                <div class="packet">HTTP</div>
+                <div class="packet">HTTPS</div>
+                <div class="packet">SSH</div>
+                <div class="packet">DNS</div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header"><i class="fas fa-door-open"></i> What are Network Ports?</div>
+                <p>Network ports are virtual endpoints for communication in an operating system. They allow multiple network services to operate simultaneously on a single IP address by using different port numbers.</p>
+                <p>Think of ports as doors in a building (the IP address). Each door leads to a different room (service/application) inside the building. When data arrives at a device, the operating system uses the port number to determine which application should receive that data.</p>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-sort-numeric-up"></i> Port Number Range</div>
+                    <p>Port numbers range from 0 to 65535, divided into three main categories:</p>
+                    <ul>
+                        <li><strong>Well-known ports:</strong> 0-1023 (Require admin privileges)</li>
+                        <li><strong>Registered ports:</strong> 1024-49151 (Assigned by IANA)</li>
+                        <li><strong>Dynamic/Private ports:</strong> 49152-65535 (Ephemeral ports)</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-comments"></i> Port Communication</div>
+                    <p>Ports work in conjunction with IP addresses to enable communication:</p>
+                    <p><strong>IP Address</strong> → Identifies the device on the network</p>
+                    <p><strong>Port Number</strong> → Identifies the service/application on that device</p>
+                    <p>Together, they form a <strong>socket</strong> - a unique communication endpoint.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-star"></i> Advantages of Ports</div>
+                    <ul>
+                        <li>Enable multiple services on a single device</li>
+                        <li>Provide standardized communication endpoints</li>
+                        <li>Allow for traffic filtering and security</li>
+                        <li>Facilitate service discovery</li>
+                        <li>Enable load balancing across multiple instances</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3><i class="fas fa-sitemap"></i> Network Topology Example</h3>
+            <div class="topology">
+                <div class="network-node node-pc">PC<br>192.168.1.10</div>
+                <div class="connection" style="width: 20%; left: 15%; top: 50%;"></div>
+                <div class="network-node node-switch">Switch</div>
+                <div class="connection" style="width: 20%; left: 40%; top: 50%;"></div>
+                <div class="network-node node-router">Router</div>
+                <div class="connection" style="width: 20%; left: 65%; top: 50%;"></div>
+                <div class="network-node node-server">Web Server<br>203.0.113.5:80</div>
+            </div>
+            
+            <h3><i class="fas fa-exchange-alt"></i> TCP Three-Way Handshake</h3>
+            <div class="handshake-container">
+                <div class="handshake-step">
+                    <div class="handshake-node client">Client</div>
+                    <div class="handshake-arrow">
+                        <div class="handshake-label">SYN</div>
+                    </div>
+                    <div class="handshake-node server">Server</div>
+                </div>
+                <div class="handshake-step">
+                    <div class="handshake-node client">Client</div>
+                    <div class="handshake-arrow">
+                        <div class="handshake-label">SYN-ACK</div>
+                    </div>
+                    <div class="handshake-node server">Server</div>
+                </div>
+                <div class="handshake-step">
+                    <div class="handshake-node client">Client</div>
+                    <div class="handshake-arrow">
+                        <div class="handshake-label">ACK</div>
+                    </div>
+                    <div class="handshake-node server">Server</div>
+                </div>
+            </div>
+            <p>The TCP three-way handshake establishes a reliable connection between client and server before data transmission begins. This process ensures both devices are ready to communicate and agree on initial sequence numbers.</p>
+        </section>
+        
+        <section id="osi" class="content-section">
+            <h2><i class="fas fa-layer-group"></i> OSI Model - 7 Layers</h2>
+            
+            <div class="osi-container">
+                <div class="osi-layer osi-layer-7">
+                    <div class="layer-number">7</div>
+                    <div class="layer-content">
+                        <div class="layer-name">Application Layer</div>
+                        <div class="layer-description">HTTP, HTTPS, FTP, SMTP, DNS - User interfaces and network services</div>
+                    </div>
+                </div>
+                <div class="osi-layer osi-layer-6">
+                    <div class="layer-number">6</div>
+                    <div class="layer-content">
+                        <div class="layer-name">Presentation Layer</div>
+                        <div class="layer-description">SSL/TLS, Encryption, Compression - Data translation and encryption</div>
+                    </div>
+                </div>
+                <div class="osi-layer osi-layer-5">
+                    <div class="layer-number">5</div>
+                    <div class="layer-content">
+                        <div class="layer-name">Session Layer</div>
+                        <div class="layer-description">NetBIOS, RPC - Connection establishment, management and termination</div>
+                    </div>
+                </div>
+                <div class="osi-layer osi-layer-4">
+                    <div class="layer-number">4</div>
+                    <div class="layer-content">
+                        <div class="layer-name">Transport Layer</div>
+                        <div class="layer-description">TCP, UDP - End-to-end communication, error recovery, flow control</div>
+                    </div>
+                </div>
+                <div class="osi-layer osi-layer-3">
+                    <div class="layer-number">3</div>
+                    <div class="layer-content">
+                        <div class="layer-name">Network Layer</div>
+                        <div class="layer-description">IP, ICMP, Routers - Logical addressing and path determination</div>
+                    </div>
+                </div>
+                <div class="osi-layer osi-layer-2">
+                    <div class="layer-number">2</div>
+                    <div class="layer-content">
+                        <div class="layer-name">Data Link Layer</div>
+                        <div class="layer-description">Ethernet, Switches, MAC addresses - Physical addressing and error detection</div>
+                    </div>
+                </div>
+                <div class="osi-layer osi-layer-1">
+                    <div class="layer-number">1</div>
+                    <div class="layer-content">
+                        <div class="layer-name">Physical Layer</div>
+                        <div class="layer-description">Cables, Hubs, Signals - Raw bit transmission over physical medium</div>
+                    </div>
+                </div>
+            </div>
+            
+            <h3><i class="fas fa-exchange-alt"></i> Data Encapsulation Process</h3>
+            <div class="flow-chart">
+                <div class="flow-step">Application Data (HTTP Request)</div>
+                <div class="flow-step">Transport Layer adds TCP Header → Segment</div>
+                <div class="flow-step">Network Layer adds IP Header → Packet</div>
+                <div class="flow-step">Data Link Layer adds Frame Header & Trailer → Frame</div>
+                <div class="flow-step">Physical Layer converts to bits for transmission</div>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-arrow-down"></i> Data Flow Down the OSI Stack</div>
+                    <p>As data moves down the OSI model, each layer adds its own header (encapsulation):</p>
+                    <ol>
+                        <li>Application creates the data</li>
+                        <li>Presentation encrypts or formats</li>
+                        <li>Session manages the connection</li>
+                        <li>Transport segments data and adds port information</li>
+                        <li>Network adds IP addresses</li>
+                        <li>Data Link adds MAC addresses</li>
+                        <li>Physical converts to signals</li>
+                    </ol>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-arrow-up"></i> Data Flow Up the OSI Stack</div>
+                    <p>As data moves up the OSI model, each layer removes its header (decapsulation):</p>
+                    <ol>
+                        <li>Physical receives signals</li>
+                        <li>Data Link checks MAC address and removes frame header</li>
+                        <li>Network checks IP address and removes IP header</li>
+                        <li>Transport reassembles segments and removes TCP/UDP header</li>
+                        <li>Session manages the connection state</li>
+                        <li>Presentation decrypts or reformats</li>
+                        <li>Application receives the data</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <h3><i class="fas fa-project-diagram"></i> TCP/IP Model vs OSI Model</h3>
+            <div class="card">
+                <p>The TCP/IP model is a more practical implementation used on the internet, with 4 layers instead of 7:</p>
+                <table class="port-table">
+                    <thead>
+                        <tr>
+                            <th>TCP/IP Model</th>
+                            <th>OSI Model</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Application</td>
+                            <td>Application, Presentation, Session</td>
+                        </tr>
+                        <tr>
+                            <td>Transport</td>
+                            <td>Transport</td>
+                        </tr>
+                        <tr>
+                            <td>Internet</td>
+                            <td>Network</td>
+                        </tr>
+                        <tr>
+                            <td>Network Interface</td>
+                            <td>Data Link, Physical</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <section id="types" class="content-section">
+            <h2><i class="fas fa-plug"></i> Network Port Types & Protocols</h2>
+            
+            <div class="card well-known">
+                <div class="card-header"><i class="fas fa-certificate"></i> Well-Known Ports (0-1023)</div>
+                <p>These ports are assigned by IANA for specific services and protocols. They are standardized across all systems and typically require administrator privileges to use.</p>
+                <p><strong>Examples:</strong> HTTP (80), HTTPS (443), SSH (22), FTP (21), DNS (53), SMTP (25)</p>
+            </div>
+            
+            <div class="card registered">
+                <div class="card-header"><i class="fas fa-registered"></i> Registered Ports (1024-49151)</div>
+                <p>These ports can be registered with IANA for specific services but are not as strictly controlled as well-known ports. Many database and middleware applications use these ports.</p>
+                <p><strong>Examples:</strong> MySQL (3306), PostgreSQL (5432), Redis (6379), MongoDB (27017), Jenkins (8080)</p>
+            </div>
+            
+            <div class="card dynamic">
+                <div class="card-header"><i class="fas fa-random"></i> Dynamic/Private Ports (49152-65535)</div>
+                <p>Also known as ephemeral ports, these are used for temporary connections, typically as source ports for client applications. The operating system assigns these automatically when a client initiates a connection to a server.</p>
+            </div>
+            
+            <h3><i class="fas fa-table"></i> Common Well-Known Ports</h3>
+            <table class="port-table">
+                <thead>
+                    <tr>
+                        <th>Port</th>
+                        <th>Service</th>
+                        <th>Protocol</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>20/21</td>
+                        <td>FTP</td>
+                        <td><span class="protocol-badge tcp-badge">TCP</span></td>
+                        <td>File Transfer Protocol (Data/Control)</td>
+                    </tr>
+                    <tr>
+                        <td>22</td>
+                        <td>SSH</td>
+                        <td><span class="protocol-badge tcp-badge">TCP</span></td>
+                        <td>Secure Shell</td>
+                    </tr>
+                    <tr>
+                        <td>23</td>
+                        <td>Telnet</td>
+                        <td><span class="protocol-badge tcp-badge">TCP</span></td>
+                        <td>Telecommunication Network</td>
+                    </tr>
+                    <tr>
+                        <td>25</td>
+                        <td>SMTP</td>
+                        <td><span class="protocol-badge tcp-badge">TCP</span></td>
+                        <td>Simple Mail Transfer Protocol</td>
+                    </tr>
+                    <tr>
+                        <td>53</td>
+                        <td>DNS</td>
+                        <td><span class="protocol-badge tcp-badge">TCP</span><span class="protocol-badge udp-badge">UDP</span></td>
+                        <td>Domain Name System</td>
+                    </tr>
+                    <tr>
+                        <td>67/68</td>
+                        <td>DHCP</td>
+                        <td><span class="protocol-badge udp-badge">UDP</span></td>
+                        <td>Dynamic Host Configuration Protocol</td>
+                    </tr>
+                    <tr>
+                        <td>80</td>
+                        <td>HTTP</td>
+                        <td><span class="protocol-badge tcp-badge">TCP</span></td>
+                        <td>Hypertext Transfer Protocol</td>
+                    </tr>
+                    <tr>
+                        <td>110</td>
+                        <td>POP3</td>
+                        <td><span class="protocol-badge tcp-badge">TCP</span></td>
+                        <td>Post Office Protocol v3</td>
+                    </tr>
+                    <tr>
+                        <td>123</td>
+                        <td>NTP</td>
+                        <td><span class="protocol-badge udp-badge">UDP</span></td>
+                        <td>Network Time Protocol</td>
+                    </tr>
+                    <tr>
+                        <td>143</td>
+                        <td>IMAP</td>
+                        <td><span class="protocol-badge tcp-badge">TCP</span></td>
+                        <td>Internet Message Access Protocol</td>
+                    </tr>
+                    <tr>
+                        <td>443</td>
+                        <td>HTTPS</td>
+                        <td><span class="protocol-badge tcp-badge">TCP</span></td>
+                        <td>HTTP Secure</td>
+                    </tr>
+                    <tr>
+                        <td>993</td>
+                        <td>IMAPS</td>
+                        <td><span class="protocol-badge tcp-badge">TCP</span></td>
+                        <td>IMAP over SSL</td>
+                    </tr>
+                    <tr>
+                        <td>995</td>
+                        <td>POP3S</td>
+                        <td><span class="protocol-badge tcp-badge">TCP</span></td>
+                        <td>POP3 over SSL</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <h3><i class="fas fa-project-diagram"></i> Port Protocols: TCP vs UDP</h3>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-handshake"></i> TCP (Transmission Control Protocol)</div>
+                    <ul>
+                        <li>Connection-oriented</li>
+                        <li>Reliable, guaranteed delivery</li>
+                        <li>Error checking and correction</li>
+                        <li>Flow control</li>
+                        <li>Sequencing of packets</li>
+                        <li>Higher overhead</li>
+                        <li>Used for: HTTP, HTTPS, SSH, FTP, SMTP</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-paper-plane"></i> UDP (User Datagram Protocol)</div>
+                    <ul>
+                        <li>Connectionless</li>
+                        <li>Faster, lower overhead</li>
+                        <li>No guarantee of delivery</li>
+                        <li>No error correction</li>
+                        <li>No sequencing</li>
+                        <li>No flow control</li>
+                        <li>Used for: DNS, DHCP, VoIP, streaming, gaming</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section id="traffic" class="content-section">
+            <h2><i class="fas fa-exchange-alt"></i> Network Traffic Flow</h2>
+            
+            <div class="grid">
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-download"></i> Inbound Traffic</div>
+                    <p>Traffic coming into a network or device from external sources. This includes:</p>
+                    <ul>
+                        <li>Web requests to your server</li>
+                        <li>Email delivery</li>
+                        <li>Remote connections (SSH, RDP)</li>
+                        <li>File transfers</li>
+                        <li>API calls to your services</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-upload"></i> Outbound Traffic</div>
+                    <p>Traffic leaving a network or device to external destinations. This includes:</p>
+                    <ul>
+                        <li>Web browsing requests</li>
+                        <li>Email sending</li>
+                        <li>Cloud service connections</li>
+                        <li>Software updates</li>
+                        <li>API calls to external services</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3><i class="fas fa-project-diagram"></i> Traffic Flow Diagram</h3>
+            <div class="diagram-container">
+                <div style="display: flex; justify-content: space-between; align-items: center; height: 200px;">
+                    <div style="text-align: center;">
+                        <div style="background: linear-gradient(135deg, var(--osi-5), #2980b9); color: white; padding: 12px; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 3px 10px rgba(0,0,0,0.2);">Client Device</div>
+                        <div style="font-size: 0.9rem;">Outbound Request<br>Src Port: 54321<br>Dst Port: 80</div>
+                    </div>
+                    <div style="text-align: center; flex-grow: 1; position: relative;">
+                        <div style="height: 3px; background: linear-gradient(90deg, var(--secondary-color), var(--primary-color)); position: absolute; top: 50%; left: 0; right: 0;"></div>
+                        <div style="position: absolute; top: 50%; left: 0; transform: translateY(-50%); width: 100%; display: flex; justify-content: space-between;">
+                            <div style="background: linear-gradient(135deg, var(--success-color), #27ae60); color: white; padding: 8px; border-radius: 5px; box-shadow: 0 3px 8px rgba(0,0,0,0.2);">Router</div>
+                            <div style="background: linear-gradient(135deg, var(--danger-color), #c0392b); color: white; padding: 8px; border-radius: 5px; box-shadow: 0 3px 8px rgba(0,0,0,0.2);">Firewall</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="background: linear-gradient(135deg, var(--osi-7), #6c3483); color: white; padding: 12px; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 3px 10px rgba(0,0,0,0.2);">Web Server</div>
+                        <div style="font-size: 0.9rem;">Inbound Request<br>Src Port: 54321<br>Dst Port: 80</div>
+                    </div>
+                </div>
+            </div>
+            
+            <h3><i class="fas fa-tachometer-alt"></i> Port States</h3>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-volume-up"></i> LISTEN</div>
+                    <p>A service is actively waiting for connections on this port. The port is open and ready to accept incoming connections.</p>
+                </div>
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-link"></i> ESTABLISHED</div>
+                    <p>An active connection exists between source and destination. Data can flow bidirectionally between the endpoints.</p>
+                </div>
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-hourglass-half"></i> TIME_WAIT</div>
+                    <p>The connection is being closed, waiting to ensure all packets are received and to handle any delayed packets.</p>
+                </div>
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-door-closed"></i> CLOSED</div>
+                    <p>No application is listening on this port. The port is not associated with any active service.</p>
+                </div>
+            </div>
+            
+            <h3><i class="fas fa-exclamation-triangle"></i> Port Exhaustion</h3>
+            <div class="card">
+                <p>Port exhaustion occurs when a system runs out of available ephemeral ports. This can happen when:</p>
+                <ul>
+                    <li>Many connections are made in a short time</li>
+                    <li>Connections remain in TIME_WAIT state for too long</li>
+                    <li>The ephemeral port range is too small</li>
+                    <li>Application bugs creating too many connections</li>
+                </ul>
+                <p><strong>Solutions:</strong> Increase the ephemeral port range, reduce connection timeout, use connection pooling, or implement connection reuse.</p>
+            </div>
+        </section>
+        
+        <section id="security" class="content-section">
+            <h2><i class="fas fa-shield-alt"></i> Network Port Security</h2>
+            
+            <div class="security-alert">
+                <strong><i class="fas fa-exclamation-triangle"></i> Security Warning:</strong> Open ports can be entry points for attackers. Always follow the principle of least privilege when configuring port access. Regularly audit open ports and close any that are not necessary.
+            </div>
+            
+            <h3><i class="fas fa-user-shield"></i> Network Security Concepts</h3>
+            <div class="security-visual">
+                <div class="security-item">
+                    <div class="security-icon firewall">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h4>Firewall</h4>
+                    <p>Controls traffic based on security rules</p>
+                </div>
+                <div class="security-item">
+                    <div class="security-icon encryption">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h4>Encryption</h4>
+                    <p>Protects data in transit</p>
+                </div>
+                <div class="security-item">
+                    <div class="security-icon ids">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <h4>IDS/IPS</h4>
+                    <p>Detects and prevents intrusions</p>
+                </div>
+                <div class="security-item">
+                    <div class="security-icon vpn">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <h4>VPN</h4>
+                    <p>Secure remote access</p>
+                </div>
+            </div>
+            
+            <div class="grid">
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-fire"></i> Firewall Configuration</div>
+                    <p>Firewalls control traffic based on port numbers:</p>
+                    <ul>
+                        <li><strong>Allow rules:</strong> Explicitly permit traffic to specific ports</li>
+                        <li><strong>Deny rules:</strong> Block traffic to specific ports</li>
+                        <li><strong>Stateful inspection:</strong> Track connection state to allow response traffic</li>
+                        <li><strong>Application filtering:</strong> Inspect payload content</li>
+                        <li><strong>Zone-based policies:</strong> Different rules for different network segments</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-search"></i> Port Scanning</div>
+                    <p>Attackers use port scanning to discover open ports on target systems:</p>
+                    <ul>
+                        <li><strong>TCP Connect Scan:</strong> Attempts to complete TCP handshake</li>
+                        <li><strong>SYN Scan:</strong> Sends SYN packets without completing handshake</li>
+                        <li><strong>UDP Scan:</strong> Sends UDP packets to check for responses</li>
+                        <li><strong>XMAS Scan:</strong> Sends packets with FIN, URG, PUSH flags set</li>
+                        <li><strong>NULL Scan:</strong> Sends packets with no flags set</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3><i class="fas fa-broadcast-tower"></i> Port Scanner Visualization</h3>
+            <div class="scanner-container">
+                <div class="scan-beam"></div>
+                <!-- Port dots will be added by JavaScript -->
+            </div>
+            
+            <h3><i class="fas fa-exclamation-triangle"></i> Common Security Risks</h3>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-terminal"></i> Telnet (Port 23)</div>
+                    <p>Telnet transmits all data in plaintext, including passwords. It should be replaced with SSH (port 22) which encrypts all communication. Telnet is considered insecure and should be disabled on all systems.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-server"></i> Unnecessary Services</div>
+                    <p>Running unnecessary services increases the attack surface. Disable any services that aren't required for your system's function. Regularly audit running services and close any that are not needed.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-key"></i> Default Passwords</div>
+                    <p>Many services have default credentials that are well-known. Always change default passwords on network services. Use strong, unique passwords and consider implementing multi-factor authentication.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-expand-arrows-alt"></i> Port Exhaustion</div>
+                    <p>When a system runs out of available ephemeral ports, it can't establish new connections. This can be exploited in DoS attacks. Monitor port usage and consider increasing the ephemeral port range if needed.</p>
+                </div>
+            </div>
+            
+            <h3><i class="fas fa-check-circle"></i> Security Best Practices</h3>
+            <div class="card">
+                <ul>
+                    <li>Close all ports that aren't explicitly needed</li>
+                    <li>Use firewall rules to restrict access to necessary IP ranges only</li>
+                    <li>Regularly scan your systems for open ports</li>
+                    <li>Use VPNs for remote access instead of exposing services directly</li>
+                    <li>Keep services updated with security patches</li>
+                    <li>Use intrusion detection/prevention systems</li>
+                    <li>Implement network segmentation</li>
+                    <li>Use port knocking for hidden services</li>
+                    <li>Monitor network traffic for anomalies</li>
+                    <li>Implement least privilege access controls</li>
+                    <li>Use application-level firewalls where possible</li>
+                    <li>Regularly review and update security policies</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="tools" class="content-section">
+            <h2><i class="fas fa-tools"></i> Network Port Tools</h2>
+            
+            <div class="tool-container">
+                <h3><i class="fas fa-chart-bar"></i> Netstat</h3>
+                <p>Netstat (Network Statistics) is a command-line tool that displays network connections, routing tables, and interface statistics. It's available on Windows, Linux, and macOS.</p>
+                <div class="code-block">
+                    # Display all listening ports<br>
+                    netstat -tuln<br><br>
+                    
+                    # Display all connections<br>
+                    netstat -tun<br><br>
+                    
+                    # Display process name with ports<br>
+                    netstat -tulnp<br><br>
+                    
+                    # Display statistics by protocol<br>
+                    netstat -s<br><br>
+                    
+                    # Continuous monitoring<br>
+                    netstat -c
+                </div>
+            </div>
+            
+            <div class="tool-container">
+                <h3><i class="fas fa-project-diagram"></i> SS (Socket Statistics)</h3>
+                <p>SS is a modern replacement for netstat that provides more information and faster performance. It's the preferred tool on modern Linux systems.</p>
+                <div class="code-block">
+                    # Display all listening ports<br>
+                    ss -tuln<br><br>
+                    
+                    # Display all established connections<br>
+                    ss -tun state established<br><br>
+                    
+                    # Display process information<br>
+                    ss -tulnp<br><br>
+                    
+                    # Display all TCP connections<br>
+                    ss -t -a<br><br>
+                    
+                    # Display summary statistics<br>
+                    ss -s
+                </div>
+            </div>
+            
+            <div class="tool-container">
+                <h3><i class="fas fa-search"></i> Nmap</h3>
+                <p>Nmap (Network Mapper) is a powerful network scanning tool used for security auditing and network discovery. It can detect open ports, running services, operating systems, and more.</p>
+                <div class="code-block">
+                    # Basic port scan<br>
+                    nmap target.com<br><br>
+                    
+                    # Scan specific ports<br>
+                    nmap -p 80,443,22 target.com<br><br>
+                    
+                    # Scan all ports<br>
+                    nmap -p- target.com<br><br>
+                    
+                    # Service version detection<br>
+                    nmap -sV target.com<br><br>
+                    
+                    # OS detection<br>
+                    nmap -O target.com<br><br>
+                    
+                    # Aggressive scan<br>
+                    nmap -A target.com<br><br>
+                    
+                    # TCP SYN scan (stealth)<br>
+                    nmap -sS target.com<br><br>
+                    
+                    # UDP port scan<br>
+                    nmap -sU target.com
+                </div>
+            </div>
+            
+            <div class="tool-container">
+                <h3><i class="fas fa-file-alt"></i> /etc/services File</h3>
+                <p>The /etc/services file on Unix-like systems contains a list of network services and their associated port numbers and protocols. This file is used by various network utilities to map port numbers to service names.</p>
+                <div class="code-block">
+                    # View well-known ports<br>
+                    cat /etc/services | grep 80/tcp<br><br>
+                    
+                    # Search for a specific service<br>
+                    grep ssh /etc/services<br><br>
+                    
+                    # Count total services<br>
+                    cat /etc/services | wc -l<br><br>
+                    
+                    # View all HTTP-related services<br>
+                    grep http /etc/services
+                </div>
+            </div>
+            
+            <h3><i class="fas fa-cogs"></i> Additional Network Tools</h3>
+            <div class="grid">
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-traffic-light"></i> iptables</div>
+                    <p>Linux firewall tool for packet filtering and NAT:</p>
+                    <div class="code-block">
+                        # List all rules<br>
+                        iptables -L<br><br>
+                        
+                        # Allow SSH<br>
+                        iptables -A INPUT -p tcp --dport 22 -j ACCEPT<br><br>
+                        
+                        # Block an IP address<br>
+                        iptables -A INPUT -s 192.168.1.100 -j DROP
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-network-wired"></i> tcpdump</div>
+                    <p>Command-line packet analyzer:</p>
+                    <div class="code-block">
+                        # Capture packets on interface<br>
+                        tcpdump -i eth0<br><br>
+                        
+                        # Capture HTTP traffic<br>
+                        tcpdump -i eth0 port 80<br><br>
+                        
+                        # Save capture to file<br>
+                        tcpdump -w capture.pcap<br><br>
+                        
+                        # Read from capture file<br>
+                        tcpdump -r capture.pcap
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-wifi"></i> Wireshark</div>
+                    <p>Graphical network protocol analyzer for deep packet inspection. Provides detailed analysis of network traffic with powerful filtering capabilities.</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header"><i class="fas fa-hdd"></i> lsof</div>
+                    <p>List open files and the processes that opened them (including network connections):</p>
+                    <div class="code-block">
+                        # Show processes using port 80<br>
+                        lsof -i :80<br><br>
+                        
+                        # Show all network connections<br>
+                        lsof -i<br><br>
+                        
+                        # Show TCP connections only<br>
+                        lsof -i tcp
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>© 2023 Complete Networking Guide | Educational Resource</p>
+            <p class="reference">References: IANA Port Assignments, RFC 793 (TCP), RFC 768 (UDP), OSI Model Standards</p>
+        </footer>
+    </div>
+
+    <script>
+        // Tab functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and sections
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding section
+                tab.classList.add('active');
+                const targetId = tab.getAttribute('data-target');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+        
+        // Create port scanner visualization
+        const scannerContainer = document.querySelector('.scanner-container');
+        if (scannerContainer) {
+            for (let i = 0; i < 60; i++) {
+                const portDot = document.createElement('div');
+                portDot.className = 'port-dot';
+                portDot.style.left = `${Math.random() * 95 + 2}%`;
+                portDot.style.top = `${Math.random() * 85 + 7}%`;
+                
+                // Randomly make some ports "open"
+                if (Math.random() > 0.7) {
+                    portDot.classList.add('open');
+                }
+                
+                scannerContainer.appendChild(portDot);
+            }
+        }
+        
+        // OSI layer interaction
+        document.querySelectorAll('.osi-layer').forEach(layer => {
+            layer.addEventListener('click', () => {
+                // Highlight the clicked layer
+                document.querySelectorAll('.osi-layer').forEach(l => {
+                    l.style.transform = 'translateX(0)';
+                });
+                layer.style.transform = 'translateX(20px)';
+                
+                // Display layer information
+                const layerNum = layer.querySelector('.layer-number').textContent;
+                const layerName = layer.querySelector('.layer-name').textContent;
+                const layerDesc = layer.querySelector('.layer-description').textContent;
+                
+                // Create a custom alert-like element
+                const infoBox = document.createElement('div');
+                infoBox.style.cssText = `
+                    position: fixed;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: white;
+                    padding: 2rem;
+                    border-radius: 12px;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                    z-index: 1000;
+                    max-width: 500px;
+                    width: 90%;
+                    text-align: center;
+                `;
+                
+                infoBox.innerHTML = `
+                    <h3 style="color: ${layer.style.backgroundColor}; margin-bottom: 1rem;">OSI Layer ${layerNum}: ${layerName}</h3>
+                    <p>${layerDesc}</p>
+                    <button onclick="this.parentElement.remove()" style="margin-top: 1.5rem; padding: 0.5rem 1.5rem; background: ${layer.style.backgroundColor}; color: white; border: none; border-radius: 5px; cursor: pointer;">Close</button>
+                `;
+                
+                document.body.appendChild(infoBox);
+            });
+        });
+        
+        // Simple animation for packets
+        const animationContainer = document.querySelector('.animation-container');
+        if (animationContainer) {
+            // Create additional packets for visual effect
+            for (let i = 0; i < 3; i++) {
+                const packet = document.createElement('div');
+                packet.className = 'packet';
+                packet.textContent = ['FTP', 'SMTP', 'RDP'][i];
+                packet.style.animationDelay = `${i * 1.5}s`;
+                animationContainer.appendChild(packet);
+            }
+        }
+        
+        // Add hover effect to network nodes
+        document.querySelectorAll('.network-node').forEach(node => {
+            node.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.15)';
+            });
+            
+            node.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
