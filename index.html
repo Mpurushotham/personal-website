@@ -406,6 +406,88 @@ https://templatemo.com/tm-593-personal-shape
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Newsletter Signup */
+        .newsletter-signup {
+            margin: 1rem 0;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #e5e7eb;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            margin-right: 0.5rem;
+            accent-color: var(--primary);
+        }
+
+        /* Accessibility: Focus Indicators */
+        a:focus, button:focus, input:focus, textarea:focus, select:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        /* Skip Link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--primary);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 1000;
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        /* Dark Mode Toggle */
+        .theme-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .theme-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Dark mode styles */
+        body.dark-mode {
+            background-color: #1a1a2e;
+            color: #e5e7eb;
+        }
+
+        body.dark-mode .hero {
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 100%);
+        }
+
+        body.dark-mode .section-title,
+        body.dark-mode h1,
+        body.dark-mode h2,
+        body.dark-mode h3 {
+            color: #e5e7eb;
+        }
+
+        body.dark-mode .cta-button {
+            background: #3b82f6;
+            color: white;
+        }
+
+        body.dark-mode .cta-button:hover {
+            background: #2563eb;
+        }
     </style>
 <!---END--Microsoft section style design-->
 
@@ -478,6 +560,11 @@ https://templatemo.com/tm-593-personal-shape
             </h3> </br>
             <a href="#portfolio" class="cta-button">Explore My Work</a>
             <a href="#contact" class="cta-button">Get In Touch<i class="fa fa-envelope"></i></a>
+            <div class="theme-toggle" style="margin-top: 1rem;">
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle dark/light mode">
+                    <i class="fa fa-moon-o" aria-hidden="true"></i> Toggle Theme
+                </button>
+            </div>
             <div class="social-badges" aria-label="Social and contact links" style="margin-top:1rem;">
                 <a href="https://github.com/Mpurushotham" target="_blank" rel="noopener noreferrer" aria-label="GitHub - Mpurushotham">
                     <img src="https://img.shields.io/badge/GitHub-Mpurushotham-181717?style=for-the-badge&logo=github" alt="GitHub - Mpurushotham">
@@ -959,19 +1046,19 @@ https://templatemo.com/tm-593-personal-shape
     <!-- Testimonials Section -->
     <section id="testimonials" class="testimonials" role="region" aria-labelledby="testimonials-heading">
         <div class="container">
-            <h2 id="testimonials-heading" class="section-title fade-in">What Clients Say</h2>
+            <h2 id="testimonials-heading" class="section-title fade-in"> Clients Feedback </h2>
             <div class="testimonial-grid">
                 <div class="testimonial-card">
                     <blockquote>"Muktha's expertise in cloud security and DevSecOps transformed our infrastructure, reducing security incidents by 95% and improving deployment speed by 75%."</blockquote>
-                    <cite>– Tech Lead, FinTech Company</cite>
+                    <cite>– Security Tech Lead</cite>
                 </div>
                 <div class="testimonial-card">
                     <blockquote>"Working with Muktha on our multi-cloud architecture was game-changing. His guidance on automation and compliance saved us 40% in operational costs."</blockquote>
-                    <cite>– CTO, E-commerce Platform</cite>
+                    <cite>– Domain Architect</cite>
                 </div>
                 <div class="testimonial-card">
                     <blockquote>"Muktha delivered a robust cybersecurity framework that aligned perfectly with our business needs, ensuring zero-trust implementation across AWS and Azure."</blockquote>
-                    <cite>– Security Director, Healthcare Startup</cite>
+                    <cite>– Security Director</cite>
                 </div>
             </div>
         </div>
@@ -1021,6 +1108,13 @@ https://templatemo.com/tm-593-personal-shape
                         <textarea id="message" name="message" rows="6" placeholder="Tell me about your project..."
                             required></textarea>
                     </div>
+                    <div class="form-group newsletter-signup">
+                        <label for="newsletter" class="checkbox-label">
+                            <input type="checkbox" id="newsletter" name="newsletter" value="yes">
+                            <span class="checkmark"></span>
+                            Subscribe to my newsletter for cloud security insights and updates
+                        </label>
+                    </div>
                     <div class="form-buttons">
                         <button type="submit" class="submit-btn">Send Message</button>
                         <a href="https://calendly.com/purushotham-muktha/30min?" target="_blank" rel="noopener noreferrer" class="submit-btn secondary-btn">Schedule a Call</a>
@@ -1069,6 +1163,27 @@ https://templatemo.com/tm-593-personal-shape
     </footer>
 
     <script src="templatemo-personal-javascripts.js"></script>
+
+    <script>
+        // Dark mode toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const body = document.body;
+
+            // Check for saved theme preference or default to light mode
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            if (currentTheme === 'dark') {
+                body.classList.add('dark-mode');
+            }
+
+            // Toggle theme on button click
+            themeToggle.addEventListener('click', function() {
+                body.classList.toggle('dark-mode');
+                const theme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+                localStorage.setItem('theme', theme);
+            });
+        });
+    </script>
 
 </body>
 </html>
