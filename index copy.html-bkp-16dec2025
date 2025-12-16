@@ -17,25 +17,10 @@ https://templatemo.com/tm-593-personal-shape
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta name="description"
-        content="Muktha Purushotham - Expert Cloud DevSecOps Architect & Cybersecurity Solution Specialist. 15+ years architecting scalable cloud infrastructure, DevSecOps automation, and advanced security solutions across multi-cloud environments.">
+        content="Muktha Purushotham - Cloud DevSecOps Architect, Infra & Cybersecurity Solution Architect. Specializing in cloud infrastructure, DevSecOps automation, and cybersecurity solutions.">
     <meta name="keywords"
         content="Muktha Purushotham, Cloud Architect, DevSecOps Engineer, Cybersecurity Specialist, Cloud Infrastructure, DevOps Automation, Cloud Security, Multi-Cloud Solutions, Kubernetes, CI/CD Pipelines, Infrastructure as Code, SRE, LLM Infrastructure">
     <meta name="author" content="Muktha Purushotham">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://purushothammuktha.com/">
-    <meta property="og:title" content="Muktha Purushotham - Cloud & Cybersecurity Solution Architect">
-    <meta property="og:description" content="Expert Cloud DevSecOps Architect & Cybersecurity Solution Specialist. 15+ years architecting scalable cloud infrastructure, DevSecOps automation, and advanced security solutions across multi-cloud environments.">
-    <meta property="og:image" content="https://purushothammuktha.com/images/about-me-photo.jpeg">
-    <meta property="og:site_name" content="Muktha Purushotham Portfolio">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://purushothammuktha.com/">
-    <meta property="twitter:title" content="Muktha Purushotham - Cloud & Cybersecurity Solution Architect">
-    <meta property="twitter:description" content="Expert Cloud DevSecOps Architect & Cybersecurity Solution Specialist. 15+ years architecting scalable cloud infrastructure, DevSecOps automation, and advanced security solutions across multi-cloud environments.">
-    <meta property="twitter:image" content="https://purushothammuktha.com/images/about-me-photo.jpeg">
 
 <!---START--Microsoft section style design-->
     <style>
@@ -492,76 +477,6 @@ https://templatemo.com/tm-593-personal-shape
         </div>
     </section>
     <!-- end Microsoft Security Ecosystem -->
-
-    <!-- AWS Security Ecosystem Section -->
-    <section id="aws-security" class="aws-security" role="region" aria-labelledby="awssec-heading">
-        <div class="container">
-            <h2 id="awssec-heading" class="section-title fade-in">AWS Security Ecosystem</h2>
-            <p class="lead muted">
-                Comprehensive AWS-native security services aligned to operations, identity, data, cloud and automation.
-            </p>
-
-            <div class="ms-grid">
-                <div class="ms-card">
-                    <h3>Core Security Operations</h3>
-                    <ul>
-                        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:0.5rem; vertical-align:middle;"><path d="M12 2l7 4v6c0 5-3.58 9.74-7 10-3.42-.26-7-5-7-10V6l7-4z" stroke="#10b981" stroke-width="1.6"/></svg><strong>SIEM / SOAR:</strong> Amazon Security Lake — Centralized security data lake, automated analytics</li>
-                        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:0.5rem; vertical-align:middle;"><circle cx="12" cy="12" r="10" stroke="#f59e0b" stroke-width="1.6"/><path d="M12 6v6l4 2" stroke="#f59e0b" stroke-width="1.6"/></svg><strong>XDR:</strong> AWS Security Hub — Unified security findings, compliance checks, automated remediation</li>
-                        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:0.5rem; vertical-align:middle;"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="#8b5cf6" stroke-width="1.6"/></svg><strong>AI Co-pilot:</strong> Amazon Q for Security — AI-assisted threat analysis and recommendations</li>
-                        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:0.5rem; vertical-align:middle;"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="#06b6d4" stroke-width="1.6"/></svg><strong>Query & Hunting:</strong> Amazon Athena, CloudWatch Logs Insights for security event correlation</li>
-                    </ul>
-                </div>
-
-                <div class="ms-card">
-                    <h3>Identity & Access Governance</h3>
-                    <ul>
-                        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:0.5rem; vertical-align:middle;"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.78 7.78 5.5 5.5 0 0 1 7.78-7.78z" stroke="#f59e0b" stroke-width="1.6"/><path d="M15 7l-3 3 4 3 3-3-4-3z" stroke="#f59e0b" stroke-width="1.6"/></svg><strong>Identity Platform:</strong> AWS IAM — Fine-grained access control, roles, policies</li>
-                        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:0.5rem; vertical-align:middle;"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke="#10b981" stroke-width="1.6"/></svg><strong>Zero Trust Enforcement:</strong> AWS Verified Access, IAM Identity Center (SSO), MFA</li>
-                        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:0.5rem; vertical-align:middle;"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4" stroke="#8b5cf6" stroke-width="1.6"/></svg><strong>Privileged Access:</strong> AWS Control Tower, Organizations, service control policies</li>
-                    </ul>
-                </div>
-
-                <div class="ms-card">
-                    <h3>Data Security & Compliance</h3>
-                    <ul>
-                        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:0.5rem; vertical-align:middle;"><rect x="3" y="3" width="18" height="18" rx="2" stroke="#06b6d4" stroke-width="1.6"/><path d="M3 9h18" stroke="#06b6d4" stroke-width="1.6"/><path d="M9 21V9" stroke="#06b6d4" stroke-width="1.6"/></svg><strong>Information Protection:</strong> Amazon Macie — Data discovery and classification, DLP</li>
-                        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:0.5rem; vertical-align:middle;"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" stroke="#f59e0b" stroke-width="1.6"/></svg><strong>Compliance:</strong> AWS Audit Manager, Config, Artifact for framework mapping (NIST / ISO / CIS / GDPR)</li>
-                        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:0.5rem; vertical-align:middle;"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" stroke="#ef4444" stroke-width="1.6"/></svg><strong>Controls:</strong> AWS KMS, Secrets Manager, encryption at rest/in transit</li>
-                    </ul>
-                </div>
-
-                <div class="ms-card">
-                    <h3>Cloud Security & DevSecOps</h3>
-                    <ul>
-                        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:0.5rem; vertical-align:middle;"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="#10b981" stroke-width="1.6"/></svg><strong>CSPM / CNAPP:</strong> Amazon Inspector — Vulnerability scanning, container security</li>
-                        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:0.5rem; vertical-align:middle;"><path d="M20 17.58A4 4 0 0016 14h-1.26A6 6 0 106 17.5" stroke="#8b5cf6" stroke-width="1.6"/></svg><strong>IaC Security:</strong> CloudFormation Guard, CDK security best-practices, CodePipeline scanning</li>
-                        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:0.5rem; vertical-align:middle;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="#f59e0b" stroke-width="1.6"/></svg><strong>Platform Controls:</strong> VPC Security Groups, AWS WAF, Shield, Network ACLs</li>
-                    </ul>
-                </div>
-
-                <div class="ms-card">
-                    <h3>Automation & Cross-Platform Extensions</h3>
-                    <ul>
-                        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:0.5rem; vertical-align:middle;"><circle cx="12" cy="12" r="3" stroke="#06b6d4" stroke-width="1.6"/><path d="M12 1v6m0 6v6m11-7h-6m-6 0H1" stroke="#06b6d4" stroke-width="1.6"/></svg><strong>Orchestration:</strong> AWS Lambda, Step Functions, EventBridge for automated responses</li>
-                        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:0.5rem; vertical-align:middle;"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2m20 0v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75" stroke="#ef4444" stroke-width="1.6"/></svg><strong>Extended Architecture:</strong> Azure integrations, API Gateway security, SageMaker anomaly detection</li>
-                        <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-right:0.5rem; vertical-align:middle;"><path d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" stroke="#10b981" stroke-width="1.6"/></svg><strong>Integration:</strong> Security Hub connectors, GuardDuty findings, automated playbooks</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="engagement-examples fade-in">
-                <h4>Example Engagements</h4>
-                <div class="example-tags">
-                    <span class="example-tag">GuardDuty threat detection deployment</span>
-                    <span class="example-tag">IAM zero-trust architecture implementation</span>
-                    <span class="example-tag">CloudFormation security automation</span>
-                    <span class="example-tag">Security Hub compliance tuning</span>
-                    <span class="example-tag">Macie data classification rollout</span>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- end AWS Security Ecosystem -->
 
     <!-- About Proven Impact Section -->
     <section id="about-proven" class="about-proven" role="region" aria-labelledby="about-heading">
