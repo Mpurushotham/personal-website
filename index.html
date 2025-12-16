@@ -37,6 +37,33 @@ https://templatemo.com/tm-593-personal-shape
     <meta property="twitter:description" content="Expert Cloud DevSecOps Architect & Cybersecurity Solution Specialist. 15+ years architecting scalable cloud infrastructure, DevSecOps automation, and advanced security solutions across multi-cloud environments.">
     <meta property="twitter:image" content="https://purushothammuktha.com/images/about-me-photo.jpeg">
 
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Muktha Purushotham",
+      "jobTitle": "Cloud DevSecOps Architect & Cybersecurity Solution Specialist",
+      "description": "15+ years architecting scalable cloud infrastructure, DevSecOps automation, and advanced security solutions across multi-cloud environments.",
+      "url": "https://purushothammuktha.com",
+      "image": "https://purushothammuktha.com/images/about-me-photo.jpeg",
+      "sameAs": [
+        "https://github.com/Mpurushotham",
+        "https://linkedin.com/in/Mpurushotham"
+      ],
+      "knowsAbout": ["Cloud Security", "DevSecOps", "Kubernetes", "AWS", "Azure", "Cybersecurity", "Infrastructure as Code", "CI/CD Automation"]
+    }
+    </script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+
 <!---START--Microsoft section style design-->
     <style>
         :root {
@@ -330,6 +357,53 @@ https://templatemo.com/tm-593-personal-shape
             
             .example-tags {
                 justify-content: center;
+            }
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .testimonial-card {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid var(--primary);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .testimonial-card blockquote {
+            font-style: italic;
+            color: #374151;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .testimonial-card cite {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .testimonial-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -882,7 +956,26 @@ https://templatemo.com/tm-593-personal-shape
         </div>
     </section>
 
-    
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials" role="region" aria-labelledby="testimonials-heading">
+        <div class="container">
+            <h2 id="testimonials-heading" class="section-title fade-in">What Clients Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <blockquote>"Muktha's expertise in cloud security and DevSecOps transformed our infrastructure, reducing security incidents by 95% and improving deployment speed by 75%."</blockquote>
+                    <cite>– Tech Lead, FinTech Company</cite>
+                </div>
+                <div class="testimonial-card">
+                    <blockquote>"Working with Muktha on our multi-cloud architecture was game-changing. His guidance on automation and compliance saved us 40% in operational costs."</blockquote>
+                    <cite>– CTO, E-commerce Platform</cite>
+                </div>
+                <div class="testimonial-card">
+                    <blockquote>"Muktha delivered a robust cybersecurity framework that aligned perfectly with our business needs, ensuring zero-trust implementation across AWS and Azure."</blockquote>
+                    <cite>– Security Director, Healthcare Startup</cite>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Contact Section -->
     <!-- Blog moved to blog.html -->
@@ -900,7 +993,7 @@ https://templatemo.com/tm-593-personal-shape
                 <h2 class="section-title fade-in">Let's Work Together</h2>
                 <p class="fade-in" style="color: aliceblue;">Ready to bring your vision to life? Let's discuss how we can create something amazing
                     together. I'm always excited to take on new challenges and collaborate on innovative projects.</p>
-                <form id="contact-form" class="contact-form fade-in" data-to-email="purushotham.muktha@gmail.com">
+                <form id="contact-form" class="contact-form fade-in" action="https://formspree.io/f/xpznqkgj" method="POST">
              <!--       <div class="form-group full-width">
                         <label for="enquiry-type">What are you looking for?</label>
                         <div class="radio-group">
