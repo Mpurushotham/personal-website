@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Project Enquiry — Muktha Purushotham</title>
+  <title>Project Enquiry — Purushotham Muktha</title>
   <link href="templatemo-personal-style.css" rel="stylesheet">
   <link rel="icon" href="images/about-me-photo.jpeg" type="image/jpeg">
   <style>
@@ -47,7 +47,7 @@
   <a class="skip-link visually-hidden" href="#main" aria-label="Skip to main content">Skip to main content</a>
   <nav id="navbar" role="navigation" aria-label="Main navigation">
     <div class="nav-container">
-      <div class="logo">Muktha Purushotham</div>
+      <div class="logo">Purushotham Muktha</div>
       <ul class="nav-links">
         <li><a href="index.html#home">Home</a></li>
         <li><a href="index.html#about-proven">About</a></li>

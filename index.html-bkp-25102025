@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muktha Purushotham-Cloud DevSecOps,Infra & Cybersecurity Solution Architect</title>
+    <title>Purushotham Muktha-Cloud DevSecOps,Infra & Cybersecurity Solution Architect</title>
     <link href="templatemo-personal-style.css" rel="stylesheet">
     <link rel="icon" href="images/about-me-photo.jpeg" type="image/jpeg">
     <!--
@@ -17,10 +17,10 @@ https://templatemo.com/tm-593-personal-shape
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta name="description"
-        content="Muktha Purushotham - Cloud DevSecOps Architect, Infra & Cybersecurity Solution Architect. Specializing in cloud infrastructure, DevSecOps automation, and cybersecurity solutions.">
+        content="Purushotham Muktha - Cloud DevSecOps Architect, Infra & Cybersecurity Solution Architect. Specializing in cloud infrastructure, DevSecOps automation, and cybersecurity solutions.">
     <meta name="keywords"
-        content="Muktha Purushotham, Cloud Architect, DevSecOps Engineer, Cybersecurity Specialist, Cloud Infrastructure, DevOps Automation, Cloud Security, Multi-Cloud Solutions, Kubernetes, CI/CD Pipelines, Infrastructure as Code, SRE, LLM Infrastructure">
-    <meta name="author" content="Muktha Purushotham">
+        content="Purushotham Muktha, Cloud Architect, DevSecOps Engineer, Cybersecurity Specialist, Cloud Infrastructure, DevOps Automation, Cloud Security, Multi-Cloud Solutions, Kubernetes, CI/CD Pipelines, Infrastructure as Code, SRE, LLM Infrastructure">
+    <meta name="author" content="Purushotham Muktha">
 </head>
 
 <body>
@@ -28,7 +28,7 @@ https://templatemo.com/tm-593-personal-shape
     <!-- Navigation -->
     <nav id="navbar" role="navigation" aria-label="Primary Navigation">
         <div class="nav-container">
-            <div class="logo"> <a href="index.html">Muktha Purushotham</a></div>
+            <div class="logo"> <a href="index.html">Purushotham Muktha</a></div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about-proven">About</a></li>
