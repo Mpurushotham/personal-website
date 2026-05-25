@@ -1,0 +1,1755 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Claude Code for Teams: Complete Enterprise Implementation Guide — Purushotham Muktha</title>
+  <meta name="description" content="End-to-end guide to deploying Claude Code under a Teams subscription plan for ABC Company — subscription setup, secure org-member access, capabilities, commands, skills, agents, projects, and MCP.">
+  <link href="templatemo-personal-style.css" rel="stylesheet">
+  <link rel="icon" href="images/about-me-photo.jpeg" type="image/jpeg">
+  <style>
+    :root {
+      --primary-color: #3a86ff;
+      --secondary-color: #8338ec;
+      --accent-color: #ff006e;
+      --dark-color: #1a1a2e;
+      --light-color: #f8f9fa;
+      --gray-color: #64748b;
+      --claude-orange: #d97706;
+      --claude-amber: #f59e0b;
+      --border-radius: 12px;
+      --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+      --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+      --transition: all 0.3s ease;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.7;
+      color: #2d3748;
+      background-color: #f8fafc;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ── Navbar ─────────────────────────────────── */
+    #navbar {
+      background-color: white;
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+    .logo { font-weight: 700; font-size: 1.5rem; color: var(--dark-color); }
+    .nav-links { display: flex; list-style: none; margin: 0; padding: 0; gap: 2rem; }
+    .nav-links a { text-decoration: none; color: var(--dark-color); font-weight: 500; transition: var(--transition); }
+    .nav-links a:hover { color: var(--primary-color); }
+
+    /* ── Hero ────────────────────────────────────── */
+    .post-hero {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
+      color: white;
+      padding: 5rem 1.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .post-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(58,134,255,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .post-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -5%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(131,56,236,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .post-hero-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .post-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(58,134,255,0.2);
+      border: 1px solid rgba(58,134,255,0.4);
+      color: #93c5fd;
+      padding: 0.35rem 1rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.03em;
+    }
+    .post-hero h1 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin: 0 0 1.25rem;
+    }
+    .post-hero h1 span { color: #60a5fa; }
+    .post-hero .subtitle {
+      font-size: 1.15rem;
+      opacity: 0.85;
+      max-width: 700px;
+      margin-bottom: 2rem;
+    }
+    .post-meta-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      align-items: center;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+    .post-meta-bar span { display: flex; align-items: center; gap: 0.4rem; }
+
+    /* ── Layout ──────────────────────────────────── */
+    .article-layout {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    /* ── Sticky TOC ──────────────────────────────── */
+    .toc-sidebar {
+      position: sticky;
+      top: 90px;
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-md);
+      padding: 1.5rem;
+      max-height: calc(100vh - 110px);
+      overflow-y: auto;
+    }
+    .toc-sidebar h4 {
+      margin: 0 0 1rem;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gray-color);
+      font-weight: 700;
+    }
+    .toc-list { list-style: none; margin: 0; padding: 0; }
+    .toc-list li { margin-bottom: 0.4rem; }
+    .toc-list a {
+      text-decoration: none;
+      color: var(--gray-color);
+      font-size: 0.875rem;
+      transition: var(--transition);
+      display: block;
+      padding: 0.25rem 0.5rem;
+      border-radius: 6px;
+      border-left: 3px solid transparent;
+    }
+    .toc-list a:hover, .toc-list a.active {
+      color: var(--primary-color);
+      background: #eff6ff;
+      border-left-color: var(--primary-color);
+    }
+    .toc-list .toc-sub { padding-left: 1rem; font-size: 0.82rem; }
+
+    /* ── Article Body ────────────────────────────── */
+    .article-body { min-width: 0; }
+
+    .article-body h2 {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--dark-color);
+      margin: 2.5rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 3px solid var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .article-body h2 .h-icon {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .article-body h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #1e293b;
+      margin: 2rem 0 0.75rem;
+    }
+
+    .article-body p { margin: 0 0 1.1rem; color: #374151; }
+
+    /* ── Info Callouts ───────────────────────────── */
+    .callout {
+      border-radius: var(--border-radius);
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+      border-left: 4px solid;
+      font-size: 0.95rem;
+    }
+    .callout-info    { background: #eff6ff; border-color: var(--primary-color); color: #1e40af; }
+    .callout-success { background: #f0fdf4; border-color: #16a34a; color: #14532d; }
+    .callout-warning { background: #fffbeb; border-color: var(--claude-amber); color: #78350f; }
+    .callout-danger  { background: #fff1f2; border-color: var(--accent-color); color: #881337; }
+    .callout-purple  { background: #faf5ff; border-color: var(--secondary-color); color: #4c1d95; }
+    .callout strong  { display: block; margin-bottom: 0.4rem; font-size: 1rem; }
+
+    /* ── Code blocks ─────────────────────────────── */
+    pre {
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: var(--border-radius);
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      font-size: 0.875rem;
+      line-height: 1.6;
+      margin: 1.25rem 0;
+      position: relative;
+    }
+    pre .comment { color: #64748b; font-style: italic; }
+    pre .keyword { color: #7dd3fc; }
+    pre .string  { color: #86efac; }
+    pre .command { color: #fbbf24; }
+    pre .flag    { color: #c084fc; }
+    code {
+      background: #f1f5f9;
+      color: #be185d;
+      padding: 0.15em 0.45em;
+      border-radius: 4px;
+      font-size: 0.9em;
+      font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+    }
+    pre code { background: none; color: inherit; padding: 0; font-size: inherit; }
+
+    /* ── Plan Cards ──────────────────────────────── */
+    .plan-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .plan-card {
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      border: 2px solid #e2e8f0;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .plan-card.featured {
+      border-color: var(--primary-color);
+      background: linear-gradient(135deg, #eff6ff, #f5f3ff);
+    }
+    .plan-card.featured::before {
+      content: 'RECOMMENDED FOR TEAMS';
+      position: absolute;
+      top: 12px;
+      right: -20px;
+      background: var(--primary-color);
+      color: white;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 3px 30px;
+      transform: rotate(20deg);
+      letter-spacing: 0.05em;
+    }
+    .plan-card h4 { margin: 0 0 0.4rem; font-size: 1rem; font-weight: 700; color: var(--dark-color); }
+    .plan-card .plan-price { font-size: 1.4rem; font-weight: 800; color: var(--primary-color); margin-bottom: 0.75rem; }
+    .plan-card .plan-price small { font-size: 0.8rem; font-weight: 400; color: var(--gray-color); }
+    .plan-card ul { list-style: none; padding: 0; margin: 0; }
+    .plan-card ul li { font-size: 0.875rem; padding: 0.25rem 0; display: flex; align-items: flex-start; gap: 0.4rem; color: #374151; }
+    .plan-card ul li::before { content: '✓'; color: #16a34a; font-weight: 700; flex-shrink: 0; margin-top: 0.05rem; }
+
+    /* ── Step Flow ───────────────────────────────── */
+    .step-list { list-style: none; padding: 0; margin: 1.5rem 0; counter-reset: step; }
+    .step-list li {
+      counter-increment: step;
+      padding: 1.25rem 1.25rem 1.25rem 4.5rem;
+      position: relative;
+      background: white;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 1rem;
+      border-left: 4px solid var(--primary-color);
+    }
+    .step-list li::before {
+      content: counter(step);
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 34px; height: 34px;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+    }
+    .step-list li h4 { margin: 0 0 0.4rem; font-size: 0.95rem; font-weight: 700; color: var(--dark-color); }
+    .step-list li p  { margin: 0; font-size: 0.9rem; color: #4a5568; }
+
+    /* ── Feature Grid ────────────────────────────── */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .feature-card {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      border-top: 4px solid var(--primary-color);
+      transition: var(--transition);
+    }
+    .feature-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .feature-card.purple { border-top-color: var(--secondary-color); }
+    .feature-card.orange { border-top-color: #f97316; }
+    .feature-card.green  { border-top-color: #16a34a; }
+    .feature-card.pink   { border-top-color: var(--accent-color); }
+    .feature-card.teal   { border-top-color: #0891b2; }
+    .feature-card .f-icon {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+      display: block;
+    }
+    .feature-card h4 { margin: 0 0 0.5rem; font-size: 1rem; font-weight: 700; color: var(--dark-color); }
+    .feature-card p  { margin: 0; font-size: 0.875rem; color: #4a5568; }
+
+    /* ── Command Reference Table ─────────────────── */
+    .cmd-table-wrap { overflow-x: auto; margin: 1.25rem 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      font-size: 0.9rem;
+    }
+    thead { background: linear-gradient(135deg, var(--dark-color), #16213e); color: white; }
+    thead th { padding: 0.9rem 1rem; text-align: left; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    tbody tr { border-bottom: 1px solid #f1f5f9; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #f8fafc; }
+    tbody td { padding: 0.8rem 1rem; vertical-align: top; }
+    tbody td:first-child { font-family: 'JetBrains Mono', monospace; color: #be185d; font-size: 0.85rem; white-space: nowrap; }
+    tbody td:nth-child(2) { color: #1e293b; font-weight: 500; }
+    tbody td:last-child  { color: var(--gray-color); }
+
+    /* ── Architecture Diagram ────────────────────── */
+    .arch-diagram {
+      background: #0f172a;
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      margin: 1.5rem 0;
+      color: #e2e8f0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      line-height: 1.8;
+      overflow-x: auto;
+    }
+    .arch-diagram .arc-blue   { color: #60a5fa; }
+    .arch-diagram .arc-green  { color: #4ade80; }
+    .arch-diagram .arc-purple { color: #c084fc; }
+    .arch-diagram .arc-orange { color: #fb923c; }
+    .arch-diagram .arc-yellow { color: #fbbf24; }
+    .arch-diagram .arc-gray   { color: #94a3b8; }
+
+    /* ── Role / Permission badge ─────────────────── */
+    .badge-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.75rem 0; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      padding: 0.3rem 0.75rem; border-radius: 50px;
+      font-size: 0.8rem; font-weight: 600;
+    }
+    .badge-admin  { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+    .badge-member { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+    .badge-billing{ background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+    .badge-view   { background: #faf5ff; color: #6d28d9; border: 1px solid #ddd6fe; }
+
+    /* ── MCP Card ────────────────────────────────── */
+    .mcp-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+      margin: 1.25rem 0;
+    }
+    .mcp-card {
+      background: white;
+      border-radius: var(--border-radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid #e2e8f0;
+    }
+    .mcp-card .mcp-icon { font-size: 1.75rem; margin-bottom: 0.5rem; }
+    .mcp-card h5 { margin: 0 0 0.35rem; font-size: 0.95rem; font-weight: 700; color: var(--dark-color); }
+    .mcp-card p  { margin: 0; font-size: 0.82rem; color: #64748b; }
+
+    /* ── Timeline ────────────────────────────────── */
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before { content: ''; position: absolute; left: 7px; top: 0; bottom: 0; width: 2px; background: #e2e8f0; }
+    .timeline-item { position: relative; margin-bottom: 2rem; }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -1.85rem;
+      top: 4px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: var(--primary-color);
+      border: 3px solid white;
+      box-shadow: 0 0 0 2px var(--primary-color);
+    }
+    .timeline-item h4 { margin: 0 0 0.3rem; font-size: 0.95rem; font-weight: 700; color: var(--dark-color); }
+    .timeline-item .tl-meta { font-size: 0.78rem; color: var(--gray-color); margin-bottom: 0.4rem; }
+    .timeline-item p { margin: 0; font-size: 0.875rem; color: #4a5568; }
+
+    /* ── Security Checklist ──────────────────────── */
+    .checklist { list-style: none; padding: 0; margin: 1rem 0; }
+    .checklist li {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid #f1f5f9;
+      font-size: 0.9rem;
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist li .chk-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 0.05rem; }
+    .checklist li .chk-text strong { display: block; color: var(--dark-color); }
+    .checklist li .chk-text span { color: #64748b; font-size: 0.82rem; }
+
+    /* ── Skills Pill Grid ────────────────────────── */
+    .skill-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1rem 0; }
+    .skill-pill {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--dark-color);
+      box-shadow: var(--shadow-sm);
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .skill-pill.blue   { border-color: #bfdbfe; background: #eff6ff; color: #1d4ed8; }
+    .skill-pill.purple { border-color: #ddd6fe; background: #faf5ff; color: #6d28d9; }
+    .skill-pill.green  { border-color: #bbf7d0; background: #f0fdf4; color: #15803d; }
+    .skill-pill.orange { border-color: #fed7aa; background: #fff7ed; color: #c2410c; }
+
+    /* ── Summary Card ────────────────────────────── */
+    .summary-card {
+      background: linear-gradient(135deg, var(--dark-color), #16213e);
+      color: white;
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+    .summary-card h3 { color: #93c5fd; margin-top: 0; }
+    .summary-card ul { padding-left: 1.25rem; }
+    .summary-card ul li { margin-bottom: 0.4rem; opacity: 0.9; font-size: 0.9rem; }
+
+    /* ── Footer ──────────────────────────────────── */
+    .footer { background-color: var(--dark-color); color: white; padding: 3rem 0 2rem; }
+    .footer-content {
+      max-width: 1200px; margin: 0 auto; padding: 0 1.5rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+    }
+    .footer-left p { margin: 0; color: #cbd5e0; }
+    .footer-left a { color: white; text-decoration: none; }
+    .footer-right { display: flex; flex-direction: column; align-items: flex-end; }
+    .footer-quicklinks { display: flex; gap: 1.5rem; margin-bottom: 1rem; flex-wrap: wrap; justify-content: flex-end; }
+    .footer-quicklinks a { color: #cbd5e0; text-decoration: none; font-size: 0.9rem; transition: var(--transition); }
+    .footer-quicklinks a:hover { color: white; }
+    .footer-social { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: flex-end; }
+
+    /* ── Back link ───────────────────────────────── */
+    .back-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      color: var(--primary-color); text-decoration: none; font-weight: 600;
+      margin-bottom: 1.5rem; font-size: 0.9rem;
+      transition: var(--transition);
+    }
+    .back-link:hover { gap: 0.8rem; }
+
+    /* ── Responsive ──────────────────────────────── */
+    @media (max-width: 900px) {
+      .article-layout { grid-template-columns: 1fr; }
+      .toc-sidebar { position: static; max-height: none; }
+    }
+    @media (max-width: 640px) {
+      .nav-container { flex-direction: column; height: auto; padding: 1rem 1.5rem; }
+      .nav-links { margin-top: 1rem; gap: 1rem; flex-wrap: wrap; }
+      .plan-grid { grid-template-columns: 1fr; }
+      .feature-grid { grid-template-columns: 1fr; }
+      .footer-content { grid-template-columns: 1fr; }
+      .footer-right { align-items: center; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.6s ease forwards; }
+  </style>
+</head>
+
+<body>
+  <!-- Skip link -->
+  <a class="visually-hidden" href="#main" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Skip to main content</a>
+
+  <!-- Navbar -->
+  <nav id="navbar" role="navigation" aria-label="Site navigation">
+    <div class="nav-container">
+      <div class="logo">Purushotham Muktha</div>
+      <ul class="nav-links">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="index.html#about-proven">About</a></li>
+        <li><a href="index.html#portfolio">Skills</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li><a href="https://mpurushotham.github.io/my-cybersecurity-journey/#/">Learning Journey</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="post-hero">
+    <div class="post-hero-inner fade-up">
+      <div class="post-badge">&#129302; Claude Code &nbsp;|&nbsp; Enterprise Teams Guide</div>
+      <h1>Claude Code for <span>Teams</span>: Complete Enterprise Implementation Guide</h1>
+      <p class="subtitle">
+        From Teams subscription setup to secure org-member access, capabilities deep dive, CLI commands,
+        Skills, Agents, Projects, MCP integrations, and end-to-end rollout for <strong>ABC Company</strong>.
+      </p>
+      <div class="post-meta-bar">
+        <span>&#128197; May 25, 2026</span>
+        <span>&#9201; 18 min read</span>
+        <span>&#127991; AI Dev Tools &nbsp;&bull;&nbsp; Enterprise</span>
+        <span>&#128100; Purushotham Muktha</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Article layout: TOC + body -->
+  <div class="article-layout" id="main">
+
+    <!-- TOC sidebar -->
+    <aside class="toc-sidebar" aria-label="Table of contents">
+      <h4>Contents</h4>
+      <ul class="toc-list">
+        <li><a href="#what-is-claude-code">What Is Claude Code?</a></li>
+        <li><a href="#why-teams">Why Claude Code for Teams?</a></li>
+        <li><a href="#plans">Subscription Plans Overview</a></li>
+        <li><a href="#teams-setup">Teams Subscription Setup</a>
+          <ul class="toc-list">
+            <li><a class="toc-sub" href="#step-org">1. Create Org Account</a></li>
+            <li><a class="toc-sub" href="#step-billing">2. Billing & Seats</a></li>
+            <li><a class="toc-sub" href="#step-invite">3. Invite Members Securely</a></li>
+            <li><a class="toc-sub" href="#step-roles">4. Roles & Permissions</a></li>
+            <li><a class="toc-sub" href="#step-sso">5. SSO / SAML Setup</a></li>
+          </ul>
+        </li>
+        <li><a href="#install">Installing Claude Code CLI</a></li>
+        <li><a href="#capabilities">Core Capabilities</a></li>
+        <li><a href="#commands">CLI Commands Reference</a></li>
+        <li><a href="#slash-commands">Slash Commands</a></li>
+        <li><a href="#skills">Skills System</a></li>
+        <li><a href="#agents">Agents & Multi-Agent</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#mcp">MCP Integrations</a></li>
+        <li><a href="#hooks">Hooks & Automation</a></li>
+        <li><a href="#security">Security Best Practices</a></li>
+        <li><a href="#rollout">End-to-End Rollout Plan</a></li>
+        <li><a href="#summary">Summary</a></li>
+      </ul>
+    </aside>
+
+    <!-- Article body -->
+    <article class="article-body">
+
+      <a href="blog.html" class="back-link">&larr; Back to Blog</a>
+
+      <!-- ═══════════════════════════════════════════ 1 -->
+      <section id="what-is-claude-code">
+        <h2><span class="h-icon">&#129302;</span> What Is Claude Code?</h2>
+        <p>
+          <strong>Claude Code</strong> is Anthropic's official agentic AI coding tool — a CLI (command-line interface),
+          a VS Code / JetBrains IDE extension, a desktop app, and a web application at <em>claude.ai/code</em>.
+          It brings Claude's frontier AI model directly into your development workflow: reading files, running tests,
+          making multi-file edits, spawning sub-agents, calling external tools via MCP, and executing shell commands —
+          all with a rich permissions model and an audit trail.
+        </p>
+
+        <div class="callout callout-info">
+          <strong>Key identity</strong>
+          Claude Code is <em>not</em> just a chat assistant with code syntax highlighting. It is a full-featured
+          agentic system that can autonomously plan, implement, test, and iterate on complex software engineering tasks
+          while you stay in the loop with approval gates.
+        </div>
+
+        <p>
+          At its core, Claude Code runs against Anthropic's API and is powered by the Claude model family
+          (currently Claude Sonnet 4.6 as default, with Opus and Haiku available). It operates in your local
+          environment, reads your actual codebase, and uses tools (Bash, Read, Write, Edit, WebSearch, Agent, etc.)
+          to take real actions.
+        </p>
+
+        <div class="arch-diagram">
+<span class="arc-yellow">┌──────────────────────────────────────────────────────────────────┐</span>
+<span class="arc-yellow">│                        Claude Code Stack                         │</span>
+<span class="arc-yellow">└──────────────────────────────────────────────────────────────────┘</span>
+<span class="arc-gray">                              │</span>
+<span class="arc-blue">         ┌────────────────────┼────────────────────┐</span>
+<span class="arc-blue">         ▼                   ▼                    ▼</span>
+<span class="arc-blue">  ┌──────────────┐   ┌──────────────┐   ┌─────────────────┐</span>
+<span class="arc-blue">  │  CLI (npm)   │   │ VS Code Ext  │   │  Desktop App /  │</span>
+<span class="arc-blue">  │  claude cmd  │   │ JetBrains    │   │  claude.ai/code  │</span>
+<span class="arc-blue">  └──────────────┘   └──────────────┘   └─────────────────┘</span>
+<span class="arc-gray">         │                   │                    │</span>
+<span class="arc-purple">         └────────────────────┴────────────────────┘</span>
+<span class="arc-gray">                              │</span>
+<span class="arc-orange">               ┌──────────────▼──────────────┐</span>
+<span class="arc-orange">               │      Agent SDK / Loop        │</span>
+<span class="arc-orange">               │  Tools │ Skills │ MCP servers│</span>
+<span class="arc-orange">               └──────────────┬──────────────┘</span>
+<span class="arc-gray">                              │  HTTPS</span>
+<span class="arc-green">               ┌──────────────▼──────────────┐</span>
+<span class="arc-green">               │    Anthropic API             │</span>
+<span class="arc-green">               │  claude-sonnet-4-6 / opus    │</span>
+<span class="arc-green">               └─────────────────────────────┘</span>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ 2 -->
+      <section id="why-teams">
+        <h2><span class="h-icon">&#128106;</span> Why Claude Code for Teams?</h2>
+        <p>
+          Modern engineering teams are under pressure to ship faster without sacrificing quality or security.
+          Claude Code addresses this at three levels:
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <span class="f-icon">&#9889;</span>
+            <h4>10x Developer Velocity</h4>
+            <p>Automate boilerplate, generate tests, refactor legacy code, and perform multi-file edits in seconds rather than hours.</p>
+          </div>
+          <div class="feature-card purple">
+            <span class="f-icon">&#128736;</span>
+            <h4>Agentic Automation</h4>
+            <p>Spawn sub-agents, run background tasks, orchestrate multi-step pipelines — Claude can plan and act, not just answer.</p>
+          </div>
+          <div class="feature-card green">
+            <span class="f-icon">&#128274;</span>
+            <h4>Enterprise-Grade Security</h4>
+            <p>SSO, SAML, role-based access, audit logs, permission gates, and a configurable trust model for CI/CD safety.</p>
+          </div>
+          <div class="feature-card orange">
+            <span class="f-icon">&#127760;</span>
+            <h4>Shared Context via Projects</h4>
+            <p>Teams share CLAUDE.md files, custom instructions, and project memory so every developer starts from the same informed baseline.</p>
+          </div>
+          <div class="feature-card pink">
+            <span class="f-icon">&#128279;</span>
+            <h4>Extensible via MCP</h4>
+            <p>Connect Claude Code to any internal tool — Jira, GitHub, Confluence, Datadog, Slack — through the Model Context Protocol.</p>
+          </div>
+          <div class="feature-card teal">
+            <span class="f-icon">&#128202;</span>
+            <h4>Usage Analytics</h4>
+            <p>Team admins get aggregated usage dashboards, seat management, and cost attribution per project or team unit.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ 3 -->
+      <section id="plans">
+        <h2><span class="h-icon">&#128176;</span> Subscription Plans Overview</h2>
+        <p>Anthropic offers Claude Code across several tiers. Choosing the right tier for ABC Company matters for cost control and feature access.</p>
+
+        <div class="plan-grid">
+          <div class="plan-card">
+            <h4>Free / Pro (Personal)</h4>
+            <div class="plan-price">$0–$20 <small>/ mo per user</small></div>
+            <ul>
+              <li>Single-user only</li>
+              <li>Limited monthly usage</li>
+              <li>claude.ai web + CLI access</li>
+              <li>No shared org workspace</li>
+              <li>No SSO / SAML</li>
+              <li>Basic Projects (personal)</li>
+            </ul>
+          </div>
+
+          <div class="plan-card featured">
+            <h4>Claude.ai for Teams</h4>
+            <div class="plan-price">$25–$30 <small>/ seat / mo</small></div>
+            <ul>
+              <li>5+ seat minimum</li>
+              <li>Centralized org billing</li>
+              <li>Shared Projects & memory</li>
+              <li>Role-based access control</li>
+              <li>Priority model access</li>
+              <li>Admin console &amp; audit logs</li>
+              <li>SSO (Google/Microsoft)</li>
+              <li>Usage dashboard</li>
+            </ul>
+          </div>
+
+          <div class="plan-card">
+            <h4>Claude.ai Enterprise</h4>
+            <div class="plan-price">Custom <small>pricing</small></div>
+            <ul>
+              <li>Unlimited seats</li>
+              <li>SAML/SCIM provisioning</li>
+              <li>DLP &amp; data residency</li>
+              <li>SLA &amp; dedicated support</li>
+              <li>Advanced audit controls</li>
+              <li>Private deployments</li>
+              <li>Custom rate limits</li>
+            </ul>
+          </div>
+
+          <div class="plan-card">
+            <h4>API (Direct)</h4>
+            <div class="plan-price">Pay-per-token</div>
+            <ul>
+              <li>Full API access</li>
+              <li>Build custom integrations</li>
+              <li>Claude Code SDK</li>
+              <li>No seat management UI</li>
+              <li>Ideal for CI/CD bots</li>
+              <li>Self-managed auth</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="callout callout-warning">
+          <strong>ABC Company Recommendation</strong>
+          For a company with 20–200 developers, start with <strong>Claude.ai for Teams</strong> (5-seat minimum,
+          billed annually for best per-seat pricing). Once you exceed ~150 seats or require SCIM/SAML, upgrade to
+          Enterprise. Keep a parallel <strong>API key</strong> for CI/CD agent pipelines.
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ 4 -->
+      <section id="teams-setup">
+        <h2><span class="h-icon">&#9881;</span> Teams Subscription Setup for ABC Company</h2>
+        <p>
+          The following steps walk an admin through the full org onboarding, from billing to granting secure
+          developer access with the principle of least privilege.
+        </p>
+
+        <!-- Step 1 -->
+        <h3 id="step-org">Step 1 — Create the Organization Account</h3>
+        <ol class="step-list">
+          <li>
+            <h4>Sign up / Convert existing account</h4>
+            <p>Navigate to <strong>claude.ai</strong> &rarr; Settings &rarr; Upgrade &rarr; Teams. If you have an existing Pro account, it can be converted to a Teams org owner.</p>
+          </li>
+          <li>
+            <h4>Name your organization</h4>
+            <p>Set the org display name to "ABC Company" and choose a unique org slug (e.g., <code>abc-company</code>). This appears in all invite links and audit logs.</p>
+          </li>
+          <li>
+            <h4>Set primary admin email</h4>
+            <p>Use a shared inbox (e.g., <code>ai-admin@abc-company.com</code>) rather than a personal email, so ownership survives personnel changes.</p>
+          </li>
+        </ol>
+
+        <!-- Step 2 -->
+        <h3 id="step-billing">Step 2 — Billing & Seat Management</h3>
+        <ol class="step-list">
+          <li>
+            <h4>Choose billing cycle</h4>
+            <p>Annual billing saves ~17% vs. monthly. Enter a corporate card or request an invoice PO for enterprise procurement.</p>
+          </li>
+          <li>
+            <h4>Purchase initial seat count</h4>
+            <p>Buy seats for your expected headcount (minimum 5). Additional seats can be purchased at any time; they are prorated for the billing period.</p>
+          </li>
+          <li>
+            <h4>Set cost centres / budget alerts</h4>
+            <p>In the admin billing dashboard, configure monthly spend alerts. For API usage, set per-project API key rate limits to prevent runaway costs.</p>
+          </li>
+        </ol>
+
+        <!-- Step 3 -->
+        <h3 id="step-invite">Step 3 — Inviting Members Securely</h3>
+        <p>
+          Invitations can be sent individually, in bulk via CSV, or auto-provisioned through SCIM (Enterprise).
+          Always prefer domain-restricted invitations.
+        </p>
+
+        <div class="callout callout-success">
+          <strong>Domain allowlisting</strong>
+          In Admin Console &rarr; Security &rarr; Allowed Domains, set <code>abc-company.com</code> as the
+          only permitted email domain. This prevents external contractors from joining under the org billing
+          without explicit approval.
+        </div>
+
+        <pre><code><span class="comment"># Bulk-invite employees via CSV (Admin Console → Members → Import)</span>
+<span class="comment"># CSV format: email, role, team</span>
+dev1@abc-company.com,member,backend
+dev2@abc-company.com,member,frontend
+lead@abc-company.com,admin,platform
+billing@abc-company.com,billing_admin,finance</code></pre>
+
+        <p>
+          Each invitee receives a secure magic-link email valid for <strong>72 hours</strong>. They must verify
+          their work email before accessing shared Projects or Org-level prompts.
+        </p>
+
+        <!-- Step 4 -->
+        <h3 id="step-roles">Step 4 — Roles & Permission Model</h3>
+        <p>Claude.ai Teams provides four built-in roles. Map them carefully to ABC Company's org chart.</p>
+
+        <div class="badge-row">
+          <span class="badge badge-admin">&#128737; Org Admin</span>
+          <span class="badge badge-billing">&#128179; Billing Admin</span>
+          <span class="badge badge-member">&#128100; Member</span>
+          <span class="badge badge-view">&#128065; Viewer</span>
+        </div>
+
+        <div class="cmd-table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Role</th>
+                <th>Capabilities</th>
+                <th>Who gets it — ABC Company</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Org Admin</td>
+                <td>Full settings, member management, SSO config, audit log access, all Projects</td>
+                <td>Platform Lead, Security Lead, CTO</td>
+              </tr>
+              <tr>
+                <td>Billing Admin</td>
+                <td>View & manage billing, seats, invoices — no model access</td>
+                <td>Finance Manager</td>
+              </tr>
+              <tr>
+                <td>Member</td>
+                <td>Use Claude Code, create &amp; share Projects, invite to owned Projects</td>
+                <td>All engineers, QA, product managers</td>
+              </tr>
+              <tr>
+                <td>Viewer</td>
+                <td>Read-only access to shared Project outputs; no model usage</td>
+                <td>External auditors, compliance reviewers</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-danger">
+          <strong>Principle of Least Privilege</strong>
+          Grant <strong>Org Admin</strong> sparingly — max 2–3 people. Every additional admin is an attack
+          surface for account takeover. Use Viewer for anyone who needs to see outputs but not generate them.
+        </div>
+
+        <!-- Step 5 -->
+        <h3 id="step-sso">Step 5 — SSO / SAML Configuration</h3>
+        <p>
+          For ABC Company using Azure AD or Okta, configure SAML 2.0 so employees log in through your existing
+          identity provider rather than managing separate claude.ai passwords.
+        </p>
+
+        <ol class="step-list">
+          <li>
+            <h4>Navigate to Admin Console &rarr; Security &rarr; Single Sign-On</h4>
+            <p>Copy the <strong>SP Entity ID</strong> and <strong>ACS URL</strong> provided by Claude.ai.</p>
+          </li>
+          <li>
+            <h4>Register Claude Code as an Enterprise App in Azure AD / Okta</h4>
+            <p>Paste the SP Entity ID and ACS URL into your IdP's SAML app settings. Map attributes: <code>email</code>, <code>given_name</code>, <code>family_name</code>.</p>
+          </li>
+          <li>
+            <h4>Copy IdP metadata URL back to Claude.ai</h4>
+            <p>Paste your IdP's SAML Metadata XML URL into the Claude.ai SSO configuration and click <strong>Test Connection</strong>.</p>
+          </li>
+          <li>
+            <h4>Enable "Require SSO for all members"</h4>
+            <p>Once tested, enforce SSO org-wide. Members who still use password login will be prompted to re-authenticate via SSO on next login.</p>
+          </li>
+          <li>
+            <h4>SCIM provisioning (Enterprise only)</h4>
+            <p>Connect your IdP's SCIM endpoint to auto-provision and de-provision seats when employees are onboarded or offboarded in your HR system.</p>
+          </li>
+        </ol>
+
+        <pre><code><span class="comment"># Azure AD — relevant SAML attribute mappings</span>
+user.mail              → email
+user.givenname         → given_name
+user.surname           → family_name
+user.assignedroles     → claude_role   <span class="comment"># optional: map AD groups → member/admin</span></code></pre>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ 5 -->
+      <section id="install">
+        <h2><span class="h-icon">&#128196;</span> Installing Claude Code CLI</h2>
+        <p>
+          Claude Code CLI is distributed as an npm package. Developers at ABC Company install it once locally;
+          CI/CD pipelines use the same package pinned to a version.
+        </p>
+
+        <pre><code><span class="comment"># Prerequisites: Node.js 18+ (LTS recommended)</span>
+node --version   <span class="comment"># must be 18+</span>
+
+<span class="comment"># Install globally</span>
+<span class="command">npm install -g @anthropic-ai/claude-code</span>
+
+<span class="comment"># Verify installation</span>
+<span class="command">claude --version</span>
+
+<span class="comment"># Authenticate with your Teams org account</span>
+<span class="command">claude auth login</span>
+<span class="comment"># Opens browser → claude.ai SSO → authenticates with ABC Company SSO</span>
+
+<span class="comment"># (Optional) Set a specific model for the session</span>
+<span class="command">claude config set model claude-sonnet-4-6</span></code></pre>
+
+        <div class="callout callout-info">
+          <strong>Enterprise API key alternative</strong>
+          For CI/CD pipelines or shared bot accounts, generate an <strong>API key</strong> in the Admin Console
+          and set <code>ANTHROPIC_API_KEY=sk-ant-...</code> as an environment variable / CI secret. Never commit
+          API keys to source code.
+        </div>
+
+        <h3>IDE Extensions</h3>
+        <p>Members can also install the Claude Code IDE extension for a richer in-editor experience:</p>
+        <div class="skill-pills">
+          <span class="skill-pill blue">VS Code — Claude Code Extension</span>
+          <span class="skill-pill purple">JetBrains — IntelliJ / WebStorm / PyCharm</span>
+          <span class="skill-pill green">Cursor IDE — built-in support</span>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ 6 -->
+      <section id="capabilities">
+        <h2><span class="h-icon">&#128161;</span> Core Capabilities</h2>
+        <p>
+          Claude Code goes far beyond code completion. Below are its eight pillar capabilities and how each
+          maps to real engineering tasks at ABC Company.
+        </p>
+
+        <div class="feature-grid">
+          <div class="feature-card">
+            <span class="f-icon">&#128221;</span>
+            <h4>Codebase Understanding</h4>
+            <p>Reads entire repos, traces call graphs, explains legacy code, and answers "where is X defined?" questions across thousands of files.</p>
+          </div>
+          <div class="feature-card purple">
+            <span class="f-icon">&#9999;</span>
+            <h4>Multi-File Editing</h4>
+            <p>Plans and executes coordinated edits across multiple files in a single session — refactors, renames, API migrations — with diff review before apply.</p>
+          </div>
+          <div class="feature-card green">
+            <span class="f-icon">&#129516;</span>
+            <h4>Test Generation &amp; TDD</h4>
+            <p>Generates unit, integration, and snapshot tests. Can run test suites, read failures, and iterate fixes in a closed loop.</p>
+          </div>
+          <div class="feature-card orange">
+            <span class="f-icon">&#128256;</span>
+            <h4>Agentic Task Loops</h4>
+            <p>Plans multi-step tasks (build → test → fix → repeat) autonomously, pausing only when human judgment is required.</p>
+          </div>
+          <div class="feature-card pink">
+            <span class="f-icon">&#127760;</span>
+            <h4>Web Research</h4>
+            <p>Searches docs, Stack Overflow, RFCs, and CVE databases to pull in live knowledge when solving problems.</p>
+          </div>
+          <div class="feature-card teal">
+            <span class="f-icon">&#128202;</span>
+            <h4>Shell Command Execution</h4>
+            <p>Runs builds, migrations, linters, Docker commands, and git operations — with a permission model that you control.</p>
+          </div>
+          <div class="feature-card">
+            <span class="f-icon">&#128241;</span>
+            <h4>UI Verification</h4>
+            <p>Launches dev servers, inspects rendered output, and verifies visual features — not just code correctness, but behaviour.</p>
+          </div>
+          <div class="feature-card purple">
+            <span class="f-icon">&#128640;</span>
+            <h4>Extended Thinking</h4>
+            <p>Uses deeper reasoning for architecture decisions, security analysis, and complex debugging with Claude Opus models.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ 7 -->
+      <section id="commands">
+        <h2><span class="h-icon">&#9881;</span> CLI Commands Reference</h2>
+        <p>Claude Code is invoked via the <code>claude</code> command. Here is the complete reference for ABC Company developers.</p>
+
+        <h3>Launch Modes</h3>
+        <div class="cmd-table-wrap">
+          <table>
+            <thead><tr><th>Command</th><th>What it does</th><th>Common use</th></tr></thead>
+            <tbody>
+              <tr><td>claude</td><td>Start interactive REPL session in current directory</td><td>Daily coding, debugging</td></tr>
+              <tr><td>claude "prompt"</td><td>One-shot non-interactive run with a prompt</td><td>Scripting, CI tasks</td></tr>
+              <tr><td>claude -p "prompt"</td><td>Print-mode: outputs result to stdout, no REPL</td><td>Pipe into other tools</td></tr>
+              <tr><td>claude --continue</td><td>Resume the most recent conversation</td><td>Pick up mid-task</td></tr>
+              <tr><td>claude --resume [id]</td><td>Resume a specific past session by ID</td><td>Long-running tasks</td></tr>
+              <tr><td>claude --model opus</td><td>Override model for this session</td><td>Hard architecture problems</td></tr>
+              <tr><td>claude --dangerously-skip-permissions</td><td>Bypass permission prompts (headless CI only)</td><td>Automated pipelines</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Config Commands</h3>
+        <div class="cmd-table-wrap">
+          <table>
+            <thead><tr><th>Command</th><th>What it does</th><th>Notes</th></tr></thead>
+            <tbody>
+              <tr><td>claude config list</td><td>Show all current config settings</td><td>Inspect active model, permissions</td></tr>
+              <tr><td>claude config set &lt;key&gt; &lt;val&gt;</td><td>Set a configuration value</td><td>e.g., <code>set model claude-opus-4-7</code></td></tr>
+              <tr><td>claude config get &lt;key&gt;</td><td>Read a single setting</td><td></td></tr>
+              <tr><td>claude auth login</td><td>Authenticate via browser (Teams SSO)</td><td>Required on first install</td></tr>
+              <tr><td>claude auth logout</td><td>Clear local credentials</td><td>Use on shared machines</td></tr>
+              <tr><td>claude auth status</td><td>Show current auth state and org</td><td>Verify SSO binding</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Memory &amp; Context Commands</h3>
+        <pre><code><span class="comment"># Initialise a new CLAUDE.md for the current project</span>
+<span class="command">claude /init</span>
+
+<span class="comment"># Clear the current session's context</span>
+<span class="command">claude /clear</span>
+
+<span class="comment"># View token usage for current session</span>
+<span class="command">claude /status</span>
+
+<span class="comment"># Toggle fast mode (Opus with faster output)</span>
+<span class="command">claude /fast</span>
+
+<span class="comment"># Open interactive config panel</span>
+<span class="command">claude /config</span></code></pre>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ 8 -->
+      <section id="slash-commands">
+        <h2><span class="h-icon">&#128296;</span> Slash Commands (In-Session)</h2>
+        <p>
+          Within an active Claude Code session, slash commands trigger built-in and custom behaviours.
+          They are distinct from CLI flags — they are typed into the interactive REPL.
+        </p>
+
+        <div class="cmd-table-wrap">
+          <table>
+            <thead><tr><th>Slash Command</th><th>Action</th></tr></thead>
+            <tbody>
+              <tr><td>/help</td><td>Show available commands and keyboard shortcuts</td></tr>
+              <tr><td>/init</td><td>Scaffold a CLAUDE.md file with codebase docs for the current directory</td></tr>
+              <tr><td>/clear</td><td>Clear conversation context and start fresh</td></tr>
+              <tr><td>/compact</td><td>Compress conversation history to save context window</td></tr>
+              <tr><td>/status</td><td>Show current model, token usage, and session info</td></tr>
+              <tr><td>/config</td><td>Open interactive settings panel</td></tr>
+              <tr><td>/fast</td><td>Toggle fast mode (Opus with speed optimisation)</td></tr>
+              <tr><td>/memory</td><td>View or edit persistent memory files</td></tr>
+              <tr><td>/review</td><td>Invoke the code review skill on the current branch</td></tr>
+              <tr><td>/ultrareview</td><td>Multi-agent cloud review of current branch (billed)</td></tr>
+              <tr><td>/plan</td><td>Enter plan mode — architect before implementing</td></tr>
+              <tr><td>/run</td><td>Launch and drive the app to verify a change visually</td></tr>
+              <tr><td>/verify</td><td>Run the verify skill to confirm a fix works in the real app</td></tr>
+              <tr><td>/simplify</td><td>Review changed code for quality and fix issues found</td></tr>
+              <tr><td>/security-review</td><td>Full security review of pending changes on branch</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ 9 -->
+      <section id="skills">
+        <h2><span class="h-icon">&#127775;</span> Skills System</h2>
+        <p>
+          <strong>Skills</strong> are reusable, versioned prompt programs stored in Markdown files that Claude
+          executes when triggered. They encode expert workflows — security reviews, deployment steps, test
+          strategies — so junior developers benefit from senior-level process with a single command.
+        </p>
+
+        <h3>Built-in Skills (available to all Teams members)</h3>
+        <div class="skill-pills">
+          <span class="skill-pill blue">&#128274; security-review</span>
+          <span class="skill-pill green">&#9989; verify</span>
+          <span class="skill-pill purple">&#128337; simplify</span>
+          <span class="skill-pill orange">&#128196; review (PR)</span>
+          <span class="skill-pill blue">&#128640; run (app launcher)</span>
+          <span class="skill-pill green">&#128218; init (CLAUDE.md)</span>
+          <span class="skill-pill purple">&#128161; plan (architect)</span>
+          <span class="skill-pill orange">&#9881; update-config</span>
+          <span class="skill-pill blue">&#128279; claude-api</span>
+          <span class="skill-pill green">&#128202; schedule</span>
+          <span class="skill-pill purple">&#128260; loop</span>
+          <span class="skill-pill orange">&#128736; keybindings-help</span>
+        </div>
+
+        <h3>Custom Skills for ABC Company</h3>
+        <p>
+          Store custom skills in <code>.claude/skills/</code> at the repo root. They are version-controlled
+          alongside your code and shared with all team members automatically.
+        </p>
+
+        <pre><code><span class="comment"># .claude/skills/deploy-staging.md</span>
+<span class="comment"># Triggered by /deploy-staging in any Claude Code session</span>
+
+<span class="string">---
+name: deploy-staging
+description: Build, lint, test, and deploy the app to the ABC staging environment
+---</span>
+
+<span class="comment"># The skill body instructs Claude step by step:</span>
+1. Run `npm run lint && npm run test` — abort on failure
+2. Build Docker image: `docker build -t abc-app:staging .`
+3. Push to ECR: `aws ecr get-login-password | docker login ...`
+4. Deploy via: `kubectl set image deployment/abc-app ...`
+5. Health-check the /healthz endpoint for 60 seconds
+6. Report success or rollback instructions</code></pre>
+
+        <div class="callout callout-purple">
+          <strong>Team Skill Sharing</strong>
+          Skills in <code>.claude/skills/</code> are loaded automatically for anyone who opens the repo in Claude Code.
+          No installation needed — they appear in <code>/help</code> and can be triggered like any built-in skill.
+          Gate sensitive skills (deploy, db-migrate) with an approval prompt at the top of the skill definition.
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ 10 -->
+      <section id="agents">
+        <h2><span class="h-icon">&#129302;</span> Agents &amp; Multi-Agent Orchestration</h2>
+        <p>
+          Claude Code's <strong>Agent system</strong> allows one Claude instance (the orchestrator) to spawn
+          specialised sub-agents that work in parallel or in sequence, each with its own context window,
+          tools, and isolation level.
+        </p>
+
+        <h3>Agent Types</h3>
+        <div class="cmd-table-wrap">
+          <table>
+            <thead><tr><th>Agent Type</th><th>Specialty</th><th>ABC Company Use Case</th></tr></thead>
+            <tbody>
+              <tr><td>claude (general)</td><td>Catch-all for any task</td><td>Bug fixes, explanations, Q&amp;A</td></tr>
+              <tr><td>Explore</td><td>Fast read-only codebase search</td><td>Find where an API is called, locate config files</td></tr>
+              <tr><td>Plan</td><td>Architecture &amp; implementation planning</td><td>Design system migrations, API contracts</td></tr>
+              <tr><td>claude-code-guide</td><td>Claude Code / Anthropic API expert</td><td>SDK questions, prompt caching, tool use</td></tr>
+              <tr><td>general-purpose</td><td>Complex multi-step research &amp; tasks</td><td>Security research, cross-repo audits</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Multi-Agent Architecture Pattern</h3>
+        <div class="arch-diagram">
+<span class="arc-yellow">Orchestrator (Claude Code main session)</span>
+<span class="arc-gray">        │</span>
+<span class="arc-gray">        ├──── spawns ──▶ </span><span class="arc-blue">Explore Agent</span>    <span class="arc-gray">(search codebase, read files)</span>
+<span class="arc-gray">        │                     │  returns: file paths, symbols</span>
+<span class="arc-gray">        │</span>
+<span class="arc-gray">        ├──── spawns ──▶ </span><span class="arc-purple">Plan Agent</span>      <span class="arc-gray">(design implementation strategy)</span>
+<span class="arc-gray">        │                     │  returns: step-by-step plan</span>
+<span class="arc-gray">        │</span>
+<span class="arc-gray">        ├──── spawns ──▶ </span><span class="arc-green">Code Agent</span>      <span class="arc-gray">(implement changes in worktree)</span>
+<span class="arc-gray">        │   [isolation: worktree]  │  returns: diff, branch name</span>
+<span class="arc-gray">        │</span>
+<span class="arc-gray">        └──── spawns ──▶ </span><span class="arc-orange">Review Agent</span>    <span class="arc-gray">(security + quality review)</span>
+<span class="arc-gray">                              │  returns: findings, approval</span>
+<span class="arc-gray">                              │</span>
+<span class="arc-yellow">        Orchestrator merges findings → creates PR → notifies Slack</span>
+        </div>
+
+        <h3>Worktree Isolation</h3>
+        <p>
+          Agents can run in isolated git worktrees so that experiments or risky changes never touch your
+          working branch. If the agent makes no changes, the worktree is automatically cleaned up.
+        </p>
+
+        <pre><code><span class="comment"># In a skill or orchestrator — spawn an agent in an isolated worktree</span>
+Agent({
+  description: "Implement the new payment service",
+  subagent_type: "claude",
+  isolation: "worktree",         <span class="comment">// safe sandbox branch</span>
+  prompt: "Implement Stripe webhook handling per the spec in docs/payments.md"
+})</code></pre>
+
+        <h3>Background Agents</h3>
+        <p>
+          Long-running tasks (CI watches, deploy monitors, periodic audits) can run in the background.
+          The orchestrator continues other work and is notified on completion.
+        </p>
+
+        <pre><code>Agent({
+  description: "Monitor staging deploy health for 10 minutes",
+  run_in_background: true,       <span class="comment">// non-blocking</span>
+  prompt: "Poll /healthz every 30s for 10 minutes, alert if &lt;200"
+})</code></pre>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ 11 -->
+      <section id="projects">
+        <h2><span class="h-icon">&#128193;</span> Projects</h2>
+        <p>
+          <strong>Projects</strong> are shared workspaces in Claude.ai that give an entire team a common
+          context: custom instructions, uploaded documents, shared conversation history, and org-level
+          memory. They replace the need for every developer to repeat the same system prompt.
+        </p>
+
+        <h3>How Projects Work</h3>
+        <ol class="step-list">
+          <li>
+            <h4>Create a Project in the Admin Console</h4>
+            <p>Name it e.g. "ABC Backend API", "Mobile Apps", or "Security Reviews". Assign member access.</p>
+          </li>
+          <li>
+            <h4>Upload shared context documents</h4>
+            <p>Add architecture diagrams, coding standards, API contracts, runbooks, and security policies. All members' Claude sessions reference these automatically.</p>
+          </li>
+          <li>
+            <h4>Write Custom Instructions (system prompt)</h4>
+            <p>E.g.: "You are ABC Company's AI assistant. Always follow our security checklist in <code>SECURITY.md</code>. Never log secrets. Use TypeScript strict mode."</p>
+          </li>
+          <li>
+            <h4>Link to CLAUDE.md in repos</h4>
+            <p>Per-repo <code>CLAUDE.md</code> files (generated by <code>/init</code>) provide local codebase context that complements the Project-level instructions.</p>
+          </li>
+        </ol>
+
+        <h3>CLAUDE.md — The Local Project Brain</h3>
+        <p>
+          The <code>CLAUDE.md</code> file at the repo root is the authoritative local context for Claude Code.
+          Run <code>claude /init</code> to generate a starter, then expand it with team conventions.
+        </p>
+
+        <pre><code><span class="comment"># CLAUDE.md — ABC Company Backend Service</span>
+
+<span class="comment">## Project Overview</span>
+Node.js 20 REST API. PostgreSQL via Prisma ORM. Deployed on AWS ECS.
+
+<span class="comment">## Architecture</span>
+- src/routes/    — Express routers (one file per domain)
+- src/services/  — Business logic (no DB access here)
+- src/models/    — Prisma model extensions
+- src/middleware/ — Auth, rate-limit, validation
+
+<span class="comment">## Key Conventions</span>
+- All DB queries go through the service layer, never from routes directly
+- Use zod for request validation at every route
+- Return errors as { code, message } JSON — never stack traces
+
+<span class="comment">## Security Rules</span>
+- Never log req.body in production (contains PII)
+- All new endpoints must have input validation and rate limiting
+- Run `npm run security:check` before any PR
+
+<span class="comment">## Test Commands</span>
+- Unit tests:       npm run test:unit
+- Integration:      npm run test:integration  (needs DB)
+- E2E:              npm run test:e2e</code></pre>
+
+        <div class="callout callout-success">
+          <strong>Team alignment benefit</strong>
+          A well-maintained <code>CLAUDE.md</code> means every developer — senior or junior, onboard for 5 years
+          or 5 days — gets the same informed AI assistant. Onboarding a new hire becomes: install Claude Code,
+          open the repo, and <code>CLAUDE.md</code> brings Claude up to speed instantly.
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ 12 -->
+      <section id="mcp">
+        <h2><span class="h-icon">&#128279;</span> MCP — Model Context Protocol</h2>
+        <p>
+          The <strong>Model Context Protocol (MCP)</strong> is an open standard (developed by Anthropic) that
+          lets Claude Code connect to external systems — databases, APIs, file systems, SaaS tools — through
+          a standard server interface. Think of it as USB-C for AI integrations.
+        </p>
+
+        <div class="arch-diagram">
+<span class="arc-yellow">Claude Code  ◀──── MCP Protocol ────▶  MCP Servers</span>
+<span class="arc-gray">                                              │</span>
+<span class="arc-blue">                            ┌─────────────────┴──────────────────────┐</span>
+<span class="arc-blue">                            │                                        │</span>
+<span class="arc-green">                    ┌───────▼──────┐                      ┌─────────▼───────┐</span>
+<span class="arc-green">                    │  GitHub MCP  │                      │  Jira MCP       │</span>
+<span class="arc-green">                    │  (issues,PRs)│                      │  (tickets,epics)│</span>
+<span class="arc-green">                    └──────────────┘                      └─────────────────┘</span>
+<span class="arc-orange">                    ┌───────────────┐                     ┌─────────────────┐</span>
+<span class="arc-orange">                    │  Postgres MCP │                     │  Slack MCP      │</span>
+<span class="arc-orange">                    │  (read query) │                     │  (post,search)  │</span>
+<span class="arc-orange">                    └───────────────┘                     └─────────────────┘</span>
+<span class="arc-purple">                    ┌───────────────┐                     ┌─────────────────┐</span>
+<span class="arc-purple">                    │  Datadog MCP  │                     │  Confluence MCP │</span>
+<span class="arc-purple">                    │  (metrics,logs│                     │  (docs,spaces)  │</span>
+<span class="arc-purple">                    └───────────────┘                     └─────────────────┘</span>
+        </div>
+
+        <h3>Popular MCP Integrations for ABC Company</h3>
+        <div class="mcp-grid">
+          <div class="mcp-card">
+            <div class="mcp-icon">&#128008;</div>
+            <h5>GitHub MCP</h5>
+            <p>Create PRs, read issues, review comments, and trigger CI runs — all from Claude Code.</p>
+          </div>
+          <div class="mcp-card">
+            <div class="mcp-icon">&#128203;</div>
+            <h5>Jira MCP</h5>
+            <p>Read ticket details, update status, link commits to sprints, and create sub-tasks automatically.</p>
+          </div>
+          <div class="mcp-card">
+            <div class="mcp-icon">&#128222;</div>
+            <h5>Slack MCP</h5>
+            <p>Post deploy notifications, alert on test failures, and search channel history for context.</p>
+          </div>
+          <div class="mcp-card">
+            <div class="mcp-icon">&#128208;</div>
+            <h5>Postgres / BigQuery</h5>
+            <p>Run read-only queries to explore production data structure for migrations (never write without approval).</p>
+          </div>
+          <div class="mcp-card">
+            <div class="mcp-icon">&#128202;</div>
+            <h5>Datadog MCP</h5>
+            <p>Fetch APM traces, dashboards, and alerts to correlate code changes with production incidents.</p>
+          </div>
+          <div class="mcp-card">
+            <div class="mcp-icon">&#128209;</div>
+            <h5>Confluence MCP</h5>
+            <p>Read runbooks, architecture decision records, and post AI-generated documentation pages.</p>
+          </div>
+          <div class="mcp-card">
+            <div class="mcp-icon">&#9729;</div>
+            <h5>AWS MCP</h5>
+            <p>Inspect IAM policies, CloudFormation stacks, and S3 bucket configs for security audits.</p>
+          </div>
+          <div class="mcp-card">
+            <div class="mcp-icon">&#128295;</div>
+            <h5>Custom Internal MCP</h5>
+            <p>Wrap your internal APIs (feature flags, deploy system, secret manager) as MCP servers in minutes.</p>
+          </div>
+        </div>
+
+        <h3>Adding an MCP Server to Claude Code</h3>
+        <pre><code><span class="comment"># Project-scoped MCP config: .claude/settings.json</span>
+{
+  "mcpServers": {
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": { "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}" }
+    },
+    "postgres": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres",
+               "postgresql://readonly_user:${DB_PASS}@db.abc.internal/prod"],
+      "env": {}
+    },
+    "jira": {
+      "command": "node",
+      "args": ["./mcp-servers/jira-server.js"],
+      "env": {
+        "JIRA_BASE_URL": "https://abc-company.atlassian.net",
+        "JIRA_API_TOKEN": "${JIRA_TOKEN}"
+      }
+    }
+  }
+}</code></pre>
+
+        <div class="callout callout-warning">
+          <strong>MCP Security</strong>
+          Never hard-code credentials in <code>settings.json</code>. Always use environment variable references
+          (<code>${VAR_NAME}</code>). For production DB access, restrict MCP to read-only DB users and gate
+          any write operations behind an explicit approval prompt.
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ 13 -->
+      <section id="hooks">
+        <h2><span class="h-icon">&#129693;</span> Hooks &amp; Automation</h2>
+        <p>
+          <strong>Hooks</strong> are shell commands configured in <code>.claude/settings.json</code> that
+          execute automatically in response to Claude Code lifecycle events — before a tool runs, after Claude
+          responds, when the session starts, etc. They allow ABC Company to enforce policies without relying on
+          developer memory.
+        </p>
+
+        <pre><code><span class="comment"># .claude/settings.json — hooks configuration</span>
+{
+  "hooks": {
+    <span class="comment">// Run before any Bash tool executes</span>
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [{
+          "type": "command",
+          "command": "echo 'CMD: $CLAUDE_TOOL_INPUT' >> ~/.claude/audit.log"
+        }]
+      }
+    ],
+    <span class="comment">// Run after every Claude response</span>
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [{
+          "type": "command",
+          "command": "npm run lint:check -- $CLAUDE_FILE_PATH 2>&1 || true"
+        }]
+      }
+    ],
+    <span class="comment">// Notify Slack when a session ends</span>
+    "Stop": [{
+      "type": "command",
+      "command": "node scripts/notify-session-end.js"
+    }]
+  }
+}</code></pre>
+
+        <h3>Common Hook Patterns for Teams</h3>
+        <ul class="checklist">
+          <li>
+            <span class="chk-icon">&#128272;</span>
+            <div class="chk-text">
+              <strong>Audit logging</strong>
+              <span>Log every Bash command Claude executes to a tamper-evident audit file — critical for compliance.</span>
+            </div>
+          </li>
+          <li>
+            <span class="chk-icon">&#9989;</span>
+            <div class="chk-text">
+              <strong>Auto-lint on save</strong>
+              <span>Run ESLint / Prettier after every file write so Claude's output always meets code style standards.</span>
+            </div>
+          </li>
+          <li>
+            <span class="chk-icon">&#128268;</span>
+            <div class="chk-text">
+              <strong>Secret scanning</strong>
+              <span>Run <code>gitleaks detect</code> after every file edit to prevent credentials being committed.</span>
+            </div>
+          </li>
+          <li>
+            <span class="chk-icon">&#128222;</span>
+            <div class="chk-text">
+              <strong>Slack / Teams notifications</strong>
+              <span>Post a summary to your dev channel when Claude completes a significant task or hits an error.</span>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ 14 -->
+      <section id="security">
+        <h2><span class="h-icon">&#128274;</span> Security Best Practices</h2>
+        <p>
+          Deploying an AI coding agent at scale introduces new attack surfaces. ABC Company's security
+          team should enforce the following controls at org, project, and developer levels.
+        </p>
+
+        <h3>Permission Model &amp; Trust Levels</h3>
+        <p>
+          Claude Code has three permission modes. Configure the strictest mode that allows productive work.
+        </p>
+
+        <div class="cmd-table-wrap">
+          <table>
+            <thead><tr><th>Mode</th><th>What it allows</th><th>When to use</th></tr></thead>
+            <tbody>
+              <tr><td>default (interactive)</td><td>Prompts user to approve any destructive action</td><td>All developer workstations</td></tr>
+              <tr><td>--dangerously-skip-permissions</td><td>No prompts — Claude acts autonomously</td><td>Locked-down CI/CD pipelines only</td></tr>
+              <tr><td>allowlist in settings.json</td><td>Pre-approve specific safe commands</td><td>Reduce prompt fatigue for known-safe ops</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3>Security Checklist</h3>
+        <ul class="checklist">
+          <li>
+            <span class="chk-icon">&#9989;</span>
+            <div class="chk-text">
+              <strong>Enable SSO / SAML</strong>
+              <span>All org members must authenticate via your corporate IdP, never standalone claude.ai passwords.</span>
+            </div>
+          </li>
+          <li>
+            <span class="chk-icon">&#9989;</span>
+            <div class="chk-text">
+              <strong>Allowlist email domain</strong>
+              <span>Restrict membership to <code>@abc-company.com</code> addresses only.</span>
+            </div>
+          </li>
+          <li>
+            <span class="chk-icon">&#9989;</span>
+            <div class="chk-text">
+              <strong>Rotate API keys quarterly</strong>
+              <span>CI/CD API keys should have a 90-day TTL enforced via secrets management (AWS Secrets Manager, Vault).</span>
+            </div>
+          </li>
+          <li>
+            <span class="chk-icon">&#9989;</span>
+            <div class="chk-text">
+              <strong>Scope MCP servers to read-only</strong>
+              <span>DB and cloud MCP connections must use least-privilege credentials. Require explicit approval for write operations.</span>
+            </div>
+          </li>
+          <li>
+            <span class="chk-icon">&#9989;</span>
+            <div class="chk-text">
+              <strong>Enable audit logging via hooks</strong>
+              <span>All Bash commands Claude executes must be logged with timestamp, user, and session ID.</span>
+            </div>
+          </li>
+          <li>
+            <span class="chk-icon">&#9989;</span>
+            <div class="chk-text">
+              <strong>Add secret scanning hook</strong>
+              <span>Run <code>gitleaks</code> after every file write to catch credentials before they reach git history.</span>
+            </div>
+          </li>
+          <li>
+            <span class="chk-icon">&#9989;</span>
+            <div class="chk-text">
+              <strong>Review /security-review skill output</strong>
+              <span>Run <code>/security-review</code> on every branch before merge. Gate PR merges on green output in CI.</span>
+            </div>
+          </li>
+          <li>
+            <span class="chk-icon">&#9989;</span>
+            <div class="chk-text">
+              <strong>Data classification in CLAUDE.md</strong>
+              <span>Document which data is PII / confidential so Claude never logs, exposes, or transmits sensitive fields.</span>
+            </div>
+          </li>
+          <li>
+            <span class="chk-icon">&#9989;</span>
+            <div class="chk-text">
+              <strong>Prompt injection awareness</strong>
+              <span>Train developers to flag if Claude's tool results appear to contain adversarial instructions (e.g., from web scrapes).</span>
+            </div>
+          </li>
+          <li>
+            <span class="chk-icon">&#9989;</span>
+            <div class="chk-text">
+              <strong>Offboarding via SCIM</strong>
+              <span>When an employee leaves, their HR system de-provision event must revoke their Claude Code seat within 1 hour.</span>
+            </div>
+          </li>
+        </ul>
+
+        <div class="callout callout-danger">
+          <strong>Never commit API keys</strong>
+          Set <code>ANTHROPIC_API_KEY</code> only via environment variables or a secrets manager.
+          Add <code>*.env</code> and <code>.env.local</code> to your <code>.gitignore</code>.
+          A leaked Anthropic key incurs API costs and may expose your org's usage data.
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ 15 -->
+      <section id="rollout">
+        <h2><span class="h-icon">&#128640;</span> End-to-End Rollout Plan for ABC Company</h2>
+        <p>
+          Roll out Claude Code in phases. A phased approach reduces blast radius, builds internal champions,
+          and gives the security team time to validate controls at each stage.
+        </p>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <h4>Phase 0 — Foundation (Week 1–2)</h4>
+            <div class="tl-meta">Stakeholders: Platform Lead, Security Lead, Finance</div>
+            <p>Create org account on claude.ai Teams. Configure SSO/SAML with Azure AD. Purchase initial seat count (start with 10 pilot seats). Set up billing alerts. Document the CLAUDE.md and custom instructions templates.</p>
+          </div>
+          <div class="timeline-item">
+            <h4>Phase 1 — Pilot Squad (Week 3–5)</h4>
+            <div class="tl-meta">Stakeholders: 5–10 senior engineers</div>
+            <p>Invite the platform team. Deploy custom skills (deploy-staging, security-review). Configure MCP servers (GitHub, Jira). Collect feedback on permissions, prompts, and workflow gaps. Establish CLAUDE.md templates for each major repo.</p>
+          </div>
+          <div class="timeline-item">
+            <h4>Phase 2 — Engineering Rollout (Week 6–10)</h4>
+            <div class="tl-meta">Stakeholders: All engineering teams (backend, frontend, mobile, QA)</div>
+            <p>Bulk-invite all engineers via CSV. Run two 60-minute onboarding workshops. Mandate /security-review in CI pipeline. Add audit-logging hooks to all project configs. Enable SCIM auto-provisioning.</p>
+          </div>
+          <div class="timeline-item">
+            <h4>Phase 3 — Org-Wide (Week 11–16)</h4>
+            <div class="tl-meta">Stakeholders: Product, Design, Data, Operations</div>
+            <p>Extend access to non-engineering teams with appropriate Projects (product spec writing, data analysis, runbook generation). Enable Slack MCP for cross-team notifications. Set up the admin analytics dashboard for quarterly usage reviews.</p>
+          </div>
+          <div class="timeline-item">
+            <h4>Phase 4 — Optimise &amp; Scale (Ongoing)</h4>
+            <div class="tl-meta">Stakeholders: AI Enablement team</div>
+            <p>Review audit logs monthly. Retire unused MCP servers. Add new custom skills based on team requests. Evaluate upgrade to Enterprise tier if seats exceed 150 or SCIM/DLP requirements arise. Run annual security review of the entire Claude Code configuration.</p>
+          </div>
+        </div>
+
+        <h3>CI/CD Integration</h3>
+        <pre><code><span class="comment"># .github/workflows/claude-review.yml</span>
+name: Claude Security Review
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  claude-review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code
+
+      - name: Run Security Review
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          claude --dangerously-skip-permissions \
+                 -p "Run a security review of the changes on this branch. \
+                     Flag any OWASP Top 10 issues, hardcoded secrets, \
+                     missing input validation, or insecure dependencies. \
+                     Output as a markdown report." \
+            > security-report.md
+
+      - name: Comment report on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('security-report.md', 'utf8');
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '## Claude Code Security Review\n\n' + report
+            });</code></pre>
+      </section>
+
+      <!-- ═══════════════════════════════════════════ 16 -->
+      <section id="summary">
+        <h2><span class="h-icon">&#127919;</span> Summary</h2>
+        <p>
+          Claude Code is not just an AI coding assistant — it is a full agentic engineering platform designed
+          to elevate every developer at ABC Company. From the moment a new hire installs the CLI and opens
+          a repo, CLAUDE.md and shared Projects give them expert context. Skills codify your best processes.
+          MCP servers connect Claude to every tool in your stack. Agents parallelize work that would take
+          hours manually. And a layered security model — SSO, RBAC, audit hooks, secret scanning — ensures
+          none of this velocity comes at the cost of safety.
+        </p>
+
+        <div class="summary-card">
+          <h3>Key Takeaways</h3>
+          <ul>
+            <li><strong>Start with Teams plan</strong> — 5-seat minimum, SSO-enforced, centrally billed. Upgrade to Enterprise when SCIM/DLP is needed.</li>
+            <li><strong>Lock down access on day one</strong> — domain allowlisting, least-privilege roles, SAML SSO, and audit hooks before the first developer logs in.</li>
+            <li><strong>Invest in CLAUDE.md</strong> — the single file that transforms Claude from a generic chatbot into your team's most informed colleague.</li>
+            <li><strong>Build custom Skills</strong> — encode your deploy, security review, and migration workflows so any developer can execute them consistently.</li>
+            <li><strong>Wire MCP for context</strong> — connect GitHub, Jira, Slack, and your internal APIs so Claude has full situational awareness.</li>
+            <li><strong>Use multi-agent for scale</strong> — parallelize research, planning, implementation, and review across isolated agent contexts.</li>
+            <li><strong>Gate CI/CD with /security-review</strong> — let Claude be a force-multiplier for your security team, not a bypass for it.</li>
+          </ul>
+        </div>
+
+        <div class="callout callout-info">
+          <strong>Further Reading</strong>
+          Claude Code documentation: <code>docs.anthropic.com/claude-code</code> &nbsp;&bull;&nbsp;
+          MCP specification: <code>modelcontextprotocol.io</code> &nbsp;&bull;&nbsp;
+          Anthropic API reference: <code>docs.anthropic.com/api</code>
+        </div>
+      </section>
+
+    </article>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-left">
+          <p>&copy; 2026. Designed and Developed by <a href="https://purushothammuktha.com" style="font-family:'Courier New',Courier,monospace;font-size:larger;color:peru;"><b>Purushotham Muktha</b></a>. All rights reserved.</p>
+        </div>
+        <div class="footer-right">
+          <nav aria-label="Footer quick links" class="footer-quicklinks">
+            <a href="blog.html">Blog</a>
+            <a href="index.html#portfolio">Projects</a>
+            <a href="index.html#contact">Contact</a>
+          </nav>
+          <div class="footer-social" style="margin-top:0.5rem;">
+            <a href="https://github.com/Mpurushotham" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+              <img src="https://img.shields.io/badge/GitHub-Mpurushotham-181717?style=for-the-badge&logo=github" alt="GitHub">
+            </a>
+            <a href="https://linkedin.com/in/Mpurushotham" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <img src="https://img.shields.io/badge/LinkedIn-Mpurushotham-0A66C2?style=for-the-badge&logo=linkedin" alt="LinkedIn">
+            </a>
+            <a href="mailto:purushotham.muktha@gmail.com" aria-label="Email">
+              <img src="https://img.shields.io/badge/Email-Contact%20Me-red?style=for-the-badge&logo=gmail" alt="Email">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scroll-spy for TOC -->
+  <script>
+    (function () {
+      const headings = document.querySelectorAll('.article-body section[id]');
+      const links    = document.querySelectorAll('.toc-list a[href^="#"]');
+
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const id   = entry.target.getAttribute('id');
+          const link = document.querySelector(`.toc-list a[href="#${id}"]`);
+          if (link) link.classList.toggle('active', entry.isIntersecting);
+        });
+      }, { rootMargin: '-15% 0px -70% 0px' });
+
+      headings.forEach(h => obs.observe(h));
+
+      // Smooth scroll
+      links.forEach(link => {
+        link.addEventListener('click', e => {
+          e.preventDefault();
+          const target = document.querySelector(link.getAttribute('href'));
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+    })();
+  </script>
+  <script src="templatemo-personal-javascripts.js"></script>
+</body>
+</html>
