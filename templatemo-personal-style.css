@@ -984,28 +984,34 @@ https://templatemo.com/tm-593-personal-shape
             background-position: center;
         }
 
+        /* Azure Cloud Migration */
         .portfolio-item:nth-child(1) .portfolio-image {
-            background-image: url('images/working-business-women.jpg');
+            background: linear-gradient(135deg, #0078d4 0%, #106ebe 100%);
         }
 
+        /* DevSecOps Pipeline */
         .portfolio-item:nth-child(2) .portfolio-image {
-            background-image: url('images/computer-desk-stickers.jpg');
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
         }
 
+        /* Microsoft Security Hardening */
         .portfolio-item:nth-child(3) .portfolio-image {
-            background-image: url('images/curved-display-pinky-girl.jpg');
+            background: linear-gradient(135deg, #0078d4 0%, #e81123 100%);
         }
 
+        /* Real-Time SOC Dashboard */
         .portfolio-item:nth-child(4) .portfolio-image {
-            background-image: url('images/dashboard-interfaces-transparent-displays.jpg');
+            background: linear-gradient(135deg, #f46800 0%, #2b2b2b 100%);
         }
 
+        /* Kubernetes Platform */
         .portfolio-item:nth-child(5) .portfolio-image {
-            background-image: url('images/marketing-strategy-women.jpg');
+            background: linear-gradient(135deg, #326ce5 0%, #54a3e9 100%);
         }
 
+        /* AI/ML Infrastructure */
         .portfolio-item:nth-child(6) .portfolio-image {
-            background-image: url('images/portfolio-website-girl.jpg');
+            background: linear-gradient(135deg, #10b981 0%, #6366f1 100%);
         }
 
         .portfolio-image::before {
